@@ -1,778 +1,235 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="pageTitle">The Relax</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
- <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
     :root {
-      --blue: #4064f7;
-      --gold: #e19832;
-      --dark: #0f0f14;
-      --ink: #1a1a2e;
-      --paper: #faf9f6;
-      --muted: #7a7a8c;
-      --line: rgba(64,100,247,0.12);
+      --blue:#4064f7;
+      --gold:#e19832;
+      --dark:#0f0f14;
+      --ink:#1a1a2e;
+      --paper:#faf9f6;
+      --muted:#7a7a8c;
+      --line:rgba(64,100,247,0.12);
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior:smooth; }
 
     body {
-      font-family: 'Cairo', sans-serif;
-      background: var(--paper);
-      color: var(--ink);
-      overflow-x: hidden;
+      font-family:'Cairo',sans-serif;
+      background:var(--paper);
+      color:var(--ink);
+      overflow-x:hidden;
     }
 
-    /* ───── HEADER ───── */
+    /* HEADER */
     header {
-      position: fixed; top: 0; right: 0; width: 100%;
-      z-index: 100;
-      padding: 0 2rem;
-      height: 68px;
-      display: flex; align-items: center; justify-content: space-between;
-      background: rgba(250,249,246,0.85);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--line);
-      transition: box-shadow 0.3s;
-    }
-    header.scrolled { box-shadow: 0 4px 30px rgba(64,100,247,0.08); }
-
-    .logo {
-      font-weight: 900; font-size: 1.3rem;
-      color: var(--blue); letter-spacing: -0.5px;
-      text-decoration: none;
-      display: flex; align-items: center; gap: 8px;
+      position:fixed;
+      top:0;
+      width:100%;
+      height:68px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:0 2rem;
+      background:rgba(250,249,246,0.85);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--line);
+      z-index:100;
     }
 
-    .logo img {
-         width: 80px;
-         height: auto;
-    }
-
+    .logo img { width:80px; }
 
     .back-btn {
-      display: flex; align-items: center; gap: 6px;
-      color: var(--muted); text-decoration: none;
-      font-size: 0.875rem; font-weight: 500;
-      transition: color 0.2s;
+      display:flex;
+      gap:6px;
+      color:var(--muted);
+      text-decoration:none;
     }
-    .back-btn:hover { color: var(--blue); }
-    .back-btn svg { width:16px; height:16px; }
 
-    /* ───── PROGRESS BAR ───── */
     #progress {
-      position: fixed; top: 68px; right: 0; left: 0;
-      height: 3px; background: var(--line); z-index: 99;
+      position:fixed;
+      top:68px;
+      width:100%;
+      height:3px;
+      background:var(--line);
+      z-index:99;
     }
+
     #progress-fill {
-      height: 100%; width: 0%;
-      background: linear-gradient(90deg, var(--blue), var(--gold));
-      transition: width 0.1s linear;
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,var(--blue),var(--gold));
     }
 
-    /* ───── HERO ───── */
+    /* HERO */
     .hero {
-      min-height: 90vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      margin-top: 68px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; min-height: auto; }
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      min-height:90vh;
+      margin-top:68px;
     }
 
     .hero-text-side {
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 5rem 4rem 4rem 2rem;
-      position: relative; z-index: 2;
+      padding:4rem 2rem;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
     }
-
-    @media (max-width: 900px) {
-      .hero-text-side { padding: 3rem 1.5rem 2rem; order: 2; }
-    }
-
-    .badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(64,100,247,0.08);
-      border: 1px solid rgba(64,100,247,0.2);
-      color: var(--blue);
-      padding: 6px 16px; border-radius: 100px;
-      font-size: 0.8rem; font-weight: 700;
-      margin-bottom: 2rem;
-      width: fit-content;
-      animation: fadeUp 0.6s ease both;
-    }
-    .badge-dot { width:6px; height:6px; border-radius:50%; background:var(--blue); animation: pulse 2s infinite; }
-
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
 
     .hero-title {
-      font-family: 'Cairo', sans-serif;
-      font-weight: 900;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1.15;
-      color: var(--ink);
-      margin-bottom: 1.5rem;
-      animation: fadeUp 0.6s 0.1s ease both;
-    }
-    .hero-title em {
-      font-style: normal;
-      color: var(--blue);
-      position: relative;
-    }
-    .hero-title em::after {
-      content: '';
-      position: absolute; bottom: 4px; right: 0; left: 0;
-      height: 8px;
-      background: rgba(225,152,50,0.25);
-      z-index: -1;
-      border-radius: 2px;
+      font-size:2.5rem;
+      font-weight:900;
+      margin-bottom:1rem;
     }
 
     .hero-excerpt {
-      font-size: 1.1rem; line-height: 1.8;
-      color: var(--muted); font-weight: 400;
-      max-width: 480px;
-      margin-bottom: 2.5rem;
-      animation: fadeUp 0.6s 0.2s ease both;
+      color:var(--muted);
+      margin-bottom:2rem;
     }
 
-    .hero-meta {
-      display: flex; flex-wrap: wrap; gap: 1.5rem;
-      align-items: center;
-      animation: fadeUp 0.6s 0.3s ease both;
+    .hero-image-side img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
     }
 
-    .author-chip {
-      display: flex; align-items: center; gap: 10px;
-    }
-    .author-avatar {
-      width: 42px; height: 42px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--blue), #7b95ff);
-      display: flex; align-items: center; justify-content: center;
-      color: white; font-weight: 900; font-size: 1rem;
-    }
-    .author-info { line-height: 1.3; }
-    .author-name { font-weight: 700; font-size: 0.9rem; color: var(--ink); }
-    .author-role { font-size: 0.75rem; color: var(--muted); }
-
-    .meta-pill {
-      display: flex; align-items: center; gap: 5px;
-      background: white;
-      border: 1px solid var(--line);
-      padding: 6px 14px; border-radius: 100px;
-      font-size: 0.8rem; color: var(--muted);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-    }
-
-    /* ───── HERO IMAGE ───── */
-    .hero-image-side {
-      position: relative; overflow: hidden;
-    }
-    @media (max-width: 900px) {
-      .hero-image-side { height: 50vw; min-height: 260px; order: 1; }
-    }
-
-    .hero-img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transform: scale(1.05);
-      transition: transform 8s ease;
-    }
-    .hero-image-side:hover .hero-img { transform: scale(1); }
-
-    .hero-img-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to right, var(--paper) 0%, transparent 30%);
-    }
-    @media (max-width: 900px) {
-      .hero-img-overlay { background: linear-gradient(to top, var(--paper) 0%, transparent 50%); }
-    }
-
-    /* floating numbers */
-    .float-stat {
-      position: absolute;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.6);
-      border-radius: 16px;
-      padding: 12px 18px;
-      box-shadow: 0 8px 32px rgba(64,100,247,0.12);
-      animation: float 5s ease-in-out infinite;
-    }
-    .float-stat:nth-child(3) { bottom: 15%; left: 5%; animation-delay: -2.5s; }
-    .float-stat:nth-child(4) { top: 15%; left: 5%; animation-delay: -1s; }
-    .stat-num { font-weight: 900; font-size: 1.5rem; color: var(--blue); display:block; line-height:1; }
-    .stat-lbl { font-size: 0.72rem; color: var(--muted); margin-top: 2px; display:block; }
-
-    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-
-    /* ───── ARTICLE BODY ───── */
+    /* ARTICLE */
     .article-wrap {
-      max-width: 760px; margin: 0 auto;
-      padding: 4rem 1.5rem 6rem;
-    }
-
-    /* divider */
-    .section-marker {
-      display: flex; align-items: center; gap: 16px;
-      margin-bottom: 3rem;
-    }
-    .section-marker-line { flex: 1; height: 1px; background: var(--line); }
-    .section-marker-text { font-size: 0.75rem; font-weight: 700; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
-
-    /* Drop cap */
-    .article-body p:first-of-type::first-letter {
-      float: right;
-      font-size: 5rem;
-      font-weight: 900;
-      line-height: 0.75;
-      margin-left: 12px;
-      margin-bottom: 4px;
-      color: var(--blue);
-      font-family: 'Playfair Display', serif;
+      max-width:760px;
+      margin:auto;
+      padding:4rem 1.5rem;
     }
 
     .article-body p {
-      font-size: 1.1rem; line-height: 2;
-      color: #2d2d42;
-      margin-bottom: 1.8rem;
-      font-weight: 400;
+      line-height:2;
+      margin-bottom:1.5rem;
     }
 
-    /* Pullquote */
-    .pullquote {
-      margin: 3rem 0;
-      padding: 2rem 2.5rem;
-      border-right: 5px solid var(--gold);
-      background: linear-gradient(135deg, rgba(64,100,247,0.04), rgba(225,152,50,0.04));
-      border-radius: 0 16px 16px 0;
-      position: relative;
-      overflow: hidden;
-    }
-    .pullquote::before {
-      content: '"';
-      font-family: 'Playfair Display', serif;
-      font-size: 10rem; line-height: 1;
-      color: rgba(64,100,247,0.08);
-      position: absolute; top: -20px; right: 10px;
-    }
-    .pullquote p {
-      font-size: 1.3rem !important; font-weight: 700 !important;
-      line-height: 1.7 !important;
-      color: var(--ink) !important;
-      margin-bottom: 0 !important;
-      position: relative; z-index: 1;
-    }
-    .pullquote cite {
-      display: block; margin-top: 1rem;
-      font-size: 0.85rem; color: var(--muted);
-      font-style: normal; font-weight: 600;
-    }
-
-    /* Section heading */
-    .article-body h2 {
-      font-size: 1.6rem; font-weight: 900;
-      color: var(--ink); margin: 3rem 0 1rem;
-      position: relative;
-      padding-right: 18px;
-    }
-    .article-body h2::before {
-      content: '';
-      position: absolute; right: 0; top: 6px;
-      width: 6px; height: 70%;
-      background: var(--gold); border-radius: 3px;
-    }
-
-    /* Tips box */
-    .tips-box {
-      background: var(--ink);
-      color: white;
-      border-radius: 24px;
-      padding: 2rem 2.5rem;
-      margin: 2.5rem 0;
-    }
-    .tips-box-title {
-      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em;
-      color: var(--gold); text-transform: uppercase; margin-bottom: 1.5rem;
-    }
-    .tips-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
-    .tips-list li {
-      display: flex; align-items: flex-start; gap: 14px;
-      font-size: 1rem; line-height: 1.6;
-    }
-    .tip-num {
-      min-width: 28px; height: 28px; border-radius: 50%;
-      background: rgba(225,152,50,0.2); border: 1.5px solid var(--gold);
-      color: var(--gold); font-size: 0.75rem; font-weight: 900;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; margin-top: 2px;
-    }
-
-    /* ───── SHARE + TAGS ───── */
-    .article-footer {
-      border-top: 1px solid var(--line);
-      padding-top: 2.5rem;
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: gap;
-      gap: 1.5rem;
-    }
-
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
-    .tag {
-      padding: 6px 14px; border-radius: 100px;
-      border: 1.5px solid var(--line); font-size: 0.8rem;
-      color: var(--muted); font-weight: 500;
-      text-decoration: none; transition: all 0.2s;
-    }
-    .tag:hover { border-color: var(--blue); color: var(--blue); background: rgba(64,100,247,0.05); }
-
-    .share-row { display: flex; gap: 10px; align-items: center; }
-    .share-label { font-size: 0.8rem; font-weight: 700; color: var(--muted); }
-    .share-btn {
-      width: 38px; height: 38px; border-radius: 50%;
-      background: white; border: 1.5px solid var(--line);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: all 0.2s; font-size: 1rem;
-      text-decoration: none; color: var(--muted);
-    }
-    .share-btn:hover { background: var(--blue); color: white; border-color: var(--blue); transform: translateY(-2px); }
-
-    /* ───── RELATED ───── */
-    .related-section {
-      background: var(--ink); padding: 5rem 1.5rem;
-    }
-    .related-inner { max-width: 1100px; margin: 0 auto; }
-    .related-header {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      margin-bottom: 2.5rem;
-    }
-    .related-title { font-size: 1.8rem; font-weight: 900; color: white; }
-    .related-title span { color: var(--gold); }
-    .see-all {
-      color: var(--muted); font-size: 0.875rem; font-weight: 600;
-      text-decoration: none; display: flex; align-items: center; gap: 6px;
-      transition: color 0.2s;
-    }
-    .see-all:hover { color: var(--gold); }
-
-    .related-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
-    }
-    @media (max-width: 900px) { .related-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 540px) { .related-grid { grid-template-columns: 1fr; } }
-
-    .related-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 20px; overflow: hidden;
-      text-decoration: none; color: white;
-      transition: all 0.3s; display: block;
-    }
-    .related-card:hover { transform: translateY(-6px); background: rgba(255,255,255,0.09); border-color: rgba(225,152,50,0.4); }
-    .related-card-img { width: 100%; height: 180px; object-fit: cover; display: block; }
-    .related-card-body { padding: 1.2rem; }
-    .related-cat {
-      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em;
-      color: var(--gold); text-transform: uppercase; margin-bottom: 8px;
-    }
-    .related-card-title { font-weight: 700; font-size: 0.95rem; line-height: 1.5; color: white; margin-bottom: 8px; }
-    .related-card-meta { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
-
-    /* ───── STICKY TOC ───── */
-    .toc-float {
-      position: fixed; left: 2rem; top: 50%; transform: translateY(-50%);
-      display: flex; flex-direction: column; gap: 8px; z-index: 50;
-    }
-    @media (max-width: 1280px) { .toc-float { display: none; } }
-    .toc-item { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-    .toc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); border: 2px solid #ccc; transition: all 0.3s; }
-    .toc-item.active .toc-dot { background: var(--blue); border-color: var(--blue); transform: scale(1.3); }
-    .toc-label { font-size: 0.72rem; color: var(--muted); white-space: nowrap; opacity: 0; transform: translateX(-8px); transition: all 0.2s; }
-    .toc-item:hover .toc-label { opacity: 1; transform: none; }
-
-    /* ───── FOOTER ───── */
-    footer {
-      background: #080810; padding: 2rem 1.5rem;
-      text-align: center; color: rgba(255,255,255,0.3);
-      font-size: 0.8rem;
-    }
-    footer span { color: var(--blue); }
-
+    /* SKELETON */
     .skeleton {
-  display: block;
-  background: linear-gradient(
-    90deg,
-    #eeeeee 25%,
-    #f5f5f5 37%,
-    #eeeeee 63%
-  );
-  background-size: 400% 100%;
-  animation: shimmer 1.2s infinite;
-  border-radius: 10px;
-}
+      background:linear-gradient(90deg,#eee,#f5f5f5,#eee);
+      background-size:400% 100%;
+      animation:shimmer 1.2s infinite;
+      border-radius:8px;
+    }
 
-@keyframes shimmer {
-  0% { background-position: 100% 0; }
-  100% { background-position: 0 0; }
-}
+    @keyframes shimmer {
+      0% {background-position:100% 0;}
+      100% {background-position:0 0;}
+    }
 
-/* sizes */
-.title-skeleton { height: 40px; width: 80%; }
-.text-skeleton { height: 18px; width: 100%; margin-top: 10px; }
-.name-skeleton { height: 14px; width: 120px; }
-.pill-skeleton { height: 28px; width: 90px; border-radius: 999px; }
+    .title-skeleton { height:40px; width:80%; }
+    .text-skeleton { height:16px; margin-top:10px; }
 
-/* fade content in */
-.loaded {
-  opacity: 1;
-  transition: opacity 0.4s ease;
-}
+    .loading { opacity:0.4; }
 
-.loading {
-  opacity: 0.2;
-}
   </style>
 </head>
+
 <body>
 
-<!-- HEADER -->
-<header id="site-header">
+<header>
   <div class="logo">
-    <a class="logo" href="index.html">
-      <img src="logo.png" alt="The Relax Logo">
-    </a>
+    <a href="index.html"><img src="logo.png"></a>
   </div>
-  <a class="back-btn" href="javascript:void(0)" onclick="goBack()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M5 12h14M12 5l7 7-7 7"/>
-    </svg>
+
+  <a class="back-btn" href="javascript:history.back()">
     العودة
   </a>
 </header>
 
-<!-- PROGRESS -->
 <div id="progress"><div id="progress-fill"></div></div>
 
-<!-- TOC DOTS -->
-<nav class="toc-float" id="tocFloat">
-  <div class="toc-item active" data-section="hero">
-    <div class="toc-dot"></div>
-    <span class="toc-label">البداية</span>
-  </div>
-  <div class="toc-item" data-section="s1">
-    <div class="toc-dot"></div>
-    <span class="toc-label">ما هي الراحة النفسية؟</span>
-  </div>
-  <div class="toc-item" data-section="s2">
-    <div class="toc-dot"></div>
-    <span class="toc-label">التأثير على الحياة اليومية</span>
-  </div>
-  <div class="toc-item" data-section="s3">
-    <div class="toc-dot"></div>
-    <span class="toc-label">الخطوات العملية</span>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="hero">
+<section class="hero">
   <div class="hero-text-side">
-    <div class="badge"><span class="badge-dot"></span> علم النفس · مقال أصيل</div>
-    <h1 class="hero-title loading" id="articleTitle">   
-      <span class="skeleton title-skeleton"></span>
+
+    <h1 class="hero-title loading" id="articleTitle">
+      <div class="skeleton title-skeleton"></div>
     </h1>
 
     <p class="hero-excerpt loading" id="articleDescription">
-      <span class="skeleton text-skeleton"></span>
-      <span class="skeleton text-skeleton"></span>
+      <div class="skeleton text-skeleton"></div>
+      <div class="skeleton text-skeleton"></div>
     </p>
-    <div class="hero-meta">
-      <div class="author-chip">
-        <div class="author-avatar">ر</div>
-        <div class="author-info">
-          <div class="author-name" id="articleAuthor">>د. ريم العمر</div>
-          <div class="author-role">أخصائية نفسية</div>
-        </div>
-      </div>
-      <div class="meta-pill" id="articleReadingTime">⏱ 4 دقائق قراءة</div>
-      <div class="meta-pill" id="articleViews">👁 502 مشاهدة</div>
-      <div class="meta-pill" id="articleDate">📅 مايو 2024</div>
-    </div>
+
   </div>
 
   <div class="hero-image-side">
-    <img class="hero-img" id="articleImage"
-      src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?q=80&w=1200&auto=format&fit=crop"
-      alt="راحة نفسية">
-    <div class="hero-img-overlay"></div>
-    <div class="float-stat" style="bottom:15%;left:5%">
-      <span class="stat-num">87%</span>
-      <span class="stat-lbl">من الناس يشعرون بتحسن</span>
-    </div>
-    <div class="float-stat" style="top:15%;left:5%">
-      <span class="stat-num">3×</span>
-      <span class="stat-lbl">تحسّن في الإنتاجية</span>
-    </div>
+    <img id="articleImage" src="">
   </div>
 </section>
 
-<!-- ARTICLE BODY -->
 <article class="article-wrap">
-
-  <div class="section-marker">
-    <div class="section-marker-text">بداية المقال</div>
-    <div class="section-marker-line"></div>
-  </div>
-
-<div class="article-body" id="articleContent"></div>
-
-  <!-- FOOTER INSIDE ARTICLE -->
-  <div class="article-footer">
-  <div class="tags">
-    <a class="tag" href="#">علم النفس</a>
-    <a class="tag" href="#">الصحة النفسية</a>
-    <a class="tag" href="#">جودة الحياة</a>
-    <a class="tag" href="#">تطوير الذات</a>
-  </div>
-
-    <div class="share-row">
-      <span class="share-label">شارك:</span>
-      <a class="share-btn" href="#" title="تويتر">𝕏</a>
-      <a class="share-btn" href="#" title="واتساب">💬</a>
-      <a class="share-btn" href="#" title="نسخ الرابط" id="copyBtn" onclick="copyLink(event)">🔗</a>
-    </div>
-  </div>
+  <div class="article-body" id="articleContent"></div>
 </article>
-
-<!-- RELATED ARTICLES -->
-<section class="related-section">
-  <div class="related-inner">
-    <div class="related-header">
-      <h2 class="related-title">مقالات <span>قد تعجبك</span></h2>
-      <a class="see-all" href="book.html">كل المقالات ←</a>
-    </div>
-    <div class="related-grid">
-      <a class="related-card" href="#">
-        <img class="related-card-img"
-          src="https://images.unsplash.com/photo-1493836512294-502baa1986e2?q=80&w=600&auto=format&fit=crop"
-          alt="عادات صحية">
-        <div class="related-card-body">
-          <div class="related-cat">تطوير الذات</div>
-          <div class="related-card-title">كيف تبني عادات صحية تحسن حالتك النفسية؟</div>
-          <div class="related-card-meta">6 دقائق · 721 مشاهدة</div>
-        </div>
-      </a>
-      <a class="related-card" href="#">
-        <img class="related-card-img"
-          src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=600&auto=format&fit=crop"
-          alt="تأمل">
-        <div class="related-card-body">
-          <div class="related-cat">التأمل</div>
-          <div class="related-card-title">تقنيات التأمل للمبتدئين — ابدأ اليوم</div>
-          <div class="related-card-meta">5 دقائق · 450 مشاهدة</div>
-        </div>
-      </a>
-      <a class="related-card" href="#">
-        <img class="related-card-img"
-          src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=600&auto=format&fit=crop"
-          alt="علاقات">
-        <div class="related-card-body">
-          <div class="related-cat">العلاقات</div>
-          <div class="related-card-title">كيف تحافظ على علاقات صحية ومتوازنة؟</div>
-          <div class="related-card-meta">3 دقائق · 338 مشاهدة</div>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<meta property="og:title" content="">
-<meta property="og:description" content="">
-<meta property="og:image" content="">
-
-<footer>
-  © 2025 <span>The Relax</span> — جميع الحقوق محفوظة
-</footer>
 
 <script>
 const STRAPI_URL = "https://the-relax-cms.onrender.com";
 
-/* =========================
-   LOADING EFFECT
-========================= */
-function showLoading() {
-  document.querySelectorAll(".skeleton").forEach(el => {
-    el.style.display = "block";
-  });
-
-  document.querySelectorAll(".loading").forEach(el => {
-    el.style.opacity = "0.3";
+/* LOADING */
+function showLoading(){
+  document.querySelectorAll(".loading").forEach(e=>{
+    e.style.opacity="0.4";
   });
 }
 
-function hideLoading() {
-  document.querySelectorAll(".skeleton").forEach(el => {
-    el.style.display = "none";
-  });
-
-  document.querySelectorAll(".loading").forEach(el => {
-    el.style.opacity = "1";
+function hideLoading(){
+  document.querySelectorAll(".loading").forEach(e=>{
+    e.style.opacity="1";
   });
 }
 
-/* =========================
-   IMAGE HELPER
-========================= */
-function getImg(item) {
-  if (!item) return "https://via.placeholder.com/600x400";
-
-  let url =
-    item.url ||
-    item?.attributes?.url ||
-    item?.data?.attributes?.url ||
-    item?.data?.url;
-
-  if (!url) return "https://via.placeholder.com/600x400";
-
+/* IMAGE */
+function getImg(img){
+  let url = img?.url || img?.data?.attributes?.url || img;
+  if(!url) return "";
   return url.startsWith("http") ? url : STRAPI_URL + url;
 }
 
-/* =========================
-   LOAD ARTICLE
-========================= */
-async function loadArticle() {
+/* LOAD ARTICLE */
+async function loadArticle(){
   try {
     showLoading();
 
     const slug = new URLSearchParams(window.location.search).get("slug");
+    if(!slug) return;
 
-    if (!slug) {
-      document.body.innerHTML = "<h1>المقال غير موجود</h1>";
-      return;
-    }
-
-    const res = await fetch(
-      `${STRAPI_URL}/api/articles?filters[slug][$eq]=${slug}&populate=*`
-    );
-
+    const res = await fetch(`${STRAPI_URL}/api/articles?filters[slug][$eq]=${slug}&populate=*`);
     const json = await res.json();
-    const article = json?.data?.[0];
 
-    if (!article) {
-      document.body.innerHTML = "<h1>المقال غير موجود</h1>";
-      return;
-    }
+    const article = json?.data?.[0];
+    if(!article) return;
 
     const data = article.attributes || article;
 
-    /* =========================
-       HERO DATA
-    ========================= */
-    document.getElementById("pageTitle").innerText =
-      `${data.title} — The Relax`;
+    document.getElementById("pageTitle").innerText = data.title + " - The Relax";
 
-    document.getElementById("articleTitle").innerText =
-      data.title || "";
+    document.getElementById("articleTitle").innerText = data.title || "";
+    document.getElementById("articleDescription").innerText = data.short_description || "";
 
-    document.getElementById("articleDescription").innerText =
-      data.short_description || "";
+    document.getElementById("articleImage").src = getImg(data.cover_image);
 
-    document.getElementById("articleAuthor").innerText =
-      data.author || "The Relax";
-
-    document.getElementById("articleReadingTime").innerHTML =
-      `⏱ ${data.reading_time || 5} دقائق`;
-
-    document.getElementById("articleViews").innerHTML =
-      `👁 ${data.views || 0} مشاهدة`;
-
-    document.getElementById("articleDate").innerHTML =
-      data.publish_date
-        ? `📅 ${new Date(data.publish_date).toLocaleDateString("ar-EG")}`
-        : "";
-
-    document.getElementById("articleImage").src =
-      getImg(data.cover_image);
-
-    /* =========================
-       CONTENT
-    ========================= */
     const contentEl = document.getElementById("articleContent");
-
-    if (window.marked) {
-      contentEl.innerHTML = marked.parse(data.content || "");
-    } else {
-      contentEl.innerHTML = data.content || "";
-    }
-
-    /* =========================
-       RELATED ARTICLES
-    ========================= */
-    await loadRelatedArticles(slug);
+    contentEl.innerHTML = window.marked ? marked.parse(data.content || "") : data.content;
 
     hideLoading();
 
-  } catch (err) {
-    console.error("Article Error:", err);
+  } catch(err){
+    console.log(err);
   }
 }
 
-/* =========================
-   RELATED ARTICLES
-========================= */
-async function loadRelatedArticles(currentSlug) {
-  try {
-    const relatedGrid = document.querySelector(".related-grid");
-    if (!relatedGrid) return;
-
-    const res = await fetch(
-      `${STRAPI_URL}/api/articles?populate=*&pagination[pageSize]=6&sort=createdAt:desc`
-    );
-
-    const json = await res.json();
-    let articles = json?.data || [];
-
-    articles = articles.filter(a => {
-      const d = a.attributes || a;
-      return d.slug !== currentSlug;
-    });
-
-    relatedGrid.innerHTML = "";
-
-    articles.slice(0, 3).forEach(item => {
-      const d = item.attributes || item;
-
-      const card = document.createElement("a");
-      card.className = "related-card";
-      card.href = `article.html?slug=${d.slug}`;
-
-      card.innerHTML = `
-        <img class="related-card-img" src="${getImg(d.cover_image)}" />
-        <div class="related-card-body">
-          <div class="related-cat">${d.category || "مقالات"}</div>
-          <div class="related-card-title">${d.title || ""}</div>
-          <div class="related-card-meta">${d.reading_time || 5} دقائق</div>
-        </div>
-      `;
-
-      relatedGrid.appendChild(card);
-    });
-
-  } catch (err) {
-    console.error("Related Error:", err);
-  }
-}
-
-/* =========================
-   INIT
-========================= */
 document.addEventListener("DOMContentLoaded", loadArticle);
 </script>
 
