@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Relax - منصة الصحة النفسية</title>
+  <meta name="description" content="منصة The Relax للصحة النفسية والعلاج أونلاين" />
+  <meta name="keywords" content="الصحة النفسية, علاج نفسي, جلسات أونلاين, The Relax" />
+  <meta name="author" content="The Relax" />
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav>
+      <div class="logo">
+        <img src="logo.png" alt="The Relax Logo">
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="book.html">المكتبة</a></li>
+        <li><a href="#services">خدماتنا</a></li>
+        <li><a href="serves.html">برامجنا</a></li>
+        <li><a href="about.html">من نحن</a></li>
+        <li><a href="success-stories.html">تقييمات و قصص نجاح</a></li>
+        <li><a href="#pricing">الأسعار</a></li>
+        <li><a href="courses.html">كورسات</a></li>
+
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="download-btn" onclick="openModal()">
+          <span>⬇️</span>
+          <span>حمل التطبيق</span>
+        </button>
+        <button class="menu-toggle" onclick="toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul>
+        <li><a href="index.html" onclick="closeMobileMenu()">الرئيسية</a></li>
+        <li><a href="book.html" onclick="closeMobileMenu()">مكتبة</a></li>
+        <li><a href="#services" onclick="closeMobileMenu()">خدماتنا</a></li>
+        <li><a href="serves.html" onclick="closeMobileMenu()">برامجنا</a></li>
+        <li><a href="about.html" onclick="closeMobileMenu()">من نحن</a></li>
+        <li><a href="success-stories.html" onclick="closeMobileMenu()">تقييمات و قصص نجاح</a></li>
+        <li><a href="#pricing" onclick="closeMobileMenu()">الأسعار</a></li>
+        <li><a href="courses.html" onclick="closeMobileMenu()">الكورسات</a></li>
+      </ul>
+      <button class="mobile-download-btn" onclick="openModal()">تحميل التطبيق</button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="search-box">        
+        <button class="search-btn">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <input type="text" placeholder="ابحث عن موضوع أو خدمة...">
+      </div>
+      <h1>منصة متخصصة في الصحة النفسية والعلاج النفسي أونلاين</h1>
+      <p>دعنا نوجد أفضل رحلة لك نحو راحة نفسية واستقرار داخلي، مع نخبة من الأخصائيين المعتمدين.</p>
+      <div class="hero-action">
+        <button class="btn" onclick="openModal()" style="border: none; cursor: pointer; background: none; padding: 0;">
+          <a href="#" class="btn" onclick="event.preventDefault(); openModal();">
+            ابدأ رحلتك الآن
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
+        </button>
+      </div>
+    </div>
+  </section>
+  
+
+  <!-- Services Section -->
+  <section class="services" id="services">
+    <div class="container">
+      <h2>خدماتنا</h2>
+      <div class="services-container">
+        <div class="service-card">
+          <h3>جلسات علاج نفسي</h3>
+          <p>جلسات أونلاين مع مختصين في الصحة النفسية.</p>
+        </div>
+        <div class="service-card">
+          <h3>تقييم وتشخيص</h3>
+          <p>اختبارات علمية لفهم حالتك النفسية بشكل أدق.</p>
+        </div>
+        <div class="service-card">
+          <h3>دورات و ورشات</h3>
+          <p>دورات و ورشات تدريبية مع اعتماد عالمي</p>
+        </div>
+        <div class="service-card">
+          <h3>محتوى توعوي</h3>
+          <p>مقالات وفيديوهات تساعدك تفهم نفسك أكثر.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- App Hero Section -->
+  <section class="app-hero">
+    <div class="container">
+      <div class="hero-wrapper">
+        <div class="hero-image">
+          <img src="phones.png" alt="The Relax App Mockup">
+        </div>
+        <div class="hero-content-app">
+          <h2>ابدأ رحلة التعافي مع The Relax</h2>
+          <p>جلسات، تشخيص، ومحتوى متكامل داخل تطبيق واحد</p>
+          <button class="main-btn" onclick="openModal()" style="border: none; cursor: pointer;">حمل التطبيق الآن</button>
+          <div class="store-buttons">
+            <a href="https://play.google.com/store/apps/details?id=co.therelax.patient" target="_blank">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play">
+            </a>
+            <a href="https://apps.apple.com/qa/app/therelax/id6739005130?l=ar" target="_blank">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+  <div class="hr-h2">
+    <h2>ابدأ الآن واحصل على أول تجربة مميزة</h2>
+  </div>
+</section>
+
+<section class="banner-slider">
+  <div class="swiper bannerSwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="bnner.png" alt="Banner 1">
+      </div>
+      <div class="swiper-slide">
+        <img src="bnner.png" alt="Banner 2">
+      </div>
+      <div class="swiper-slide">
+        <img src="bnner.png" alt="Banner 3">
+      </div>
+      <div class="swiper-slide">
+        <img src="bnner.png" alt="Banner 4">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <!-- CARD 1 -->    
+<a href="book.html">
+  <div class="feature-card">
+
+    <div class="feature-content">
+      <h2>
+       مكتبة
+        <br>
+        The Relax
+      </h2>
+      <button>اقرأ المزيد</button>
+    </div>
+    <div class="feature-icon">
+      <img src="book.gif" alt="book">
+    </div>
+  </div>
+</a>
+  <!-- CARD 2 -->
+<a href="index.html">
+  <div class="feature-card">
+    <div class="feature-content">
+      <h2>T - Test</h2>
+      <button>ابدأ الآن</button>
+    </div>
+    <div class="feature-icon">
+      <img src="test.gif" alt="test">
+    </div>
+  </div>
+</a>
+</section>
+
+<!-- بنر البرامج المتحرك - سكشن إضافي -->
+<div class="main-display-area">
+    <h2 class="display-heading">استكشف برامجنا</h2>
+    <div class="motion-wrapper">
+        <div class="content-track" id="auto-scroll-track">
+            <div class="feature-item">
+                <div class="visual-part"><img src="DR.jpg" alt="طب نفسي" class="visual-media"></div>
+                <div class="info-part">
+                    <h3 class="item-title">طب نفسي</h3>
+                    <p class="item-desc">استشارات طبية نفسية متخصصة مع أطباء معتمدين</p>
+                    <div class="item-stats"><span>⏱️ 60 دقيقة</span></div>
+                    <a href="#" class="action-trigger">احجز الآن</a>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="visual-part"><img src="C.jpg" alt="علم نفس إكلينيكي" class="visual-media"></div>
+                <div class="info-part">
+                    <h3 class="item-title">علم نفس إكلينيكي</h3>
+                    <p class="item-desc">جلسات سريرية متخصصة مع أخصائيين نفسيين</p>
+                    <div class="item-stats"><span>⏱️ 60 دقيقة</span></div>
+                    <a href="#" class="action-trigger">احجز الآن</a>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="visual-part"><img src="RN.jpg" alt="إرشاد نفسي" class="visual-media"></div>
+                <div class="info-part">
+                    <h3 class="item-title">إرشاد نفسي</h3>
+                    <p class="item-desc">جلسات فردية وجماعية مع أخصائي نفسي معتمد</p>
+                    <div class="item-stats"><span>⏱️ 45 - 60 دقيقة</span></div>
+                    <a href="#" class="action-trigger">احجز الآن</a>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="visual-part"><img src="RS.png" alt="إرشاد أسري" class="visual-media"></div>
+                <div class="info-part">
+                    <h3 class="item-title">إرشاد أسري</h3>
+                    <p class="item-desc">جلسات متخصصة لدعم الأسرة وتحسين العلاقات الأسرية</p>
+                    <div class="item-stats"><span>⏱️ 45 - 60 - 90 دقيقة</span></div>
+                    <a href="#" class="action-trigger">احجز الآن</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation-footer">
+        <a href="serves.html" class="global-link">عرض الكل</a>
+    </div>
+</div>
+
+  <!-- Impact Stats -->
+  <section class="impact-stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-number">+50,000</div>
+          <div class="stat-label">مستفيد سعيد</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">+200</div>
+          <div class="stat-label">أخصائي معتمد</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">+100,000</div>
+          <div class="stat-label">جلسة استشارية</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">4.9/5</div>
+          <div class="stat-label">تقييم المستخدمين</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Stories -->
+  <section class="success-stories">
+    <div class="container">
+      <h2 class="stories-heading">قصص نجاح ملهمة</h2>
+      <p class="stories-subheading">رحلات حقيقية نحو التعافي والاستقرار النفسي</p>
+      <div class="stories-container">
+        <div class="story-card">
+          <div class="quote-icon">"</div>
+          <p class="story-text">كانت تجربتي مع The Relax نقطة تحول في حياتي. وجدت الأخصائي المناسب الذي فهمني وساعدني على تجاوز القلق المستمر.</p>
+          <div class="story-author">
+            <div class="author-info">
+              <span class="author-name">أحمد م.</span>
+              <span class="author-status">مستفيد منذ سنة</span>
+            </div>
+          </div>
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+        </div>
+        <div class="story-card">
+          <div class="quote-icon">"</div>
+          <p class="story-text">الخصوصية والسهولة في حجز الجلسات جعلت رحلة علاجي مريحة جداً. أنصح كل من يتردد في طلب المساعدة بالبدء الآن.</p>
+          <div class="story-author">
+            <div class="author-info">
+              <span class="author-name">سارة ع.</span>
+              <span class="author-status">مستفيدة منذ 6 أشهر</span>
+            </div>
+          </div>
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+        </div>
+        <div class="story-card">
+          <div class="quote-icon">"</div>
+          <p class="story-text">تطبيق متكامل، من التشخيص إلى الجلسات. شعرت بالأمان والدعم في كل خطوة. شكراً لفريق The Relax.</p>
+          <div class="story-author">
+            <div class="author-info">
+              <span class="author-name">خالد ي.</span>
+              <span class="author-status">مستفيد منذ سنتين</span>
+            </div>
+          </div>
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="navigation-footer">
+        <a href="success-stories.html" class="global-link">عرض الكل</a>
+    </div>
+  </section>
+
+  <!-- سكشن لماذا The Relax مختلف؟ (جدول المقارنة) -->
+<section class="comparison-section">
+    <h2 class="comparison-title">لماذا The Relax مختلف؟</h2>
+    
+    <div class="comparison-container">
+        <!-- العمود 1: المميزات الرئيسية -->
+        <div class="comparison-column features-col">
+            <div class="col-header">المميزات الرئيسية</div>
+            <div class="col-body">
+                <div class="row-item">طريقة الجلسات <i class="fa-solid fa-video"></i></div>
+                <div class="row-item">السرعة والأمان أونلاين <i class="fa-solid fa-shield-halved"></i></div>
+                <div class="row-item">مكتبة المقالات والمدونات <i class="fa-solid fa-book-open"></i></div>
+                <div class="row-item">التقييم والتشخيص <i class="fa-solid fa-clipboard-check"></i></div>
+                <div class="row-item">تخصصات علم النفس <i class="fa-solid fa-users-gear"></i></div>
+                <div class="row-item">الاستشارات المجانية <i class="fa-solid fa-hand-holding-heart"></i></div>
+                <div class="row-item">المؤهلات <i class="fa-solid fa-graduation-cap"></i></div>
+                <div class="row-item">مدة الجلسة <i class="fa-solid fa-clock"></i></div>
+                <div class="row-item">اختيار المختص <i class="fa-solid fa-user-doctor"></i></div>
+                <div class="row-item">إمكانية الوصول والزمان <i class="fa-solid fa-globe"></i></div>
+                <div class="row-item">دورات وورشات عمل <i class="fa-solid fa-chalkboard-user"></i></div>
+                <div class="row-item">الخصوصية والأمان <i class="fa-solid fa-lock"></i></div>
+                <div class="row-item">سهولة الحجز <i class="fa-solid fa-calendar-check"></i></div>
+                <div class="row-item">المتابعة والخطط العلاجية <i class="fa-solid fa-file-medical"></i></div>
+                <div class="row-item">تجربة المستخدم <i class="fa-solid fa-mobile-screen-button"></i></div>
+                <div class="row-item">خيارات الدفع <i class="fa-solid fa-credit-card"></i></div>
+                <div class="row-item">الدعم المستمر <i class="fa-solid fa-headset"></i></div>
+                <div class="row-item">التقييمات والتجارب <i class="fa-solid fa-star"></i></div>
+                <div class="row-item">تجربة العلاج المخصصة <i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <div class="row-item">إمكانية الوصول الجغرافي <i class="fa-solid fa-map-location-dot"></i></div>
+                <div class="row-item">القيمة مقابل السعر <i class="fa-solid fa-hand-holding-dollar"></i></div>
+                <div class="row-item">المحتوى التثقيفي <i class="fa-solid fa-newspaper"></i></div>
+            </div>
+        </div>
+
+        <!-- العمود 2: منصة The Relax -->
+        <div class="comparison-column relax-col">
+            <div class="col-header">منصة The Relax</div>
+            <div class="col-body">
+                <div class="row-item check">متاح جلسات وجاهي + أونلاين <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">جلسات أونلاين سريعة وآمنة جداً <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">مكتبة ضخمة من المقالات والمدونات <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">تقييم وتشخيص نفسي دقيق جداً <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">جميع تخصصات علم النفس في مكان واحد <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">استشارات مجانية + مدفوعة <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">مختصين بدرجات ماجستير ودكتوراه <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">مدة الجلسة 60 دقيقة كاملة <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">حرية اختيار المختص بسهولة <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">متاح في أي وقت ومن أي مكان <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">دورات وورشات عمل معتمدة مع أفضل المدربين <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">خصوصية عالية جداً وحماية بيانات قوية <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">حجز جلسات سريع خلال دقائق <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">متابعة مستمرة وخطط علاجية واضحة <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">تجربة استخدام سهلة وسلسة <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">خيارات دفع متعددة <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">دعم متوفر بشكل مستمر <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">تقييمات وتجارب شفافة <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">تجربة علاج مخصصة لكل حالة <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">إمكانية الوصول من أي مكان <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">قيمة عالية مقابل السعر <i class="fa-solid fa-circle-check"></i></div>
+                <div class="row-item check">محتوى تثقيفي مستمر (مقالات + دورات) <i class="fa-solid fa-circle-check"></i></div>
+            </div>
+        </div>
+
+        <!-- العمود 3: منصات أخرى -->
+        <div class="comparison-column others-col">
+            <div class="col-header">منصات / عيادات نفسية أخرى</div>
+            <div class="col-body">
+                <div class="row-item cross">إما أونلاين أو وجاهي فقط <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">خدمات أونلاين محدودة أو بطيئة <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">مكتبة مقالات قليلة أو غير موجودة <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">تقييم وتشخيص غالباً مدفوع وبسيط <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">خدمات فئات محدودة (اختصاص أو اثنين فقط) <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">استشارات مدفوعة فقط <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">مؤهلات عادية أو غير متنوعة <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">مدة الجلسة 45 دقيقة <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">صعوبة في اختيار المختص <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">وصول محدود حسب المكان <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">لا يوجد دورات أو ورشات مستمرة <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">خصوصية أقل وضوحاً <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">حجز بطيء أو معقد <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">لا يوجد متابعة علاجية منظمة <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">تجربة استخدام تقليدية <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">خيارات دفع محدودة <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">دعم ضعيف أو غير متوفر دائماً <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">تقييمات غير واضحة <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">علاج عام غير مخصص <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">محدود جغرافياً <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">قيمة أقل مقابل السعر <i class="fa-solid fa-circle-xmark"></i></div>
+                <div class="row-item cross">لا يوجد محتوى تثقيفي مستمر <i class="fa-solid fa-circle-xmark"></i></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+  <!-- من نحن -->
+<section class="about-section-refined">
+    <div class="about-flex-container">
+        <!-- النص على اليمين -->
+        <div class="about-content-box">
+            <h2 class="about-main-title">من نحن؟</h2>
+            <p class="about-main-text">
+                مرحباً بك في <strong>The Relax</strong>، رفيقك الموثوق في رحلتك نحو الصحة النفسية. تأسست المنصة على يد <strong>الدكتور عمار شلبي</strong>، الرائد في مجال الصحة النفسية، وهي أكثر من مجرد تطبيق - إنها ملاذ لمن يبحثون عن الدعم المهني في التنقل بين تحديات الحياة.
+            </p>
+            <p class="about-sub-text">
+                في The Relax، نفهم أن الصحة النفسية هي الأساس للرفاهية العامة. مهمتنا هي توفير رعاية صحية نفسية شخصية ومتاحة للجميع، بغض النظر عن ظروفهم.
+            </p>
+            <div class="about-btn-wrapper">
+                <a href="about.html" class="about-view-more">عرض المزيد</a>
+            </div>
+        </div>
+        
+        <!-- اللوجو على اليسار (أو العكس حسب الـ RTL) -->
+        <div class="about-image-box">
+            <img src="logo.png" alt="The Relax Logo" class="about-logo-img">
+        </div>
+    </div>
+</section>
+
+<!-- سكشن أفضل الاستشاريين -->
+<section class="top-consultants">
+    <div class="section-header">
+        <a href="#" class="view-all-link">عرض الكل</a>
+        <h2 class="section-title">أفضل الاستشاريين</h2>
+    </div>
+
+    <div class="consultants-grid" id="featuredDoctors">
+        <!-- الكروت رح تنبني تلقائيًا -->
+    </div>
+</section>
+
+<!-- Background blobs -->
+<div class="relax-bg">
+  <span></span><span></span><span></span>
+</div>
+
+<!-- SECTION -->
+<section class="relax-section">
+ 
+  <!-- Header -->
+  <div class="relax-header">
+    <div class="relax-logo">
+      <span class="relax-logo-icon">🧠</span>
+      <span>
+        <span class="relax-logo-text">The Relax</span>
+        <span class="relax-logo-sub">Mental Health Care</span>
+      </span>
+    </div>
+    <h1>اختر خطتك المناسبة</h1>
+    <p>بداية جديدة.. مع <span>The Relax</span></p>
+  </div>
+ 
+  <!-- Cards -->
+  <div class="relax-cards">
+ 
+    <!-- Card 1: Weekly -->
+    <div class="relax-card card-teal">
+      <div class="card-topbar">
+        <div class="card-title">
+          <div class="card-title-icon">🧘</div>
+          اشتراك الاسترخاء
+        </div>
+        <span class="badge-period">أسبوعي</span>
+      </div>
+ 
+      <div class="card-illus">🧘</div>
+ 
+      <div class="card-pricing">
+        <span class="price-old">50 دينار</span>
+        <span class="price-main" style="color:var(--clr-teal-dark)">
+          <span class="price-unit">39.99</span> دينار
+        </span>
+        <span class="price-note">(الأسبوع الأول)</span>
+        <span class="price-period" style="color:var(--clr-text-light)">ثم 29.99 دينار / أسبوع</span>
+      </div>
+ 
+      <ul class="card-features">
+        <li>
+          <span class="feature-bullet">🎙️</span>
+          <span>جلسة واحدة (صوت / كتابة / فيديو)</span>
+        </li>
+        <li>
+          <span class="feature-bullet">👤</span>
+          <span>مع أخصائي أو طبيب</span>
+        </li>
+        <li>
+          <span class="feature-bullet">⏱️</span>
+          <span>مدة الجلسة: <span class="feature-highlight">60 دقيقة</span></span>
+        </li>
+        <li>
+          <span class="feature-bullet">🧩</span>
+          <span>العلاج السلوكي أو استشارة الدواء (60 دقيقة)</span>
+        </li>
+        <li>
+          <span class="feature-bullet">✅</span>
+          <span>يمكنك إلغاء الاشتراك في أي وقت</span>
+        </li>
+      </ul>
+ 
+      <button class="btn-start" onclick="openModal()">ابدأ الآن</button>
+      <p class="cancel-note">✔️ إلغاء مجاني في أي وقت</p>
+    </div>
+ 
+    <!-- Card 2: Monthly (Popular) -->
+    <div class="relax-card card-blue popular">
+      <div class="popular-badge">⭐ الأكثر شعبية</div>
+ 
+      <div class="card-topbar">
+        <div class="card-title">
+          <div class="card-title-icon">💙</div>
+          اشتراك الشفاء
+        </div>
+        <span class="badge-period">شهري</span>
+      </div>
+ 
+      <div class="card-illus">💙</div>
+ 
+      <div class="card-pricing">
+        <span class="price-old">160 دينار</span>
+        <span class="price-main" style="color:var(--clr-blue-mid)">
+          <span class="price-unit">114.99</span> دينار
+        </span>
+        <span class="price-note" style="background:var(--clr-blue-mid)">شهرياً</span>
+      </div>
+ 
+      <ul class="card-features">
+        <li>
+          <span class="feature-bullet">🎙️</span>
+          <span>4 جلسات (صوت / كتابة / فيديو)</span>
+        </li>
+        <li>
+          <span class="feature-bullet">👤</span>
+          <span>مع أخصائي أو طبيب</span>
+        </li>
+        <li>
+          <span class="feature-bullet">⏱️</span>
+          <span>كل جلسة مدتها: <span class="feature-highlight">60 دقيقة</span></span>
+        </li>
+        <li>
+          <span class="feature-bullet">🧩</span>
+          <span>العلاج السلوكي أو استشارة الدواء (60 دقيقة)</span>
+        </li>
+        <li>
+          <div class="feature-gift">🎁 استشارة هدية</div>
+        </li>
+        <li>
+          <span class="feature-bullet">✅</span>
+          <span>يمكنك إلغاء الاشتراك في أي وقت</span>
+        </li>
+      </ul>
+ 
+      <button class="btn-start" onclick="openModal()">ابدأ الآن</button>
+      <p class="cancel-note">✔️ إلغاء مجاني في أي وقت</p>
+    </div>
+ 
+    <!-- Card 3: Quarterly -->
+    <div class="relax-card card-purple">
+      <div class="card-topbar">
+        <div class="card-title">
+          <div class="card-title-icon">💜</div>
+          اشتراك العلاج
+        </div>
+        <span class="badge-period">كل 3 أشهر</span>
+      </div>
+ 
+      <div class="card-illus">💜</div>
+ 
+      <div class="card-pricing">
+        <span class="price-old">480 دينار</span>
+        <span class="price-main" style="color:var(--clr-purple-dark)">
+          <span class="price-unit">325</span> دينار
+        </span>
+        <span class="price-note" style="background:var(--clr-purple)">كل 3 أشهر</span>
+      </div>
+ 
+      <ul class="card-features">
+        <li>
+          <span class="feature-bullet">🎙️</span>
+          <span>12 جلسة (صوت / كتابة / فيديو)</span>
+        </li>
+        <li>
+          <span class="feature-bullet">👤</span>
+          <span>مع أخصائي أو طبيب</span>
+        </li>
+        <li>
+          <span class="feature-bullet">⏱️</span>
+          <span>كل جلسة مدتها: <span class="feature-highlight">60 دقيقة</span></span>
+        </li>
+        <li>
+          <span class="feature-bullet">🧩</span>
+          <span>العلاج السلوكي أو استشارة الدواء (60 دقيقة)</span>
+        </li>
+        <li>
+          <div class="feature-gift">🎁 3 استشارات هدية</div>
+        </li>
+        <li>
+          <span class="feature-bullet">✅</span>
+          <span>يمكنك إلغاء الاشتراك في أي وقت</span>
+        </li>
+      </ul>
+ 
+      <button class="btn-start" onclick="openModal()">ابدأ الآن</button>
+      <p class="cancel-note">✔️ إلغاء مجاني في أي وقت</p>
+    </div>
+ 
+  </div><!-- /cards -->
+ 
+  <!-- Footer strip -->
+  <div class="relax-footer-strip">
+    <span>🤍</span>
+    جلسات كاملة لمدة 60 دقيقة — لأن صحتك النفسية تستحق الوقت الحقيقي
+  </div>
+ 
+</section>
+ 
+<!-- ── MODAL ── -->
+<div class="modal-overlay" id="appModal" onclick="closeOnOverlay(event)">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <span class="modal-icon">📱</span>
+    <h2 class="modal-title">حمّل تطبيق The Relax</h2>
+    <p class="modal-sub">
+      ابدأ رحلتك نحو الصحة النفسية الآن.<br>
+      حمّل التطبيق من <span>Google Play</span> أو <span>App Store</span>.
+    </p>
+    <div class="modal-btns">
+      <a
+        class="store-btn google"
+        href="https://play.google.com/store/apps/details?id=co.therelax.patient&pcampaignid=web_share"
+        target="_blank" rel="noopener"
+      >
+        <span class="store-btn-icon">▶</span>
+        <span class="store-btn-text">
+          <span class="store-btn-small">متوفر على</span>
+          <span class="store-btn-big">Google Play</span>
+        </span>
+      </a>
+      <a
+        class="store-btn apple"
+        href="https://apps.apple.com/qa/app/therelax/id6739005130?l=ar"
+        target="_blank" rel="noopener"
+      >
+        <span class="store-btn-icon"></span>
+        <span class="store-btn-text">
+          <span class="store-btn-small">Download on the</span>
+          <span class="store-btn-big">App Store</span>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<section class="rl-stats-section">
+  <h2 class="rl-stats-title">كن احد المستفيدين</h2>
+ 
+  <div class="rl-stats-grid">
+ 
+    <div class="rl-stat-card" data-target="98.6" data-suffix="%" data-prefix="" data-decimal="1">
+      <div class="rl-stat-number">0%</div>
+      <div class="rl-stat-label">نسبة تحسن العملاء</div>
+    </div>
+ 
+    <div class="rl-stat-card" data-target="2500" data-suffix="" data-prefix="+">
+      <div class="rl-stat-number">0</div>
+      <div class="rl-stat-label">عميل قمنا بمساعدتهم</div>
+    </div>
+ 
+    <div class="rl-stat-card" data-target="10000" data-suffix="" data-prefix="+">
+      <div class="rl-stat-number">0</div>
+      <div class="rl-stat-label">جلسة علاجية</div>
+    </div>
+ 
+    <div class="rl-stat-card" data-target="10" data-suffix="" data-prefix="+">
+      <div class="rl-stat-number">0</div>
+      <div class="rl-stat-label">دول</div>
+    </div>
+ 
+    <div class="rl-stat-card" data-target="50" data-suffix="" data-prefix="+">
+      <div class="rl-stat-number">0</div>
+      <div class="rl-stat-label">عمل خيري</div>
+    </div>
+ 
+    <div class="rl-stat-card" data-target="50" data-suffix="" data-prefix="+">
+      <div class="rl-stat-number">0</div>
+      <div class="rl-stat-label">معالج مرخص و مؤهل و معتمد</div>
+    </div>
+ 
+  </div>
+</section>
+
+<section class="rl-trust-section">
+  <h2 class="rl-trust-title">الذين يثقون بنا</h2>
+ 
+  <div class="rl-carousel-wrap">
+    <div class="rl-carousel-track" id="rlCarouselTrack">
+ 
+      <a class="rl-trust-logo" href="#" target="_blank" rel="noopener">
+        <img src="1.png" alt="شعار 1">
+      </a>
+ 
+      <a class="rl-trust-logo" href="#" target="_blank" rel="noopener">
+        <img src="2.png" alt="شعار 2">
+      </a>
+ 
+      <a class="rl-trust-logo" href="#" target="_blank" rel="noopener">
+        <img src="3.png" alt="شعار 3">
+      </a>
+ 
+      <a class="rl-trust-logo" href="#" target="_blank" rel="noopener">
+        <img src="4.png" alt="شعار 4">
+      </a>
+ 
+      <a class="rl-trust-logo" href="#" target="_blank" rel="noopener">
+        <img src="5.png" alt="شعار 5">
+      </a>
+ 
+      <a class="rl-trust-logo" href="#" target="_blank" rel="noopener">
+        <img src="6.png" alt="شعار 6">
+      </a>
+ 
+      <a class="rl-trust-logo" href="#" target="_blank" rel="noopener">
+        <img src="7.png" alt="شعار 7">
+      </a>
+ 
+      <a class="rl-trust-logo" href="#" target="_blank" rel="noopener">
+        <img src="8.png" alt="شعار 8">
+      </a>
+ 
+    </div>
+  </div>
+</section>
+
+<section class="rl-courses-section">
+ 
+  <!-- Header bar -->
+  <div class="rl-courses-header">
+    <span class="rl-courses-header-title">كورساتنا و ورشات العمل</span>
+    <!-- غيّر href لرابط صفحة الكورسات -->
+    <a class="rl-courses-view-all" href="courses.html" target="_self">عرض الكل</a>
+  </div>
+ 
+  <!-- Cards -->
+  <div class="rl-courses-grid">
+ 
+    <!-- ── Card 1 — غيّر src للصورة والنصوص ── -->
+    <a class="rl-course-card" href="book.html" target="_blank" rel="noopener">
+      <div class="rl-course-img-wrap">
+        <!-- إذا عندك صورة: <img src="YOUR_IMG_1.jpg" alt="اسم الكورس"> -->
+        <!-- إذا ما عندك صورة بعد: خلي الـ placeholder -->
+        <div class="rl-img-placeholder">📚</div>
+      </div>
+      <div class="rl-course-body">
+        <div class="rl-course-title">دورة العلاج المعرفي السلوكي اعتماد من جامعة كامبرج البراطنيا</div>
+        <div class="rl-course-meta">
+          <span>عددس اعات الدورة 60 ساعة 3 ليڤل</span>
+        </div>
+      </div>
+    </a>
+ 
+    <!-- ── Card 2 ── -->
+    <a class="rl-course-card" href="YOUR_COURSE_2_URL" target="_blank" rel="noopener">
+      <div class="rl-course-img-wrap">
+        <div class="rl-img-placeholder"><img src="دورة Psychology Model.png"></div>
+      </div>
+      <div class="rl-course-body">
+        <div class="rl-course-title">دورة العلاج المعرفي السلوكي اعتماد من جامعة كامبرج البراطنيا</div>
+        <div class="rl-course-meta">
+          <span>عددس اعات الدورة 60 ساعة 3 ليڤل</span>
+        </div>
+      </div>
+    </a>
+ 
+    <!-- ── Card 3 ── -->
+    <a class="rl-course-card" href="YOUR_COURSE_3_URL" target="_blank" rel="noopener">
+      <div class="rl-course-img-wrap">
+        <div class="rl-img-placeholder">🤝</div>
+      </div>
+      <div class="rl-course-body">
+        <div class="rl-course-title">دورة العلاج الواجبي الاسري اعتماد من جامعة كامبرج البراطنيا</div>
+        <div class="rl-course-meta">
+          <span>عددس اعات الدورة 60 ساعة 3 ليڤل</span>
+        </div>
+      </div>
+    </a>
+ 
+    <!-- ── لإضافة كارد جديد: انسخ من هون ──
+    <a class="rl-course-card" href="YOUR_COURSE_URL" target="_blank" rel="noopener">
+      <div class="rl-course-img-wrap">
+        <img src="YOUR_IMG.jpg" alt="اسم الكورس">
+      </div>
+      <div class="rl-course-body">
+        <div class="rl-course-title">عنوان الكورس</div>
+        <div class="rl-course-meta">
+          <span>التفاصيل</span>
+        </div>
+      </div>
+    </a>
+    ── -->
+ 
+  </div>
+ 
+</section>
+
+
+
+
+<section class="rl-blog-section">
+
+  <div class="rl-blog-header">
+    <span class="rl-blog-header-title">مدونات و مقالات من مكتبة المحتوى</span>
+    <a class="rl-blog-view-all" href="book.html">عرض الكل</a>
+  </div>
+
+  <!-- هون رح ينحط المحتوى تلقائي -->
+  <div class="rl-blog-grid" id="blogGrid"></div>
+
+</section>
+
+
+<section class="faq">
+
+  <h2 class="faq-title">أسئلة شائعة</h2>
+
+  <div class="faq-item">
+    <input type="checkbox" id="q1">
+    <label for="q1">كم مدة الجلسات؟</label>
+    <div class="answer">عادةً تتراوح الجلسة بين 45 إلى 60 دقيقة حسب الحالة.</div>
+  </div>
+
+  <div class="faq-item">
+    <input type="checkbox" id="q2">
+    <label for="q2">هل الجلسات معالج نفسي مختص؟</label>
+    <div class="answer">نعم، جميع الجلسات تتم مع أخصائيين نفسيين معتمدين.</div>
+  </div>
+
+  <div class="faq-item">
+    <input type="checkbox" id="q3">
+    <label for="q3">هل يمكن إلغاء أو تأجيل الجلسة؟</label>
+    <div class="answer">نعم، يمكنك التعديل قبل موعد الجلسة حسب سياسة الحجز.</div>
+  </div>
+
+  <div class="faq-item">
+    <input type="checkbox" id="q4">
+    <label for="q4">هل الخدمة سرّية؟</label>
+    <div class="answer">نعم، جميع البيانات والجلسات سرّية بالكامل.</div>
+  </div>
+
+  <div class="faq-item">
+    <input type="checkbox" id="q5">
+    <label for="q5">هل الجلسات أونلاين؟</label>
+    <div class="answer">نعم، تتم عبر مكالمة فيديو أو صوت حسب اختيارك.</div>
+  </div>
+
+</section>
+
+
+  <!-- Footer -->
+  <footer class="rl-footer">
+    <div class="container">
+      <div class="rl-footer-hero">
+        <h2>انضم إلى آلاف المستفيدين <span>الذين بدأوا رحلتهم مع The Relax</span></h2>
+      </div>
+      <div class="rl-footer-main">
+        <div class="footer-col">
+          <h3 class="rl-footer-col-title">عن The Relax</h3>
+          <p>منصتك الأولى للصحة النفسية في الوطن العربي. نوفر جلسات علاج نفسي أونلاين مع أخصائيين معتمدين.</p>
+        </div>
+        <div class="footer-col">
+          <h3 class="rl-footer-col-title">روابط سريعة</h3>
+          <ul class="rl-footer-links">
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="book.html">مكتبة</a></li>
+            <li><a href="serves.html">برامجنا</a></li>
+            <li><a href="about.html">من نحن</a></li>
+            <li><a href="#pricing">الأسعار</a></li>
+            <li><a href="courses.html">كورسات</a></li>
+            <li><a href="سياسة الخصوصية.html">سياسة الخصوصية</a></li>
+            <li><a href="سياسة استرداد الاموال.html">سياسة استرداد الاموال</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h3 class="rl-footer-col-title">تواصل معنا</h3>
+          <div class="rl-footer-contact">
+            <a href="mailto:info@therelax.co" class="rl-footer-contact-item">
+              <span>📧</span> info@therelax.co
+            </a>
+            <a href="tel:+962793065553" class="rl-footer-contact-item">
+              <span>📞</span> +962793065553
+            </a>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.2); margin-top: 30px; color: rgba(255,255,255,0.7);">
+        <p>&copy; 2024 The Relax. جميع الحقوق محفوظة.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('active');
+    }
+
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.remove('active');
+    }
+
+    // Modal Functions
+    function openModal() {
+      document.getElementById('appModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('appModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function closeOnOverlay(event) {
+      if (event.target.id === 'appModal') {
+        closeModal();
+      }
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+var swiper = new Swiper(".bannerSwiper", {
+  effect: "coverflow",
+  grabCursor: true,
+  centeredSlides: true,
+  slidesPerView: "auto",
+  loop: true,
+  speed: 1000,
+  autoplay: {
+    delay: 2500,
+    disableOnInteraction: false,
+  },
+  coverflowEffect: {
+    rotate: 15,
+    stretch: 0,
+    depth: 300,
+    modifier: 2.5,
+    slideShadows: false,
+    scale: 0.8,
+  },
+});
+</script>
+
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const track = document.getElementById('auto-scroll-track');
+    const wrapper = document.querySelector('.motion-wrapper');
+    let isDown = false, startX, scrollLeft;
+    wrapper.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - wrapper.offsetLeft; scrollLeft = wrapper.scrollLeft; });
+    wrapper.addEventListener('mouseleave', () => isDown = false);
+    wrapper.addEventListener('mouseup', () => isDown = false);
+    wrapper.addEventListener('mousemove', (e) => { if (!isDown) return; e.preventDefault(); const x = e.pageX - wrapper.offsetLeft; const walk = (x - startX) * 2; wrapper.scrollLeft = scrollLeft - walk; });
+    let autoScroll = setInterval(() => { if (!isDown) { wrapper.scrollLeft += 1; if (wrapper.scrollLeft >= (track.offsetWidth - wrapper.offsetWidth)) wrapper.scrollLeft = 0; } }, 30);
+    wrapper.addEventListener('mouseenter', () => clearInterval(autoScroll));
+    wrapper.addEventListener('mouseleave', () => { autoScroll = setInterval(() => { if (!isDown) { wrapper.scrollLeft += 1; if (wrapper.scrollLeft >= (track.offsetWidth - wrapper.offsetWidth)) wrapper.scrollLeft = 0; } }, 30); });
+});
+</script>
+
+<script>
+  function openModal() {
+    document.getElementById('appModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('appModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeOnOverlay(e) {
+    if (e.target === document.getElementById('appModal')) closeModal();
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+
+<script>
+(function () {
+  // Format number with commas
+  function formatNum(n, decimal) {
+    if (decimal) return n.toFixed(decimal);
+    return Math.floor(n).toLocaleString('en-US');
+  }
+ 
+  // Animate a single card
+  function animateCard(card) {
+    const numEl   = card.querySelector('.rl-stat-number');
+    const target  = parseFloat(card.dataset.target);
+    const suffix  = card.dataset.suffix  || '';
+    const prefix  = card.dataset.prefix  || '';
+    const decimal = parseInt(card.dataset.decimal) || 0;
+    const duration = 1800;
+    const start    = performance.now();
+ 
+    function tick(now) {
+      const elapsed  = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = eased * target;
+      numEl.textContent = prefix + formatNum(current, decimal) + suffix;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+ 
+  // IntersectionObserver: trigger when section enters viewport
+  const cards = document.querySelectorAll('.rl-stat-card');
+  let animated = false;
+ 
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !animated) {
+        animated = true;
+        cards.forEach(card => {
+          card.classList.add('rl-visible');
+          animateCard(card);
+        });
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.25 });
+ 
+  const section = document.querySelector('.rl-stats-section');
+  if (section) observer.observe(section);
+})();
+</script>
+
+<script>
+(function () {
+  const track = document.getElementById('rlCarouselTrack');
+  const wrap  = document.getElementById('rlCarouselWrap');
+  if (!track || !wrap) return;
+ 
+  const GAP      = 48;   // must match CSS gap
+  const STEP_MS  = 2200; // pause between steps
+  const ANIM_MS  = 650;  // slide duration
+ 
+  // ── 1. Clone items before + after for infinite feel ──
+  const originals = Array.from(track.children);
+  const total     = originals.length;
+ 
+  // Prepend clones (last N items) so we can slide "back" seamlessly
+  originals.slice().reverse().forEach(el => {
+    track.insertBefore(el.cloneNode(true), track.firstChild);
+  });
+  // Append clones (first N items)
+  originals.forEach(el => track.appendChild(el.cloneNode(true)));
+ 
+  // ── 2. Helpers ──
+  function itemWidth(index) {
+    return track.children[index].getBoundingClientRect().width;
+  }
+ 
+  function offsetOf(index) {
+    let o = 0;
+    for (let i = 0; i < index; i++) {
+      o += track.children[i].getBoundingClientRect().width + GAP;
+    }
+    return o;
+  }
+ 
+  // Start at position = first real item (index = total, after the prepended clones)
+  let current = total; // points to first real item
+ 
+  function setPos(index, animate) {
+    track.style.transition = animate
+      ? `transform ${ANIM_MS}ms cubic-bezier(0.4,0,0.2,1)`
+      : 'none';
+    track.style.transform = `translateX(-${offsetOf(index)}px)`;
+  }
+ 
+  // ── 3. Step forward ──
+  let timer   = null;
+  let sliding = false;
+ 
+  function step() {
+    if (sliding) return;
+    sliding = true;
+    current++;
+    setPos(current, true);
+ 
+    setTimeout(() => {
+      // If we've slid into the appended-clone zone, silently jump back
+      if (current >= total * 2) {
+        current = total;
+        setPos(current, false);
+      }
+      sliding = false;
+    }, ANIM_MS + 30);
+  }
+ 
+  function start() { if (!timer) timer = setInterval(step, STEP_MS); }
+  function stop()  { clearInterval(timer); timer = null; }
+ 
+  // ── 4. Init ──
+  // Wait one frame so getBoundingClientRect works
+  requestAnimationFrame(() => {
+    setPos(current, false);
+    start();
+  });
+ 
+  // Pause on hover
+  wrap.addEventListener('mouseenter', stop);
+  wrap.addEventListener('mouseleave', start);
+})();
+</script>
+
+
+<script>
+async function loadBlogs() {
+  try {
+    const STRAPI_URL = "http://localhost:1337";
+    // جلب البيانات مع populate
+    const res = await fetch(`${STRAPI_URL}/api/articles?populate=*` );
+    const json = await res.json();
+
+    const container = document.getElementById("blogGrid");
+    if (!container) return;
+    container.innerHTML = "";
+
+    // نأخذ أول 6 مقالات
+    const blogs = json.data.slice(0, 6);
+
+    blogs.forEach(item => {
+      // استخراج البيانات (دعم Strapi v4 و v5)
+      const id = item.id;
+      const data = item.attributes || item;
+      
+      const title = data.title || "بدون عنوان";
+      const category = data.category || "عام";
+      const slug = data.slug || data.documentId || id;
+
+      // --- الجزء السحري لحل مشكلة الصورة ---
+      let imgUrl = null;
+      
+      if (data.cover_image) {
+          // محاولة 1: Strapi v5 (مباشرة)
+          if (data.cover_image.url) {
+              imgUrl = data.cover_image.url;
+          }
+          // محاولة 2: Strapi v4 (داخل data.attributes)
+          else if (data.cover_image.data && data.cover_image.data.attributes) {
+              imgUrl = data.cover_image.data.attributes.url;
+          }
+          // محاولة 3: (داخل data مباشرة)
+          else if (data.cover_image.data && data.cover_image.data.url) {
+              imgUrl = data.cover_image.data.url;
+          }
+      }
+
+      let imageHTML = "";
+      if (imgUrl) {
+          // بناء الرابط الكامل
+          const fullImgUrl = imgUrl.startsWith('http' ) ? imgUrl : `${STRAPI_URL}${imgUrl}`;
+          imageHTML = `<img src="${fullImgUrl}" alt="${title}" style="width:100%; height:100%; object-fit:cover;">`;
+      } else {
+          imageHTML = `<div class="rl-blog-placeholder">📄</div>`;
+      }
+      // ---------------------------------------
+
+      const card = `
+        <a class="rl-blog-card" href="article.html?slug=${slug}">
+          <div class="rl-blog-img-wrap">
+            ${imageHTML}
+          </div>
+          <div class="rl-blog-body">
+            <span class="rl-blog-category">${category}</span>
+            <div class="rl-blog-title">${title}</div>
+          </div>
+        </a>
+      `;
+
+      container.innerHTML += card;
+    });
+
+  } catch (err) {
+    console.error("حدث خطأ:", err);
+  }
+}
+
+loadBlogs();
+</script>
+
+
+<script>
+const STRAPI_URL = "http://localhost:1337";
+
+async function loadFeaturedDoctors( ) {
+    try {
+        // جلب الأطباء المميزين
+        const res = await fetch(`${STRAPI_URL}/api/doctors?populate=*&filters[featured][$eq]=true`);
+        const json = await res.json();
+        const data = json.data || [];
+
+        const container = document.getElementById("featuredDoctors");
+        if (!container) return;
+
+        container.innerHTML = data.map(item => {
+            const doc = item.attributes || item;
+            const id = item.id;
+            
+            // معالجة الصورة
+            let img = "https://via.placeholder.com/300";
+            if (doc.image?.url ) img = STRAPI_URL + doc.image.url;
+            else if (doc.image?.data?.attributes?.url) img = STRAPI_URL + doc.image.data.attributes.url;
+
+            return `
+                <div class="consultant-card">
+                    <div class="card-main">
+                        <div class="consultant-info">
+                            <h3 class="consultant-name">${doc.name || "دكتور"}</h3>
+                            <span class="specialty-tag">${doc.specialty || ""}</span>
+                            <div class="rating-box">
+                                <span class="rating-value">${doc.rating || 5}</span>
+                                <div class="stars">⭐⭐⭐⭐⭐</div>
+                            </div>
+                            <div class="price-tag">سعر الجلسة: $${doc.session_price || 0}</div>
+                        </div>
+                        <div class="consultant-photo">
+                            <img src="${img}" alt="${doc.name}">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="doctor.html?id=${id}" class="book-now-btn">احجز الآن</a>
+                    </div>
+                </div>
+            `;
+        }).join("");
+
+    } catch (err) {
+        console.error("Error loading featured doctors:", err);
+    }
+}
+
+window.addEventListener("DOMContentLoaded", loadFeaturedDoctors);
+</script>
+
+</body>
+</html>

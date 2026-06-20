@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>قصص النجاح والتقييمات - The Relax</title>
+  <meta name="description" content="قصص نجاح حقيقية وتقييمات مستفيدي منصة The Relax للصحة النفسية" />
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+
+    /* ========================================
+       HERO
+    ======================================== */
+    .stories-hero {
+      background: linear-gradient( #4064f7 60%, white);
+      padding: 130px 20px 70px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .stories-hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: -100px;
+      width: 380px; height: 380px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+    .stories-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; right: -80px;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .stories-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      padding: 6px 22px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 22px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .stories-hero h1 {
+      color: white;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 18px;
+    }
+    .stories-hero h1 span { color: var(--secondary); }
+    .stories-hero p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 36px;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 44px;
+      flex-wrap: wrap;
+    }
+    .hero-stat .num {
+      display: block;
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--secondary);
+    }
+    .hero-stat .lbl {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.75);
+    }
+
+    /* ========================================
+       SECTION HEADER
+    ======================================== */
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .section-header .s-tag {
+      display: inline-block;
+      background: rgba(64,100,247,0.08);
+      color: var(--primary);
+      padding: 5px 18px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .section-header h2 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--foreground);
+      margin-bottom: 10px;
+    }
+    .section-header p {
+      color: var(--gray-500);
+      font-size: 0.95rem;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* ========================================
+       RATING SUMMARY BAR
+    ======================================== */
+    .rating-summary {
+      padding: 60px 20px;
+      background: var(--gray-50);
+    }
+    .rating-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .rating-big {
+      text-align: center;
+    }
+    .rating-big .big-num {
+      font-size: 5.5rem;
+      font-weight: 900;
+      color: var(--primary);
+      line-height: 1;
+      display: block;
+    }
+    .rating-big .stars-row {
+      font-size: 1.6rem;
+      margin: 8px 0;
+      letter-spacing: 2px;
+    }
+    .rating-big .total-count {
+      font-size: 0.88rem;
+      color: var(--gray-500);
+    }
+    .rating-bars { display: flex; flex-direction: column; gap: 12px; }
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .bar-label {
+      font-size: 0.85rem;
+      color: var(--gray-600);
+      font-weight: 600;
+      white-space: nowrap;
+      width: 50px;
+      text-align: left;
+    }
+    .bar-track {
+      flex: 1;
+      height: 10px;
+      background: var(--gray-200);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width 1.2s ease;
+      width: 0;
+    }
+    .bar-pct {
+      font-size: 0.82rem;
+      color: var(--gray-500);
+      width: 36px;
+      text-align: left;
+    }
+
+    /* ========================================
+       FEATURED STORIES
+    ======================================== */
+    .featured-stories {
+      padding: 70px 20px;
+      background: white;
+    }
+    .stories-featured-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .story-featured-card {
+      background: var(--gray-50);
+      border-radius: 24px;
+      padding: 36px 32px;
+      border: 1px solid var(--gray-200);
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .story-featured-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 45px rgba(64,100,247,0.1);
+      border-color: rgba(64,100,247,0.2);
+    }
+    .story-featured-card.highlight {
+      background: linear-gradient(135deg, var(--primary) 0%, #1a2fb5 100%);
+      border-color: transparent;
+      color: white;
+    }
+    .story-featured-card.highlight p { color: rgba(255,255,255,0.88); }
+    .story-featured-card.highlight .story-category { background: rgba(255,255,255,0.18); color: white; }
+    .story-featured-card.highlight .author-name { color: white; }
+    .story-featured-card.highlight .author-since { color: rgba(255,255,255,0.7); }
+    .story-featured-card.highlight .quote-mark { color: rgba(255,255,255,0.25); }
+
+    .story-category {
+      display: inline-block;
+      background: rgba(64,100,247,0.08);
+      color: var(--primary);
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      align-self: flex-start;
+    }
+    .quote-mark {
+      font-size: 4.5rem;
+      line-height: 0.5;
+      color: var(--gray-200);
+      font-family: Georgia, serif;
+      font-weight: 900;
+    }
+    .story-featured-card p {
+      font-size: 0.97rem;
+      color: var(--gray-600);
+      line-height: 1.85;
+      flex: 1;
+    }
+    .story-author-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .author-left { display: flex; align-items: center; gap: 14px; }
+    .author-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      border: 2px solid white;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    .author-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--foreground);
+    }
+    .author-since {
+      font-size: 0.78rem;
+      color: var(--gray-400);
+    }
+    .stars-small { font-size: 0.85rem; }
+
+    /* ========================================
+       REVIEWS GRID
+    ======================================== */
+    .reviews-section {
+      padding: 70px 20px;
+      background: var(--gray-50);
+    }
+
+    /* Filter */
+    .reviews-filter {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 42px;
+    }
+    .rev-tab {
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 2px solid var(--gray-200);
+      background: white;
+      color: var(--gray-600);
+      transition: all 0.25s ease;
+      font-family: 'SST Arabic', 'Cairo', sans-serif;
+    }
+    .rev-tab:hover, .rev-tab.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .review-card {
+      background: white;
+      border-radius: 18px;
+      padding: 26px 24px;
+      border: 1px solid var(--gray-200);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .review-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 36px rgba(64,100,247,0.1);
+    }
+    .review-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .review-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .review-author-info { flex: 1; }
+    .review-author-info .r-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--foreground);
+    }
+    .review-author-info .r-detail {
+      font-size: 0.78rem;
+      color: var(--gray-400);
+    }
+    .review-stars { font-size: 0.82rem; flex-shrink: 0; }
+    .review-service-tag {
+      display: inline-block;
+      background: rgba(64,100,247,0.08);
+      color: var(--primary);
+      padding: 3px 12px;
+      border-radius: 50px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      align-self: flex-start;
+    }
+    .review-card p {
+      font-size: 0.88rem;
+      color: var(--gray-600);
+      line-height: 1.75;
+      flex: 1;
+    }
+    .review-date {
+      font-size: 0.76rem;
+      color: var(--gray-400);
+      border-top: 1px solid var(--gray-100);
+      padding-top: 12px;
+    }
+    .verified-badge {
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .review-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* ========================================
+       VIDEO TESTIMONIALS
+    ======================================== */
+    .video-section {
+      padding: 70px 20px;
+      background: white;
+    }
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .video-card {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .video-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 36px rgba(64,100,247,0.12);
+    }
+    .video-thumb {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .video-thumb.v1 { background: linear-gradient(135deg, #4064f7, #2a3fb5); }
+    .video-thumb.v2 { background: linear-gradient(135deg, #0c8f73, #065f4d); }
+    .video-thumb.v3 { background: linear-gradient(135deg, #7c3aed, #5b21b6); }
+    .play-btn {
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: 3px solid white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      color: white;
+      backdrop-filter: blur(6px);
+      transition: all 0.25s ease;
+    }
+    .video-card:hover .play-btn {
+      background: white;
+      color: var(--primary);
+      transform: scale(1.1);
+    }
+    .video-body {
+      padding: 18px 18px 20px;
+      background: white;
+    }
+    .video-body h4 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--foreground);
+      margin-bottom: 5px;
+    }
+    .video-body span {
+      font-size: 0.8rem;
+      color: var(--gray-400);
+    }
+
+    /* ========================================
+       SPECIALIST RATINGS
+    ======================================== */
+    .specialist-ratings {
+      padding: 70px 20px;
+      background: var(--gray-50);
+    }
+    .specialist-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .spec-card {
+      background: white;
+      border-radius: 20px;
+      padding: 26px 22px;
+      border: 1px solid var(--gray-200);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .spec-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 36px rgba(64,100,247,0.1);
+    }
+    .spec-avatar {
+      width: 68px; height: 68px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.7rem;
+      margin: 0 auto 14px;
+      border: 3px solid white;
+      box-shadow: 0 5px 16px rgba(64,100,247,0.2);
+    }
+    .spec-card h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--foreground);
+      margin-bottom: 4px;
+    }
+    .spec-card .spec-type {
+      font-size: 0.78rem;
+      color: var(--primary);
+      font-weight: 600;
+      background: rgba(64,100,247,0.08);
+      padding: 2px 10px;
+      border-radius: 50px;
+      display: inline-block;
+      margin-bottom: 14px;
+    }
+    .spec-rating-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .spec-rating-row .big-rating {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .spec-sessions {
+      font-size: 0.8rem;
+      color: var(--gray-400);
+      margin-bottom: 14px;
+    }
+    .spec-mini-reviews {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      text-align: right;
+    }
+    .spec-mini-review {
+      background: var(--gray-50);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      color: var(--gray-500);
+      line-height: 1.5;
+      border: 1px solid var(--gray-100);
+    }
+
+    /* ========================================
+       NUMBERS STRIP
+    ======================================== */
+    .impact-strip {
+      background: linear-gradient(135deg, var(--primary) 0%, #1a2fb5 100%);
+      padding: 55px 20px;
+    }
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .impact-item .i-num {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--secondary);
+      display: block;
+    }
+    .impact-item .i-lbl {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* ========================================
+       CTA
+    ======================================== */
+    .stories-cta {
+      padding: 80px 20px;
+      background: white;
+      text-align: center;
+    }
+    .stories-cta h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--foreground);
+      margin-bottom: 14px;
+    }
+    .stories-cta p {
+      color: var(--gray-500);
+      font-size: 1rem;
+      max-width: 500px;
+      margin: 0 auto 32px;
+      line-height: 1.8;
+    }
+    .cta-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cta-btn-primary {
+      background: var(--primary);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-family: 'SST Arabic', 'Cairo', sans-serif;
+    }
+    .cta-btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      color: white;
+    }
+    .cta-btn-outline {
+      background: transparent;
+      color: var(--primary);
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      border: 2px solid var(--primary);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-family: 'SST Arabic', 'Cairo', sans-serif;
+    }
+    .cta-btn-outline:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* ========================================
+       RESPONSIVE
+    ======================================== */
+    @media (max-width: 960px) {
+      .rating-inner { grid-template-columns: 1fr; gap: 36px; }
+      .rating-big { display: flex; align-items: center; gap: 30px; }
+      .stories-featured-grid { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+      .video-grid { grid-template-columns: repeat(2, 1fr); }
+      .specialist-grid { grid-template-columns: repeat(2, 1fr); }
+      .impact-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .reviews-grid { grid-template-columns: 1fr; }
+      .video-grid { grid-template-columns: 1fr; }
+      .specialist-grid { grid-template-columns: 1fr; }
+      .impact-grid { grid-template-columns: repeat(2, 1fr); }
+      .rating-big { flex-direction: column; }
+      .hero-stats { gap: 24px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header>
+    <nav>
+      <div class="logo">
+        <img src="logo.png" alt="The Relax Logo">
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="book.html">المكتبة</a></li>
+        <li><a href="index.html#services">خدماتنا</a></li>
+        <li><a href="serves.html">برامجنا</a></li>
+        <li><a href="about.html">من نحن</a></li>
+        <li><a href="index.html#pricing">الأسعار</a></li>
+      </ul>
+      <div class="nav-buttons">
+        <button class="download-btn" onclick="openModal()">
+          <span>⬇️</span><span>حمل التطبيق</span>
+        </button>
+        <button class="menu-toggle" onclick="toggleMobileMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <ul>
+        <li><a href="index.html" onclick="closeMobileMenu()">الرئيسية</a></li>
+        <li><a href="index.html#services" onclick="closeMobileMenu()">خدماتنا</a></li>
+        <li><a href="serves.html" onclick="closeMobileMenu()">برامجنا</a></li>
+        <li><a href="index.html#pricing" onclick="closeMobileMenu()">الأسعار</a></li>
+        <li><a href="about.html" onclick="closeMobileMenu()">من نحن</a></li>
+      </ul>
+      <button class="mobile-download-btn" onclick="openModal()">تحميل التطبيق</button>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="stories-hero">
+    <div class="stories-hero-content">
+      <span class="hero-badge">💬 آراء حقيقية من مستفيدين حقيقيين</span>
+      <h1>قصص <span>نجاح</span> وتقييمات</h1>
+      <p>رحلات إنسانية حقيقية نحو التعافي والاستقرار النفسي — بأصوات من عاشوها بأنفسهم</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="num">4.9⭐</span>
+          <span class="lbl">متوسط التقييم</span>
+        </div>
+        <div class="hero-stat">
+          <span class="num">+2500</span>
+          <span class="lbl">مستفيد شارك تجربته</span>
+        </div>
+        <div class="hero-stat">
+          <span class="num">98%</span>
+          <span class="lbl">نسبة التوصية</span>
+        </div>
+        <div class="hero-stat">
+          <span class="num">+10</span>
+          <span class="lbl">دولة عربية</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RATING SUMMARY ========== -->
+  <section class="rating-summary">
+    <div class="section-header">
+      <span class="s-tag">📊 ملخص التقييمات</span>
+      <h2>ماذا يقول مستفيدونا؟</h2>
+      <p>أرقام حقيقية من تقييمات موثّقة على المنصة والتطبيق</p>
+    </div>
+    <div class="rating-inner">
+      <div class="rating-big">
+        <span class="big-num">4.9</span>
+        <div class="stars-row">⭐⭐⭐⭐⭐</div>
+        <span class="total-count">من أصل 2,580 تقييم موثّق</span>
+      </div>
+      <div class="rating-bars">
+        <div class="bar-row">
+          <span class="bar-label">5 ⭐</span>
+          <div class="bar-track"><div class="bar-fill" data-width="88%"></div></div>
+          <span class="bar-pct">88%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">4 ⭐</span>
+          <div class="bar-track"><div class="bar-fill" data-width="8%"></div></div>
+          <span class="bar-pct">8%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">3 ⭐</span>
+          <div class="bar-track"><div class="bar-fill" data-width="3%"></div></div>
+          <span class="bar-pct">3%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">2 ⭐</span>
+          <div class="bar-track"><div class="bar-fill" data-width="1%"></div></div>
+          <span class="bar-pct">1%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">1 ⭐</span>
+          <div class="bar-track"><div class="bar-fill" data-width="0.5%"></div></div>
+          <span class="bar-pct">0.5%</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURED STORIES ========== -->
+  <section class="featured-stories">
+    <div class="section-header">
+      <span class="s-tag">✨ قصص مميزة</span>
+      <h2>رحلات غيّرت حياتهم</h2>
+      <p>قصص حقيقية اختارها فريقنا لتكون مصدر إلهام لك</p>
+    </div>
+
+    <div class="stories-featured-grid">
+
+      <div class="story-featured-card highlight">
+        <span class="story-category">قلق واكتئاب</span>
+        <div class="quote-mark">"</div>
+        <p>كنت أعيش في دوامة من الأفكار السلبية لسنوات، وكنت أخجل من طلب المساعدة. لكن بعد أول جلسة مع مختصتي على The Relax، شعرت لأول مرة أن هناك من يفهمني فعلاً. بعد أربعة أشهر، أصبحت أنظر للحياة بعين مختلفة تماماً.</p>
+        <div class="story-author-row">
+          <div class="author-left">
+            <div class="author-avatar">🌸</div>
+            <div>
+              <div class="author-name">نور م.</div>
+              <div class="author-since">مستفيدة منذ 8 أشهر — الأردن</div>
+            </div>
+          </div>
+          <div class="stars-small">⭐⭐⭐⭐⭐</div>
+        </div>
+      </div>
+
+      <div class="story-featured-card">
+        <span class="story-category">إرشاد أسري</span>
+        <div class="quote-mark">"</div>
+        <p>كادت علاقتنا الزوجية تنهار بسبب سوء التواصل والضغوط المتراكمة. بدأنا جلسات الإرشاد الأسري معاً، وتعلمنا كيف نتكلم ونسمع بشكل مختلف. اليوم أنا وزوجي في مكان أفضل بكثير مما كنا عليه حتى في بداية زواجنا.</p>
+        <div class="story-author-row">
+          <div class="author-left">
+            <div class="author-avatar">👨‍👩‍👦</div>
+            <div>
+              <div class="author-name">خالد وسمر ع.</div>
+              <div class="author-since">مستفيدان منذ سنة — السعودية</div>
+            </div>
+          </div>
+          <div class="stars-small">⭐⭐⭐⭐⭐</div>
+        </div>
+      </div>
+
+      <div class="story-featured-card">
+        <span class="story-category">ضغوط العمل</span>
+        <div class="quote-mark">"</div>
+        <p>كنت على وشك ترك وظيفتي بسبب الإرهاق الوظيفي الشديد. بدأت بجلسات أونلاين وهو ما كان يناسبني جداً مع جدولي المزدحم. تعلمت كيف أضع حدوداً صحية وأديرة ضغوطي. الآن أحب عملي مجدداً.</p>
+        <div class="story-author-row">
+          <div class="author-left">
+            <div class="author-avatar">💼</div>
+            <div>
+              <div class="author-name">أحمد ي.</div>
+              <div class="author-since">مستفيد منذ 6 أشهر — الإمارات</div>
+            </div>
+          </div>
+          <div class="stars-small">⭐⭐⭐⭐⭐</div>
+        </div>
+      </div>
+
+      <div class="story-featured-card">
+        <span class="story-category">صحة نفسية للمراهقين</span>
+        <div class="quote-mark">"</div>
+        <p>ابني كان يعاني من القلق الاجتماعي الشديد ويرفض الخروج من غرفته. خلال أربعة أشهر من الجلسات مع مختص متخصص في المراهقين، تحوّل تحولاً كاملاً. اليوم يخرج مع أصدقائه ويشارك في نشاطات المدرسة. لا كلمات تكفي لشكركم.</p>
+        <div class="story-author-row">
+          <div class="author-left">
+            <div class="author-avatar">🌱</div>
+            <div>
+              <div class="author-name">أم محمد</div>
+              <div class="author-since">مستفيدة منذ 5 أشهر — الكويت</div>
+            </div>
+          </div>
+          <div class="stars-small">⭐⭐⭐⭐⭐</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== IMPACT NUMBERS ========== -->
+  <section class="impact-strip">
+    <div class="impact-grid">
+      <div class="impact-item">
+        <span class="i-num" data-target="98.6" data-suffix="%" data-decimal="1">0%</span>
+        <span class="i-lbl">نسبة تحسن العملاء</span>
+      </div>
+      <div class="impact-item">
+        <span class="i-num" data-target="2500" data-suffix="+" data-prefix="">0</span>
+        <span class="i-lbl">مستفيد شارك قصته</span>
+      </div>
+      <div class="impact-item">
+        <span class="i-num" data-target="10000" data-suffix="+" data-prefix="">0</span>
+        <span class="i-lbl">جلسة علاجية</span>
+      </div>
+      <div class="impact-item">
+        <span class="i-num" data-target="4.9" data-suffix="⭐" data-decimal="1">0</span>
+        <span class="i-lbl">متوسط التقييم</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ALL REVIEWS ========== -->
+  <section class="reviews-section">
+    <div class="section-header">
+      <span class="s-tag">💬 التقييمات</span>
+      <h2>ما يقوله مستفيدونا</h2>
+    </div>
+
+    <div class="reviews-filter">
+      <button class="rev-tab active" onclick="filterReviews(this,'all')">الكل</button>
+      <button class="rev-tab" onclick="filterReviews(this,'therapy')">جلسات علاجية</button>
+      <button class="rev-tab" onclick="filterReviews(this,'family')">إرشاد أسري</button>
+      <button class="rev-tab" onclick="filterReviews(this,'courses')">كورسات</button>
+      <button class="rev-tab" onclick="filterReviews(this,'app')">التطبيق</button>
+    </div>
+
+    <div class="reviews-grid">
+
+      <div class="review-card" data-type="therapy">
+        <div class="review-top">
+          <div class="author-left">
+            <div class="review-avatar">😊</div>
+            <div class="review-author-info">
+              <div class="r-name">سارة ع.</div>
+              <div class="r-detail">الأردن • مستفيدة منذ 6 أشهر</div>
+            </div>
+          </div>
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+        <span class="review-service-tag">جلسات علاج نفسي</span>
+        <p>الخصوصية والسهولة في حجز الجلسات جعلت رحلة علاجي مريحة جداً. أنصح كل من يتردد في طلب المساعدة بالبدء الآن.</p>
+        <div class="review-bottom">
+          <span class="review-date">مارس 2025</span>
+          <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> تقييم موثّق</span>
+        </div>
+      </div>
+
+      <div class="review-card" data-type="therapy">
+        <div class="review-top">
+          <div class="author-left">
+            <div class="review-avatar">🙋‍♂️</div>
+            <div class="review-author-info">
+              <div class="r-name">عمر ح.</div>
+              <div class="r-detail">السعودية • مستفيد منذ سنة</div>
+            </div>
+          </div>
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+        <span class="review-service-tag">طب نفسي</span>
+        <p>تطبيق متكامل، من التشخيص إلى الجلسات. شعرت بالأمان والدعم في كل خطوة. الدكتور كان محترفاً ومتفهماً جداً.</p>
+        <div class="review-bottom">
+          <span class="review-date">فبراير 2025</span>
+          <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> تقييم موثّق</span>
+        </div>
+      </div>
+
+      <div class="review-card" data-type="family">
+        <div class="review-top">
+          <div class="author-left">
+            <div class="review-avatar">👩‍👧</div>
+            <div class="review-author-info">
+              <div class="r-name">ريم ن.</div>
+              <div class="r-detail">الإمارات • مستفيدة منذ 8 أشهر</div>
+            </div>
+          </div>
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+        <span class="review-service-tag">إرشاد أسري</span>
+        <p>ساعدتنا جلسات الإرشاد الأسري على حل خلافات كنا نعتقد أنها بلا حل. المختصة كانت متوازنة ومحايدة تماماً.</p>
+        <div class="review-bottom">
+          <span class="review-date">يناير 2025</span>
+          <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> تقييم موثّق</span>
+        </div>
+      </div>
+
+      <div class="review-card" data-type="courses">
+        <div class="review-top">
+          <div class="author-left">
+            <div class="review-avatar">👨‍🎓</div>
+            <div class="review-author-info">
+              <div class="r-name">محمد ق.</div>
+              <div class="r-detail">مصر • مختص نفسي</div>
+            </div>
+          </div>
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+        <span class="review-service-tag">كورس CBT</span>
+        <p>كورس العلاج المعرفي السلوكي كان استثماراً حقيقياً في مسيرتي المهنية. المحتوى علمي ومنظّم ومدربة الكورس متميزة.</p>
+        <div class="review-bottom">
+          <span class="review-date">أبريل 2025</span>
+          <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> تقييم موثّق</span>
+        </div>
+      </div>
+
+      <div class="review-card" data-type="app">
+        <div class="review-top">
+          <div class="author-left">
+            <div class="review-avatar">📱</div>
+            <div class="review-author-info">
+              <div class="r-name">هند ب.</div>
+              <div class="r-detail">الكويت • مستفيدة منذ 3 أشهر</div>
+            </div>
+          </div>
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+        <span class="review-service-tag">التطبيق</span>
+        <p>التطبيق سهل الاستخدام وجميل التصميم. حجز الجلسة لا يأخذ أكثر من دقيقتين، ومنظومة التذكير رائعة.</p>
+        <div class="review-bottom">
+          <span class="review-date">مارس 2025</span>
+          <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> تقييم موثّق</span>
+        </div>
+      </div>
+
+      <div class="review-card" data-type="therapy">
+        <div class="review-top">
+          <div class="author-left">
+            <div class="review-avatar">🌟</div>
+            <div class="review-author-info">
+              <div class="r-name">فيصل م.</div>
+              <div class="r-detail">البحرين • مستفيد منذ سنتين</div>
+            </div>
+          </div>
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+        <span class="review-service-tag">علم نفس إكلينيكي</span>
+        <p>جربت منصات أخرى قبل The Relax لكن الفرق واضح جداً. المختصون هنا متخصصون فعلاً ويتعاملون مع كل حالة بشكل مختلف.</p>
+        <div class="review-bottom">
+          <span class="review-date">فبراير 2025</span>
+          <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> تقييم موثّق</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== VIDEO TESTIMONIALS ========== -->
+  <section class="video-section">
+    <div class="section-header">
+      <span class="s-tag">🎬 شهادات مصوّرة</span>
+      <h2>اسمعها بأصواتهم</h2>
+      <p>مستفيدون شاركوا تجربتهم بالكامل أمام الكاميرا</p>
+    </div>
+
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-thumb v1">
+          <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+        </div>
+        <div class="video-body">
+          <h4>رحلة نور مع القلق الاجتماعي</h4>
+          <span>3:42 دقيقة • 1.2K مشاهدة</span>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb v2">
+          <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+        </div>
+        <div class="video-body">
+          <h4>خالد وسمر: كيف أنقذنا علاقتنا</h4>
+          <span>5:18 دقيقة • 2.4K مشاهدة</span>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb v3">
+          <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+        </div>
+        <div class="video-body">
+          <h4>من الإرهاق الوظيفي إلى الاتزان</h4>
+          <span>4:05 دقيقة • 890 مشاهدة</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SPECIALIST RATINGS ========== -->
+  <section class="specialist-ratings">
+    <div class="section-header">
+      <span class="s-tag">👨‍⚕️ تقييمات المختصين</span>
+      <h2>أعلى المختصين تقييماً</h2>
+      <p>اختر مختصك بناءً على تقييمات حقيقية من مستفيدين</p>
+    </div>
+
+    <div class="specialist-grid">
+      <div class="spec-card">
+        <div class="spec-avatar">👩‍⚕️</div>
+        <h4>Dr. Lina Haddad</h4>
+        <span class="spec-type">علم نفس إكلينيكي</span>
+        <div class="spec-rating-row">
+          <span class="big-rating">5.0</span>
+          <span>⭐⭐⭐⭐⭐</span>
+        </div>
+        <div class="spec-sessions">+320 جلسة مكتملة</div>
+        <div class="spec-mini-reviews">
+          <div class="spec-mini-review">"متفهمة جداً وتجعلك تشعر بالأمان منذ اللحظة الأولى"</div>
+          <div class="spec-mini-review">"أفضل مختصة تعاملت معها في حياتي"</div>
+        </div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-avatar">👨‍⚕️</div>
+        <h4>Dr. Ahmad Hamed</h4>
+        <span class="spec-type">طب نفسي</span>
+        <div class="spec-rating-row">
+          <span class="big-rating">4.9</span>
+          <span>⭐⭐⭐⭐⭐</span>
+        </div>
+        <div class="spec-sessions">+280 جلسة مكتملة</div>
+        <div class="spec-mini-reviews">
+          <div class="spec-mini-review">"دقيق في التشخيص ويشرح كل شيء بوضوح"</div>
+          <div class="spec-mini-review">"محترف جداً وأشعر بتحسن ملحوظ بعد كل جلسة"</div>
+        </div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-avatar">👩‍💼</div>
+        <h4>Mr. Batool Alobeid</h4>
+        <span class="spec-type">إرشاد أسري</span>
+        <div class="spec-rating-row">
+          <span class="big-rating">4.8</span>
+          <span>⭐⭐⭐⭐⭐</span>
+        </div>
+        <div class="spec-sessions">+210 جلسة مكتملة</div>
+        <div class="spec-mini-reviews">
+          <div class="spec-mini-review">"غيّرت نظرتنا للعلاقات الأسرية بالكامل"</div>
+          <div class="spec-mini-review">"محايدة تماماً وتتعامل مع الجميع باحترام"</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="stories-cta">
+    <h2>ابدأ رحلتك اليوم</h2>
+    <p>انضم لآلاف المستفيدين الذين غيّروا حياتهم. رحلتك نحو الاستقرار النفسي تبدأ بخطوة واحدة.</p>
+    <div class="cta-btns">
+      <a href="#" class="cta-btn-primary" onclick="openModal(); return false;">
+        ابدأ رحلتك الآن <i class="fa-solid fa-arrow-left"></i>
+      </a>
+      <a href="index.html#services" class="cta-btn-outline">
+        استكشف خدماتنا <i class="fa-solid fa-chevron-left"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="rl-footer">
+    <div class="container">
+      <div class="rl-footer-hero">
+        <h2>انضم إلى آلاف المستفيدين <span>الذين بدأوا رحلتهم مع The Relax</span></h2>
+      </div>
+      <div class="rl-footer-main">
+        <div class="footer-col">
+          <h3 class="rl-footer-col-title">عن The Relax</h3>
+          <p>منصتك الأولى للصحة النفسية في الوطن العربي. نوفر جلسات علاج نفسي أونلاين مع أخصائيين معتمدين.</p>
+        </div>
+        <div class="footer-col">
+          <h3 class="rl-footer-col-title">روابط سريعة</h3>
+          <ul class="rl-footer-links">
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="index.html#services">خدماتنا</a></li>
+            <li><a href="serves.html">برامجنا</a></li>
+            <li><a href="index.html#pricing">الأسعار</a></li>
+            <li><a href="about.html">من نحن</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3 class="rl-footer-col-title">تواصل معنا</h3>
+          <div class="rl-footer-contact">
+            <a href="mailto:info@therelax.com" class="rl-footer-contact-item">
+              <span>📧</span> info@therelax.com
+            </a>
+            <a href="tel:+966123456789" class="rl-footer-contact-item">
+              <span>📞</span> +966 123 456 789
+            </a>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;padding:30px 0;border-top:1px solid rgba(255,255,255,0.2);margin-top:30px;color:rgba(255,255,255,0.7);">
+        <p>&copy; 2024 The Relax. جميع الحقوق محفوظة.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="appModal" onclick="closeOnOverlay(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-logo"><img src="logo.png" alt="The Relax"></div>
+      <h2 class="modal-title">حمّل التطبيق الآن</h2>
+      <p class="modal-desc">ابدأ رحلتك نحو الصحة النفسية الآن.<br>حمّل التطبيق من <span>Google Play</span> أو <span>App Store</span>.</p>
+      <div class="modal-btns">
+        <a class="store-btn google" href="https://play.google.com/store/apps/details?id=co.therelax.patient" target="_blank" rel="noopener">
+          <span class="store-btn-icon">▶</span>
+          <span class="store-btn-text">
+            <span class="store-btn-small">متوفر على</span>
+            <span class="store-btn-big">Google Play</span>
+          </span>
+        </a>
+        <a class="store-btn apple" href="https://apps.apple.com/qa/app/therelax/id6739005130?l=ar" target="_blank" rel="noopener">
+          <span class="store-btn-icon"></span>
+          <span class="store-btn-text">
+            <span class="store-btn-small">Download on the</span>
+            <span class="store-btn-big">App Store</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Header
+    function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('active'); }
+    function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('active'); }
+    function openModal() { document.getElementById('appModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeModal() { document.getElementById('appModal').classList.remove('active'); document.body.style.overflow = 'auto'; }
+    function closeOnOverlay(e) { if (e.target.id === 'appModal') closeModal(); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // Reviews filter
+    function filterReviews(btn, type) {
+      document.querySelectorAll('.rev-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.review-card').forEach(card => {
+        const t = card.dataset.type || '';
+        card.style.display = (type === 'all' || t === type) ? 'flex' : 'none';
+      });
+    }
+
+    // Animate rating bars on scroll
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.bar-fill').forEach(bar => {
+            bar.style.width = bar.dataset.width;
+          });
+          barObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    const ratingSection = document.querySelector('.rating-summary');
+    if (ratingSection) barObserver.observe(ratingSection);
+
+    // Counter animation
+    function animateCounter(el) {
+      const target = parseFloat(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const decimal = parseInt(el.dataset.decimal) || 0;
+      const duration = 1800;
+      const start = performance.now();
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const val = eased * target;
+        el.textContent = (decimal ? val.toFixed(decimal) : Math.floor(val).toLocaleString('en-US')) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('[data-target]').forEach(el => animateCounter(el));
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    const impactStrip = document.querySelector('.impact-strip');
+    if (impactStrip) counterObserver.observe(impactStrip);
+
+    // Scroll animations
+    const scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.story-featured-card, .review-card, .video-card, .spec-card').forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(28px)';
+      el.style.transition = `opacity 0.5s ease ${i * 0.07}s, transform 0.5s ease ${i * 0.07}s`;
+      scrollObserver.observe(el);
+    });
+  </script>
+
+</body>
+</html>

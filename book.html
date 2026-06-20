@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة الاسترخاء النفسي - The Relax</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4064f7;
+            --secondary: #e19832;
+            --background: #ffffff;
+            --foreground: #333333;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            background-color: var(--primary);
+            border-bottom: 2px solid white;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo img {
+             width: 80px;
+             height: auto;
+        }
+
+
+        .nav-links {
+            display: none;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            color: var(--secondary);
+        }
+
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .download-btn {
+            font-family: SST ARABIC;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 15px;
+            background: white;
+            color: #000;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+                @media (min-width: 640px) {
+            .download-btn {
+                display: flex;
+            }
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            color: #e19832;
+            opacity: 0.9;
+        }
+
+        .menu-toggle {
+            display: block;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.75rem;
+            cursor: pointer;
+        }
+
+        @media (min-width: 768px) {
+            .menu-toggle {
+                display: none;
+            }
+        }
+
+        .mobile-menu {
+            display: none;
+            background-color: var(--primary);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--secondary);
+        }
+
+        .mobile-download-btn {
+            width: 100%;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .mobile-download-btn:hover {
+            background-color: #c9862b;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 100px;
+            padding-bottom: 3rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+            margin-top: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        @media (min-width: 640px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+
+        .hero p {
+            color: var(--gray-600);
+            font-size: 1rem;
+            max-width: 42rem;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        @media (min-width: 640px) {
+            .hero p {
+                font-size: 1.125rem;
+            }
+        }
+
+        /* Search & Sort */
+        .search-sort {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .search-sort {
+                flex-direction: row;
+            }
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+            flex: 1;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            font-size: 1.25rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding-right: 3rem;
+            padding-left: 1rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            border-radius: 1rem;
+            border: 2px solid var(--gray-100);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .sort-buttons {
+            display: flex;
+            gap: 0.5rem;
+            width: 100%;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .sort-buttons {
+                width: auto;
+            }
+        }
+
+        .sort-btn {
+            white-space: nowrap;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: bold;
+            border: 2px solid;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: white;
+            color: var(--gray-600);
+            border-color: var(--gray-100);
+        }
+
+        .sort-btn:hover {
+            border-color: var(--gray-200);
+        }
+
+        .sort-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Categories */
+        .categories-section {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .categories-container {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding: 0.5rem;
+            scroll-behavior: smooth;
+        }
+
+        .categories-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-btn {
+            white-space: nowrap;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: var(--gray-50);
+            color: var(--gray-600);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .category-btn:hover {
+            background-color: var(--gray-100);
+        }
+
+        .category-btn.active {
+            background-color: var(--secondary);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 0.5rem;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: none;
+        }
+
+        @media (min-width: 640px) {
+            .scroll-btn {
+                display: block;
+            }
+        }
+
+        .categories-section:hover .scroll-btn {
+            opacity: 1;
+        }
+
+        .scroll-btn:hover {
+            background-color: white;
+        }
+
+        .scroll-left {
+            left: 0;
+        }
+
+        .scroll-right {
+            right: 0;
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        @media (min-width: 640px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Card */
+        .card {
+            background-color: white;
+            border-radius: 1.875rem;
+            overflow: hidden;
+            border: 1px solid var(--gray-100);
+            box-shadow: var(--shadow-xl);
+            transition: box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-xl);
+        }
+
+        .card-image {
+            position: relative;
+            height: 14rem;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-category {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 0.375rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--foreground);
+            margin-bottom: 0.75rem;
+            line-height: 1.25;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            transition: color 0.3s ease;
+        }
+
+        .card:hover .card-title {
+            color: var(--primary);
+        }
+
+        .card-excerpt {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-50);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--gray-400);
+            font-size: 0.75rem;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .read-more {
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: text-decoration 0.3s ease;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* CTA Section */
+        .cta {
+            background-color: var(--primary);
+            border-radius: 2.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            margin-top: 5rem;
+        }
+
+        @media (min-width: 640px) {
+            .cta {
+                padding: 3rem;
+            }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .cta h2 {
+            font-size: 1.875rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .cta h2 {
+                font-size: 2.25rem;
+            }
+        }
+
+        .cta p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2.5rem;
+            font-size: 1.125rem;
+            max-width: 42rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-btn {
+            background-color: white;
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            border-radius: 1rem;
+            border: none;
+            font-weight: 900;
+            font-size: 1.25rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-xl);
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background-color: var(--gray-50);
+            transform: translateY(-4px);
+        }
+
+        .cta-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .cta-circle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: white;
+            filter: blur(3rem);
+        }
+
+        .cta-circle-1 {
+            width: 16rem;
+            height: 16rem;
+            top: -6rem;
+            left: -6rem;
+        }
+
+        .cta-circle-2 {
+            width: 16rem;
+            height: 16rem;
+            bottom: -6rem;
+            right: -6rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--gray-50);
+            border-top: 1px solid var(--gray-100);
+            padding: 3rem 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                text-align: right;
+            }
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .footer-text {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--gray-400);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Utilities */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+         .rl-footer {
+    font-family: 'Cairo', sans-serif;
+    direction: rtl;
+    background: linear-gradient(180deg, #ffffff , #4064f7 50%);
+    color: #fff;
+    padding: 0;
+    overflow: hidden;
+  }
+ 
+  /* ── Hero strip ── */
+  .rl-footer-hero {
+    text-align: center;
+    padding: 52px 20px 44px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+  }
+ 
+  .rl-footer-hero h2 {
+    font-size: clamp(1.6rem, 5vw, 2.6rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.3;
+  }
+ 
+  .rl-footer-hero h2 span {
+    color: #e19832;
+  }
+ 
+  /* ── Main footer columns ── */
+  .rl-footer-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.4fr;
+    gap: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 44px 28px 40px;
+  }
+ 
+  .rl-footer-col-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+ 
+  .rl-footer-col-title::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: rgba(255,255,255,0.35);
+    border-radius: 2px;
+  }
+ 
+  /* Quick links */
+  .rl-footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+ 
+  .rl-footer-links li a {
+    color: rgba(255,255,255,0.88);
+    text-decoration: none;
+    font-size: .9rem;
+    font-weight: 600;
+    transition: color 0.2s, padding-right 0.2s;
+    display: inline-block;
+  }
+ 
+  .rl-footer-links li a:hover {
+    color: #e19832;
+    padding-right: 5px;
+  }
+ 
+  /* Services links (middle col) */
+  .rl-footer-services {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+ 
+  .rl-footer-services li a {
+    color: rgba(255,255,255,0.88);
+    text-decoration: none;
+    font-size: .9rem;
+    font-weight: 600;
+    transition: color 0.2s, padding-right 0.2s;
+    display: inline-block;
+  }
+ 
+  .rl-footer-services li a:hover {
+    color: #e19832;
+    padding-right: 5px;
+  }
+ 
+  /* Contact col */
+  .rl-footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+  }
+ 
+  .rl-footer-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: .9rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+ 
+  .rl-footer-contact-item:hover { color: #e19832; }
+ 
+  .rl-contact-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+ 
+  /* CTA button */
+  .rl-footer-cta {
+    margin-top: 6px;
+  }
+ 
+  .rl-footer-btn {
+    display: inline-block;
+    background: #fff;
+    color: #3578d4;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: .95rem;
+    padding: 11px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    margin-bottom: 18px;
+    display: inline-block;
+  }
+ 
+  .rl-footer-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+  }
+ 
+  /* Store badges */
+  .rl-store-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+ 
+  .rl-store-badge {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.4);
+    border-radius: 10px;
+    padding: 7px 14px;
+    text-decoration: none;
+    color: #fff;
+    font-size: .78rem;
+    font-weight: 700;
+    transition: background 0.25s, transform 0.25s;
+  }
+ 
+  .rl-store-badge:hover {
+    background: rgba(255,255,255,0.28);
+    transform: translateY(-2px);
+  }
+ 
+  .rl-store-badge-icon { font-size: 1.3rem; }
+  .rl-store-badge-text small { display: block; font-size: .65rem; font-weight: 600; opacity: .85; }
+  .rl-store-badge-text b { font-size: .85rem; }
+ 
+  /* Logo col */
+  .rl-footer-logo-col {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+ 
+  .rl-footer-logo-box {
+    background: rgba(255,255,255,0.18);
+    border-radius: 16px;
+    padding: 14px 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+ 
+  .rl-footer-logo-icon { font-size: 2rem; }
+  .rl-footer-logo-name {
+    font-size: 1.2rem; font-weight: 900; color: #fff; line-height: 1.1;
+  }
+  .rl-footer-logo-sub {
+    font-size: .68rem; font-weight: 600; opacity: .8; display: block;
+  }
+ 
+  /* ── Bottom bar ── */
+  .rl-footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    text-align: center;
+    padding: 16px 20px;
+    font-size: .8rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.75);
+  }
+ 
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .rl-footer-main {
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .rl-footer-logo-col {
+      grid-column: 1 / -1;
+      justify-content: center;
+    }
+  }
+ 
+  @media (max-width: 480px) {
+    .rl-footer-main {
+      grid-template-columns: 1fr;
+      padding: 32px 20px 28px;
+    }
+  }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+              <img src="logo.png" alt="The Relax Logo">
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="#services">خدماتنا</a></li>
+                <li><a href="book.html">مكتبة</a></li>
+                <li><a href="#assessment">تقييم وتشخيص</a></li>
+            </ul>
+
+            <div class="nav-buttons">
+                <button class="download-btn" onclick="downloadApp()">
+                    <span>⬇️</span>
+                    <span>حمل التطبيق</span>
+                </button>
+                <button class="menu-toggle" onclick="toggleMobileMenu()">☰</button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="book.html">المكتبة</a></li>
+        <li><a href="index.html#services" onclick="closeMobileMenu()">خدماتنا</a></li>
+        <li><a href="serves.html">برامجنا</a></li>
+        <li><a href="about.html">من نحن</a></li>
+        <li><a href="#pricing">الأسعار</a></li>
+            </ul>
+            <button class="mobile-download-btn" onclick="downloadApp()">تحميل التطبيق</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1>استكشف عالمك النفسي</h1>
+                <p>مقالات وأدوات تساعدك على فهم نفسك وبناء حياة أكثر توازناً وسعادة.</p>
+            </section>
+
+            <!-- Search & Sort -->
+            <div class="search-sort">
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input 
+                        type="text" 
+                        class="search-input" 
+                        id="searchInput" 
+                        placeholder="ابحث عن مقال..."
+                        onkeyup="filterPosts()"
+                    >
+                </div>
+                <div class="sort-buttons">
+                    <button class="sort-btn active" onclick="setSortBy('newest')">الأحدث</button>
+                    <button class="sort-btn" onclick="setSortBy('oldest')">الأقدم</button>
+                    <button class="sort-btn" onclick="setSortBy('original')">الأساسي</button>
+                </div>
+            </div>
+
+            <!-- Categories -->
+            <section class="categories-section">
+                <button class="scroll-btn scroll-left" onclick="scrollCategories('left')">←</button>
+                <div class="categories-container no-scrollbar" id="categoriesContainer">
+                    <!-- Categories will be inserted here -->
+                </div>
+                <button class="scroll-btn scroll-right" onclick="scrollCategories('right')">→</button>
+            </section>
+
+            <!-- Grid -->
+            <div class="grid" id="postsGrid">
+                <!-- Posts will be inserted here -->
+            </div>
+
+            <!-- CTA Section -->
+            <section class="cta">
+                <div class="cta-content">
+                    <h2>ابدأ رحلتك اليوم</h2>
+                    <p>حمل التطبيق الآن واحصل على وصول غير محدود للمقالات، التمارين، والاستشارات المتخصصة.</p>
+                    <button class="cta-btn" onclick="downloadApp()">حمل التطبيق وابدأ رحلتك</button>
+                </div>
+                <div class="cta-bg">
+                    <div class="cta-circle cta-circle-1"></div>
+                    <div class="cta-circle cta-circle-2"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+<footer class="rl-footer">
+ 
+  <!-- Hero strip -->
+  <div class="rl-footer-hero">
+    <h2><span>The Relax</span> انها بداية جديدة انها</h2>
+  </div>
+ 
+  <!-- Main columns -->
+  <div class="rl-footer-main">
+ 
+    <!-- Col 1: Quick links -->
+    <div>
+      <div class="rl-footer-col-title">روابط سريعة</div>
+      <ul class="rl-footer-links">
+        <li><a href="#">صفحة الرئيسية</a></li>
+        <li><a href="#">تقييم و تشخيص</a></li>
+        <li><a href="#">كورسات و ورشات عمل</a></li>
+        <li><a href="#">التقييمات و قصص نجاح</a></li>
+        <li><a href="#">أفضل الاستشاريين</a></li>
+        <li><a href="#">سياسة الخصوصية</a></li>
+        <li><a href="#">سياسة استرداد الأموال</a></li>
+      </ul>
+    </div>
+ 
+    <!-- Col 2: Services -->
+    <div>
+      <div class="rl-footer-col-title">بنا</div>
+      <ul class="rl-footer-services">
+        <li><a href="#">خدماتنا</a></li>
+        <li><a href="#">مكتبة</a></li>
+        <li><a href="#">من نحن</a></li>
+      </ul>
+    </div>
+ 
+    <!-- Col 3: Contact + CTA -->
+    <div>
+      <div class="rl-footer-col-title">اتصل بنا</div>
+      <div class="rl-footer-contact">
+ 
+        <a class="rl-footer-contact-item" href="#">
+          <span class="rl-contact-icon">📍</span>
+          عمّان، الأردن
+        </a>
+ 
+        <a class="rl-footer-contact-item" href="tel:+96278069152">
+          <span class="rl-contact-icon">📞</span>
+          +962 78 962 520 0691
+        </a>
+ 
+        <a class="rl-footer-contact-item" href="mailto:info@therelaxml.com">
+          <span class="rl-contact-icon">✉️</span>
+          info@therelaxml.com
+        </a>
+ 
+        <!-- CTA -->
+        <div class="rl-footer-cta">
+          <a class="rl-footer-btn" href="YOUR_APP_LINK">حمل التطبيق الآن</a>
+          <div class="rl-store-badges">
+            <a class="rl-store-badge"
+               href="https://play.google.com/store/apps/details?id=co.therelax.patient&pcampaignid=web_share"
+               target="_blank" rel="noopener">
+              <span class="rl-store-badge-icon">▶</span>
+              <span class="rl-store-badge-text">
+                <small>Get it on</small>
+                <b>Google Play</b>
+              </span>
+            </a>
+            <a class="rl-store-badge"
+               href="https://apps.apple.com/qa/app/therelax/id6739005130?l=ar"
+               target="_blank" rel="noopener">
+              <span class="rl-store-badge-icon"></span>
+              <span class="rl-store-badge-text">
+                <small>Download on the</small>
+                <b>App Store</b>
+              </span>
+            </a>
+          </div>
+        </div>
+ 
+      </div>
+    </div>
+ 
+  </div>
+ 
+  <!-- Bottom bar -->
+  <div class="rl-footer-bottom">
+    © 2025 The Relax — جميع الحقوق محفوظة
+  </div>
+ 
+</footer>
+
+<script>
+const STRAPI_URL = "http://localhost:1337";
+
+let allPosts = [];
+let categories = ["الكل"];
+
+let activeCategory = "الكل";
+let sortBy = "newest";
+
+// ==========================
+// GET IMAGE
+// ==========================
+function getImg(item) {
+    if (!item) return "https://via.placeholder.com/600x400";
+
+    let url = "";
+
+    if (item.url) url = item.url;
+    else if (item.data?.attributes?.url) url = item.data.attributes.url;
+    else if (item.data?.url) url = item.data.url;
+    else if (item.attributes?.url) url = item.attributes.url;
+
+    if (!url) return "https://via.placeholder.com/600x400";
+
+    return url.startsWith("http") ? url : STRAPI_URL + url;
+}
+
+// ==========================
+// LOAD ARTICLES
+// ==========================
+async function loadArticles() {
+    try {
+        const res = await fetch(
+            `${STRAPI_URL}/api/articles?populate=*&pagination[pageSize]=100&sort=publish_date:desc`
+        );
+
+        const json = await res.json();
+        const data = json.data || [];
+
+        allPosts = data.map(item => {
+            const article = item.attributes || item;
+
+            return {
+                id: item.id,
+                title: article.title || "",
+                excerpt: article.short_description || "",
+                category: article.category || "مقالات",
+                readTime: article.reading_time || 5,
+                views: article.views || 0,
+                date: article.publish_date || "",
+                featured: article.featured || false,
+                slug: article.slug || "",
+                image: getImg(article.cover_image)
+            };
+        });
+
+        // categories
+        const dynamicCategories = [...new Set(allPosts.map(p => p.category))];
+        categories = ["الكل", ...dynamicCategories];
+
+        renderCategories();
+        filterPosts();
+
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+// ==========================
+// RENDER CATEGORIES
+// ==========================
+function renderCategories() {
+    const container = document.getElementById("categoriesContainer");
+
+    container.innerHTML = categories.map(cat => `
+        <button
+            class="category-btn ${cat === activeCategory ? "active" : ""}"
+            onclick="setCategory('${cat}')"
+        >
+            ${cat}
+        </button>
+    `).join("");
+}
+
+// ==========================
+// SET CATEGORY
+// ==========================
+function setCategory(category) {
+    activeCategory = category;
+    renderCategories();
+    filterPosts();
+}
+
+// ==========================
+// SORT
+// ==========================
+function setSortBy(sort) {
+    sortBy = sort;
+
+    document.querySelectorAll(".sort-btn")
+        .forEach(btn => btn.classList.remove("active"));
+
+    event.target.classList.add("active");
+
+    filterPosts();
+}
+
+// ==========================
+// FILTER + SORT
+// ==========================
+function filterPosts() {
+    const search = document.getElementById("searchInput").value.toLowerCase();
+
+    let filtered = allPosts.filter(post => {
+        return (
+            (activeCategory === "الكل" || post.category === activeCategory) &&
+            (post.title.toLowerCase().includes(search) ||
+             post.excerpt.toLowerCase().includes(search))
+        );
+    });
+
+    if (sortBy === "newest") {
+        filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else if (sortBy === "oldest") {
+        filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+    } else if (sortBy === "original") {
+        filtered.sort((a, b) => b.featured - a.featured);
+    }
+
+    renderPosts(filtered);
+}
+
+// ==========================
+// RENDER POSTS
+// ==========================
+function renderPosts(posts) {
+    const grid = document.getElementById("postsGrid");
+
+    if (!posts.length) {
+        grid.innerHTML = "<p style='text-align:center'>لا يوجد مقالات</p>";
+        return;
+    }
+
+    grid.innerHTML = posts.map(post => `
+        <article class="card">
+            <div class="card-image">
+                <img src="${post.image}" alt="${post.title}">
+                <span class="card-category">${post.category}</span>
+            </div>
+
+            <div class="card-content">
+                <h3 class="card-title">${post.title}</h3>
+                <p class="card-excerpt">${post.excerpt}</p>
+
+                <div class="card-footer">
+                    <div class="card-meta">
+                        <span>⏱️ ${post.readTime}</span>
+                        <span>👁️ ${post.views}</span>
+                    </div>
+
+                    <a class="read-more" href="article.html?slug=${post.slug}">
+                        اقرأ المزيد
+                    </a>
+                </div>
+            </div>
+        </article>
+    `).join("");
+}
+
+// ==========================
+// SEARCH INIT
+// ==========================
+document.addEventListener("DOMContentLoaded", loadArticles);
+</script>
+
+</body>
+</html>

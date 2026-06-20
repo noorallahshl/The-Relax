@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>كورسات وورشات عمل - The Relax</title>
+  <meta name="description" content="كورسات وورشات عمل معتمدة في الصحة النفسية من منصة The Relax" />
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+
+    /* ========================================
+       PAGE HERO
+    ======================================== */
+    .courses-hero {
+      background: linear-gradient( #4064f7 60%, white);
+      padding: 130px 20px 70px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .courses-hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: -100px;
+      width: 380px; height: 380px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .courses-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; right: -80px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .courses-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      padding: 6px 22px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 22px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .courses-hero h1 {
+      color: white;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 18px;
+    }
+
+    .courses-hero h1 span {
+      color: var(--secondary);
+    }
+
+    .courses-hero p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 36px;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat .num {
+      display: block;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--secondary);
+    }
+
+    .hero-stat .lbl {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.75);
+    }
+
+    /* ========================================
+       FILTER TABS
+    ======================================== */
+    .filter-section {
+      background: white;
+      padding: 28px 20px;
+      border-bottom: 1px solid var(--gray-200);
+      position: sticky;
+      top: 60px;
+      z-index: 99;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    .filter-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 2px solid var(--gray-200);
+      background: white;
+      color: var(--gray-600);
+      transition: all 0.25s ease;
+      font-family: 'SST Arabic', 'Cairo', sans-serif;
+    }
+
+    .filter-tab:hover,
+    .filter-tab.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .results-count {
+      font-size: 0.88rem;
+      color: var(--gray-500);
+      white-space: nowrap;
+    }
+
+    .results-count span {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* ========================================
+       FEATURED COURSE (كبير في الأعلى)
+    ======================================== */
+    .featured-section {
+      padding: 60px 20px 40px;
+      background: var(--gray-50);
+    }
+
+    .featured-section .sec-title {
+      max-width: 1100px;
+      margin: 0 auto 30px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sec-title h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--foreground);
+    }
+
+    .sec-title .badge-new {
+      background: var(--secondary);
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 50px;
+    }
+
+    .featured-card {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      box-shadow: 0 10px 40px rgba(64,100,247,0.1);
+      border: 1px solid var(--gray-200);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .featured-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(64,100,247,0.15);
+    }
+
+    .featured-img {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 7rem;
+      min-height: 280px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-img::before {
+      content: '';
+      position: absolute;
+      top: -40px; left: -40px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+    }
+
+    .featured-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .featured-body {
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .course-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .tag-pill {
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .tag-pill.type-course { background: rgba(64,100,247,0.1); color: var(--primary); }
+    .tag-pill.type-workshop { background: rgba(12,143,115,0.1); color: var(--accent); }
+    .tag-pill.type-certified { background: rgba(225,152,50,0.12); color: var(--secondary-dark); }
+    .tag-pill.type-live { background: rgba(220,38,38,0.1); color: #dc2626; }
+
+    .featured-body h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--foreground);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .featured-body p {
+      font-size: 0.95rem;
+      color: var(--gray-500);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .course-meta {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.85rem;
+      color: var(--gray-600);
+    }
+
+    .meta-item i {
+      color: var(--primary);
+      font-size: 0.9rem;
+    }
+
+    .course-footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .price-block .old-price {
+      font-size: 0.85rem;
+      color: var(--gray-400);
+      text-decoration: line-through;
+      display: block;
+    }
+
+    .price-block .new-price {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .enroll-btn {
+      background: var(--primary);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'SST Arabic', 'Cairo', sans-serif;
+      text-decoration: none;
+    }
+
+    .enroll-btn:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(225,152,50,0.3);
+      color: white;
+    }
+
+    /* ========================================
+       COURSES GRID
+    ======================================== */
+    .courses-section {
+      padding: 50px 20px 70px;
+      background: white;
+    }
+
+    .courses-section .sec-title {
+      max-width: 1100px;
+      margin: 0 auto 32px;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .course-card {
+      background: white;
+      border-radius: 20px;
+      border: 1px solid var(--gray-200);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .course-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(64,100,247,0.12);
+    }
+
+    .card-img {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-img.color-1 { background: linear-gradient(135deg, #4064f7, #2a3fb5); }
+    .card-img.color-2 { background: linear-gradient(135deg, #0c8f73, #065f4d); }
+    .card-img.color-3 { background: linear-gradient(135deg, #e19832, #b8741a); }
+    .card-img.color-4 { background: linear-gradient(135deg, #7c3aed, #5b21b6); }
+    .card-img.color-5 { background: linear-gradient(135deg, #dc2626, #991b1b); }
+    .card-img.color-6 { background: linear-gradient(135deg, #0891b2, #0e7490); }
+
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: white;
+      color: var(--primary);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 50px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .card-badge.live { color: #dc2626; }
+    .card-badge.workshop { color: var(--accent); }
+
+    .card-body {
+      padding: 22px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .card-body h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--foreground);
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .card-body p {
+      font-size: 0.85rem;
+      color: var(--gray-500);
+      line-height: 1.65;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+
+    .card-meta-row {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .card-divider {
+      height: 1px;
+      background: var(--gray-200);
+      margin-bottom: 16px;
+    }
+
+    .card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-price {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .card-price .free { color: var(--accent); }
+
+    .card-enroll {
+      background: var(--primary);
+      color: white;
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: 'SST Arabic', 'Cairo', sans-serif;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .card-enroll:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
+      color: white;
+    }
+
+    /* ========================================
+       WORKSHOPS SECTION
+    ======================================== */
+    .workshops-section {
+      padding: 60px 20px;
+      background: var(--gray-50);
+    }
+
+    .workshops-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .workshop-card {
+      background: white;
+      border-radius: 20px;
+      padding: 28px 28px;
+      border: 1px solid var(--gray-200);
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .workshop-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 35px rgba(64,100,247,0.1);
+      border-color: rgba(64,100,247,0.2);
+    }
+
+    .workshop-icon-wrap {
+      width: 64px; height: 64px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .ws-blue   { background: rgba(64,100,247,0.1); }
+    .ws-green  { background: rgba(12,143,115,0.1); }
+    .ws-orange { background: rgba(225,152,50,0.1); }
+    .ws-purple { background: rgba(124,58,237,0.1); }
+
+    .workshop-info { flex: 1; }
+
+    .workshop-info h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--foreground);
+      margin-bottom: 6px;
+    }
+
+    .workshop-info p {
+      font-size: 0.88rem;
+      color: var(--gray-500);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+
+    .workshop-info .ws-meta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .ws-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .ws-date {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: rgba(64,100,247,0.08);
+      padding: 4px 12px;
+      border-radius: 50px;
+    }
+
+    .ws-seats {
+      font-size: 0.8rem;
+      color: var(--gray-500);
+    }
+
+    .ws-seats span { color: #dc2626; font-weight: 700; }
+
+    /* ========================================
+       CERTIFICATIONS STRIP
+    ======================================== */
+    .cert-strip {
+      background: linear-gradient(135deg, var(--primary) 0%, #1a2fb5 100%);
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .cert-strip h2 {
+      color: white;
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .cert-strip p {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.95rem;
+      margin-bottom: 32px;
+    }
+
+    .cert-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .cert-badge {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 16px;
+      padding: 16px 24px;
+      text-align: center;
+      color: white;
+      backdrop-filter: blur(10px);
+      transition: background 0.3s ease;
+    }
+
+    .cert-badge:hover { background: rgba(255,255,255,0.2); }
+
+    .cert-badge .cert-icon { font-size: 2rem; display: block; margin-bottom: 6px; }
+    .cert-badge .cert-name { font-size: 0.82rem; font-weight: 700; }
+
+    /* ========================================
+       INSTRUCTOR SECTION
+    ======================================== */
+    .instructors-section {
+      padding: 60px 20px;
+      background: white;
+    }
+
+    .instructors-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .instructor-card {
+      background: var(--gray-50);
+      border-radius: 18px;
+      padding: 24px 18px;
+      text-align: center;
+      border: 1px solid var(--gray-200);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .instructor-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(64,100,247,0.1);
+    }
+
+    .instructor-avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+      margin: 0 auto 14px;
+      border: 3px solid white;
+      box-shadow: 0 4px 14px rgba(64,100,247,0.2);
+    }
+
+    .instructor-card h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--foreground);
+      margin-bottom: 5px;
+    }
+
+    .instructor-card .spec {
+      font-size: 0.78rem;
+      color: var(--primary);
+      font-weight: 600;
+      background: rgba(64,100,247,0.08);
+      padding: 2px 10px;
+      border-radius: 50px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .instructor-card p {
+      font-size: 0.82rem;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+
+    /* ========================================
+       CTA SECTION
+    ======================================== */
+    .courses-cta {
+      padding: 80px 20px;
+      background: var(--gray-50);
+      text-align: center;
+    }
+
+    .courses-cta h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--foreground);
+      margin-bottom: 14px;
+    }
+
+    .courses-cta p {
+      color: var(--gray-500);
+      font-size: 1rem;
+      max-width: 500px;
+      margin: 0 auto 32px;
+      line-height: 1.8;
+    }
+
+    .cta-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn-primary {
+      background: var(--primary);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-family: 'SST Arabic', 'Cairo', sans-serif;
+    }
+
+    .cta-btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      color: white;
+    }
+
+    .cta-btn-outline {
+      background: transparent;
+      color: var(--primary);
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      border: 2px solid var(--primary);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-family: 'SST Arabic', 'Cairo', sans-serif;
+    }
+
+    .cta-btn-outline:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* ========================================
+       SECTION HEADER REUSE
+    ======================================== */
+    .section-header {
+      text-align: center;
+      margin-bottom: 44px;
+    }
+
+    .section-header .s-tag {
+      display: inline-block;
+      background: rgba(64,100,247,0.08);
+      color: var(--primary);
+      padding: 5px 18px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .section-header h2 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--foreground);
+      margin-bottom: 10px;
+    }
+
+    .section-header p {
+      color: var(--gray-500);
+      font-size: 0.95rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ========================================
+       RESPONSIVE
+    ======================================== */
+    @media (max-width: 960px) {
+      .featured-card {
+        grid-template-columns: 1fr;
+      }
+
+      .featured-img { min-height: 200px; }
+
+      .courses-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .instructors-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .courses-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .workshops-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .instructors-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .filter-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-stats {
+        gap: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header>
+    <nav>
+      <div class="logo">
+        <img src="logo.png" alt="The Relax Logo">
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="book.html">المكتبة</a></li>
+        <li><a href="index.html#services">خدماتنا</a></li>
+        <li><a href="serves.html">برامجنا</a></li>
+        <li><a href="about.html">من نحن</a></li>
+        <li><a href="index.html#pricing">الأسعار</a></li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="download-btn" onclick="openModal()">
+          <span>⬇️</span>
+          <span>حمل التطبيق</span>
+        </button>
+        <button class="menu-toggle" onclick="toggleMobileMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <ul>
+        <li><a href="index.html" onclick="closeMobileMenu()">الرئيسية</a></li>
+        <li><a href="index.html#services" onclick="closeMobileMenu()">خدماتنا</a></li>
+        <li><a href="serves.html" onclick="closeMobileMenu()">برامجنا</a></li>
+        <li><a href="index.html#pricing" onclick="closeMobileMenu()">الأسعار</a></li>
+        <li><a href="about.html" onclick="closeMobileMenu()">من نحن</a></li>
+      </ul>
+      <button class="mobile-download-btn" onclick="openModal()">تحميل التطبيق</button>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="courses-hero">
+    <div class="courses-hero-content">
+      <span class="hero-badge">🎓 تعلّم مع الأفضل</span>
+      <h1>كورسات وورشات <span>معتمدة دولياً</span></h1>
+      <p>طور مهاراتك في الصحة النفسية مع نخبة من المختصين المعتمدين وشهادات معترف بها عالمياً</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="num">+30</span>
+          <span class="lbl">كورس ومحتوى</span>
+        </div>
+        <div class="hero-stat">
+          <span class="num">+15</span>
+          <span class="lbl">ورشة عمل</span>
+        </div>
+        <div class="hero-stat">
+          <span class="num">+2000</span>
+          <span class="lbl">متدرب مستفيد</span>
+        </div>
+        <div class="hero-stat">
+          <span class="num">4.9⭐</span>
+          <span class="lbl">متوسط التقييم</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FILTER TABS ========== -->
+  <div class="filter-section">
+    <div class="filter-inner">
+      <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterCourses(this, 'all')">الكل</button>
+        <button class="filter-tab" onclick="filterCourses(this, 'course')">كورسات</button>
+        <button class="filter-tab" onclick="filterCourses(this, 'workshop')">ورشات عمل</button>
+        <button class="filter-tab" onclick="filterCourses(this, 'live')">لايف مباشر</button>
+        <button class="filter-tab" onclick="filterCourses(this, 'certified')">شهادات معتمدة</button>
+      </div>
+      <span class="results-count">عرض <span id="countDisplay">9</span> نتيجة</span>
+    </div>
+  </div>
+
+  <!-- ========== FEATURED COURSE ========== -->
+  <section class="featured-section">
+    <div class="sec-title">
+      <h2>الكورس المميز</h2>
+      <span class="badge-new">جديد</span>
+    </div>
+
+    <div class="featured-card">
+      <div class="featured-img">
+        🧠
+      </div>
+      <div class="featured-body">
+        <div class="course-tags">
+          <span class="tag-pill type-course">كورس</span>
+          <span class="tag-pill type-certified">شهادة معتمدة</span>
+          <span class="tag-pill type-live">لايف مباشر</span>
+        </div>
+        <h3>العلاج المعرفي السلوكي (CBT) — اعتماد من جامعة كامبرج</h3>
+        <p>الكورس الأشمل والأكثر تفصيلاً في العلاج المعرفي السلوكي، مع 3 مستويات، 60 ساعة تدريبية، وشهادة اعتماد دولية من جامعة كامبرج البريطانية العريقة.</p>
+        <div class="course-meta">
+          <span class="meta-item"><i class="fa-solid fa-clock"></i> 60 ساعة / 3 مستويات</span>
+          <span class="meta-item"><i class="fa-solid fa-user-tie"></i> د. سارة الأحمد</span>
+          <span class="meta-item"><i class="fa-solid fa-globe"></i> عربي + إنجليزي</span>
+          <span class="meta-item"><i class="fa-solid fa-users"></i> +500 مسجّل</span>
+        </div>
+        <div class="course-footer-row">
+          <div class="price-block">
+            <span class="old-price">299 دينار</span>
+            <span class="new-price">199 دينار</span>
+          </div>
+          <a href="#" class="enroll-btn" onclick="openModal(); return false;">
+            سجّل الآن <i class="fa-solid fa-arrow-left"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== COURSES GRID ========== -->
+  <section class="courses-section" id="coursesGrid">
+    <div class="sec-title" style="max-width:1100px;margin:0 auto 32px;display:flex;align-items:center;gap:12px;">
+      <h2>جميع الكورسات</h2>
+    </div>
+
+    <div class="courses-grid" id="cardsContainer">
+
+      <!-- Card 1 -->
+      <div class="course-card" data-type="course certified">
+        <div class="card-img color-2">
+          🌿
+          <span class="card-badge">معتمد</span>
+        </div>
+        <div class="card-body">
+          <div class="card-tags">
+            <span class="tag-pill type-course">كورس</span>
+            <span class="tag-pill type-certified">شهادة</span>
+          </div>
+          <h3>العلاج بالقبول والالتزام ACT</h3>
+          <p>تعلّم أحدث أساليب العلاج النفسي وكيفية تطبيقها مع الحالات الصعبة بأسلوب عملي ومبسّط.</p>
+          <div class="card-meta-row">
+            <span class="meta-item"><i class="fa-solid fa-clock"></i> 40 ساعة</span>
+            <span class="meta-item"><i class="fa-solid fa-star" style="color:#e19832"></i> 4.8</span>
+          </div>
+          <div class="card-divider"></div>
+          <div class="card-bottom">
+            <span class="card-price">129 دينار</span>
+            <a href="#" class="card-enroll" onclick="openModal(); return false;">سجّل</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="course-card" data-type="workshop live">
+        <div class="card-img color-3">
+          👨‍👩‍👧
+          <span class="card-badge workshop">ورشة</span>
+        </div>
+        <div class="card-body">
+          <div class="card-tags">
+            <span class="tag-pill type-workshop">ورشة عمل</span>
+            <span class="tag-pill type-live">لايف</span>
+          </div>
+          <h3>الإرشاد الأسري والتواصل الفعّال</h3>
+          <p>ورشة تفاعلية مباشرة لتعلم أساليب حل النزاعات الأسرية وبناء جسور التواصل الصحي.</p>
+          <div class="card-meta-row">
+            <span class="meta-item"><i class="fa-solid fa-calendar"></i> 20 مارس 2025</span>
+            <span class="meta-item"><i class="fa-solid fa-clock"></i> 6 ساعات</span>
+          </div>
+          <div class="card-divider"></div>
+          <div class="card-bottom">
+            <span class="card-price">79 دينار</span>
+            <a href="#" class="card-enroll" onclick="openModal(); return false;">احجز</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="course-card" data-type="course certified">
+        <div class="card-img color-4">
+          🧘
+          <span class="card-badge">معتمد</span>
+        </div>
+        <div class="card-body">
+          <div class="card-tags">
+            <span class="tag-pill type-course">كورس</span>
+            <span class="tag-pill type-certified">شهادة</span>
+          </div>
+          <h3>اليقظة الذهنية والتأمل العلاجي</h3>
+          <p>كورس متكامل في تقنيات اليقظة الذهنية وتطبيقاتها في العلاج النفسي وتحسين الصحة النفسية.</p>
+          <div class="card-meta-row">
+            <span class="meta-item"><i class="fa-solid fa-clock"></i> 25 ساعة</span>
+            <span class="meta-item"><i class="fa-solid fa-star" style="color:#e19832"></i> 4.9</span>
+          </div>
+          <div class="card-divider"></div>
+          <div class="card-bottom">
+            <span class="card-price">99 دينار</span>
+            <a href="#" class="card-enroll" onclick="openModal(); return false;">سجّل</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="course-card" data-type="workshop">
+        <div class="card-img color-1">
+          💬
+          <span class="card-badge workshop">ورشة</span>
+        </div>
+        <div class="card-body">
+          <div class="card-tags">
+            <span class="tag-pill type-workshop">ورشة عمل</span>
+          </div>
+          <h3>مهارات الاستماع الفعّال والتعاطف</h3>
+          <p>ورشة عملية تساعدك على تطوير مهارات الاستماع والتعاطف الضرورية لكل مختص في الصحة النفسية.</p>
+          <div class="card-meta-row">
+            <span class="meta-item"><i class="fa-solid fa-clock"></i> 8 ساعات</span>
+            <span class="meta-item"><i class="fa-solid fa-users"></i> 20 مقعد فقط</span>
+          </div>
+          <div class="card-divider"></div>
+          <div class="card-bottom">
+            <span class="card-price">59 دينار</span>
+            <a href="#" class="card-enroll" onclick="openModal(); return false;">احجز</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="course-card" data-type="course certified">
+        <div class="card-img color-5">
+          🔥
+          <span class="card-badge">مميز</span>
+        </div>
+        <div class="card-body">
+          <div class="card-tags">
+            <span class="tag-pill type-course">كورس</span>
+            <span class="tag-pill type-certified">شهادة</span>
+          </div>
+          <h3>إدارة القلق والاكتئاب — المنهج العلاجي المتكامل</h3>
+          <p>كورس شامل لفهم وعلاج اضطرابات القلق والاكتئاب بأحدث البروتوكولات العلاجية المعتمدة.</p>
+          <div class="card-meta-row">
+            <span class="meta-item"><i class="fa-solid fa-clock"></i> 35 ساعة</span>
+            <span class="meta-item"><i class="fa-solid fa-star" style="color:#e19832"></i> 5.0</span>
+          </div>
+          <div class="card-divider"></div>
+          <div class="card-bottom">
+            <span class="card-price">149 دينار</span>
+            <a href="#" class="card-enroll" onclick="openModal(); return false;">سجّل</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="course-card" data-type="course">
+        <div class="card-img color-6">
+          👶
+        </div>
+        <div class="card-body">
+          <div class="card-tags">
+            <span class="tag-pill type-course">كورس</span>
+          </div>
+          <h3>علم النفس التنموي وصحة الطفل النفسية</h3>
+          <p>فهم مراحل النمو النفسي للأطفال وكيفية التعامل مع المشكلات السلوكية والنفسية الشائعة.</p>
+          <div class="card-meta-row">
+            <span class="meta-item"><i class="fa-solid fa-clock"></i> 30 ساعة</span>
+            <span class="meta-item"><i class="fa-solid fa-star" style="color:#e19832"></i> 4.7</span>
+          </div>
+          <div class="card-divider"></div>
+          <div class="card-bottom">
+            <span class="card-price">109 دينار</span>
+            <a href="#" class="card-enroll" onclick="openModal(); return false;">سجّل</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== WORKSHOPS ========== -->
+  <section class="workshops-section">
+    <div class="section-header">
+      <span class="s-tag">📅 قريباً</span>
+      <h2>ورشات عمل قادمة</h2>
+      <p>سجّل مبكراً وضمن مقعدك قبل امتلاء الأماكن</p>
+    </div>
+
+    <div class="workshops-grid">
+
+      <div class="workshop-card">
+        <div class="workshop-icon-wrap ws-blue">🧠</div>
+        <div class="workshop-info">
+          <h3>ورشة: التشخيص النفسي الدقيق باستخدام DSM-5</h3>
+          <p>ورشة متخصصة للأخصائيين في تطبيق معايير التشخيص الحديثة والتفريق بين الاضطرابات المتشابهة.</p>
+          <div class="ws-meta">
+            <span class="meta-item"><i class="fa-solid fa-calendar"></i> 5 أبريل 2025</span>
+            <span class="meta-item"><i class="fa-solid fa-clock"></i> 9:00 صباحاً</span>
+            <span class="meta-item"><i class="fa-solid fa-video"></i> أونلاين</span>
+          </div>
+          <div class="ws-footer">
+            <span class="ws-date">أبريل 2025</span>
+            <span class="ws-seats">تبقّى <span>8</span> مقاعد فقط</span>
+            <a href="#" class="card-enroll" onclick="openModal(); return false;">احجز الآن</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="workshop-card">
+        <div class="workshop-icon-wrap ws-green">💚</div>
+        <div class="workshop-info">
+          <h3>ورشة: الصحة النفسية في بيئة العمل</h3>
+          <p>كيف تبني بيئة عمل داعمة للصحة النفسية وتتعامل مع الإرهاق الوظيفي وضغوط العمل بفعالية.</p>
+          <div class="ws-meta">
+            <span class="meta-item"><i class="fa-solid fa-calendar"></i> 12 أبريل 2025</span>
+            <span class="meta-item"><i class="fa-solid fa-clock"></i> 6 ساعات</span>
+            <span class="meta-item"><i class="fa-solid fa-location-dot"></i> عمّان + أونلاين</span>
+          </div>
+          <div class="ws-footer">
+            <span class="ws-date">أبريل 2025</span>
+            <span class="ws-seats">تبقّى <span>15</span> مقعداً</span>
+            <a href="#" class="card-enroll" onclick="openModal(); return false;">احجز الآن</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="workshop-card">
+        <div class="workshop-icon-wrap ws-orange">🌙</div>
+        <div class="workshop-info">
+          <h3>ورشة: اضطرابات النوم وعلاجها السلوكي</h3>
+          <p>فهم أنواع اضطرابات النوم وتطبيق بروتوكول العلاج المعرفي السلوكي للأرق CBT-I.</p>
+          <div class="ws-meta">
+            <span class="meta-item"><i class="fa-solid fa-calendar"></i> 19 أبريل 2025</span>
+            <span class="meta-item"><i class="fa-solid fa-clock"></i> 4 ساعات</span>
+            <span class="meta-item"><i class="fa-solid fa-video"></i> أونلاين</span>
+          </div>
+          <div class="ws-footer">
+            <span class="ws-date">أبريل 2025</span>
+            <span class="ws-seats">تبقّى <span>22</span> مقعداً</span>
+            <a href="#" class="card-enroll" onclick="openModal(); return false;">احجز الآن</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="workshop-card">
+        <div class="workshop-icon-wrap ws-purple">✨</div>
+        <div class="workshop-info">
+          <h3>ورشة: مهارات العلاج الجماعي وإدارة المجموعات</h3>
+          <p>تعلّم كيفية تنظيم وإدارة جلسات العلاج الجماعي بكفاءة وفهم ديناميكيات المجموعة.</p>
+          <div class="ws-meta">
+            <span class="meta-item"><i class="fa-solid fa-calendar"></i> 26 أبريل 2025</span>
+            <span class="meta-item"><i class="fa-solid fa-clock"></i> 8 ساعات</span>
+            <span class="meta-item"><i class="fa-solid fa-location-dot"></i> وجاهي — عمّان</span>
+          </div>
+          <div class="ws-footer">
+            <span class="ws-date">أبريل 2025</span>
+            <span class="ws-seats">تبقّى <span>5</span> مقاعد فقط</span>
+            <a href="#" class="card-enroll" onclick="openModal(); return false;">احجز الآن</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== CERTIFICATIONS ========== -->
+  <section class="cert-strip">
+    <h2>شهاداتنا معتمدة دولياً</h2>
+    <p>احصل على شهادة موثّقة ومعترف بها من أبرز المؤسسات الأكاديمية العالمية</p>
+    <div class="cert-logos">
+      <div class="cert-badge">
+        <span class="cert-icon">🏛️</span>
+        <span class="cert-name">جامعة كامبرج</span>
+      </div>
+      <div class="cert-badge">
+        <span class="cert-icon">🇺🇸</span>
+        <span class="cert-name">APA المعهد الأمريكي</span>
+      </div>
+      <div class="cert-badge">
+        <span class="cert-icon">🌍</span>
+        <span class="cert-name">المجلس الدولي</span>
+      </div>
+      <div class="cert-badge">
+        <span class="cert-icon">🎖️</span>
+        <span class="cert-name">اعتماد عربي</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== INSTRUCTORS ========== -->
+  <section class="instructors-section">
+    <div class="section-header">
+      <span class="s-tag">👨‍🏫 المدربون</span>
+      <h2>تعلّم من الأفضل</h2>
+      <p>نخبة من الأخصائيين الأكاديميين والممارسين ذوي الخبرة العملية</p>
+    </div>
+
+    <div class="instructors-grid">
+      <div class="instructor-card">
+        <div class="instructor-avatar"><img src="احمد.png"></div>
+        <h4>د.عمار شلبي</h4>
+        <span class="spec">علاج معرفي سلوكي</span>
+        <p>دكتوراه من جامعة كوتبش، 12 سنة خبرة سريرية وأكاديمية.</p>
+      </div>
+      <div class="instructor-card">
+        <div class="instructor-avatar"><img src="احمد.png"></div>
+        <h4>د.وسام بني حمد</h4>
+        <span class="spec">إرشاد أسري</span>
+        <p>ماجستير إرشاد نفسي، متخصص في الإرشاد الأسري والزواجي.</p>
+      </div>
+      <div class="instructor-card">
+        <div class="instructor-avatar"><img src="احمد.png"></div>
+        <h4>أ. سلام بني عطا</h4>
+        <span class="spec">علم النفس التنموي</span>
+        <p>متخصصة في النمو النفسي للأطفال والمراهقين.</p>
+      </div>
+      <div class="instructor-card">
+        <div class="instructor-avatar"><img src="احمد.png"></div>
+        <h4>د.سجى شلبي</h4>
+        <span class="spec">طب نفسي</span>
+        <p>طبيب نفسي معتمد، خبرة 12 عاماً في العيادة والبحث.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="courses-cta">
+    <h2>ابدأ رحلة التعلم اليوم</h2>
+    <p>سجّل في أي كورس أو ورشة وابدأ فوراً، أو حمّل التطبيق للوصول لكل المحتوى من أي مكان.</p>
+    <div class="cta-btns">
+      <a href="#coursesGrid" class="cta-btn-primary">
+        استعرض الكورسات <i class="fa-solid fa-arrow-left"></i>
+      </a>
+      <a href="#" class="cta-btn-outline" onclick="openModal(); return false;">
+        حمّل التطبيق <i class="fa-solid fa-mobile-screen"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="rl-footer">
+    <div class="container">
+      <div class="rl-footer-hero">
+        <h2>انضم إلى آلاف المستفيدين <span>الذين بدأوا رحلتهم مع The Relax</span></h2>
+      </div>
+      <div class="rl-footer-main">
+        <div class="footer-col">
+          <h3 class="rl-footer-col-title">عن The Relax</h3>
+          <p>منصتك الأولى للصحة النفسية في الوطن العربي. نوفر جلسات علاج نفسي أونلاين مع أخصائيين معتمدين.</p>
+        </div>
+        <div class="footer-col">
+          <h3 class="rl-footer-col-title">روابط سريعة</h3>
+          <ul class="rl-footer-links">
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="index.html#services">خدماتنا</a></li>
+            <li><a href="serves.html">برامجنا</a></li>
+            <li><a href="index.html#pricing">الأسعار</a></li>
+            <li><a href="about.html">من نحن</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3 class="rl-footer-col-title">تواصل معنا</h3>
+          <div class="rl-footer-contact">
+            <a href="mailto:info@therelax.com" class="rl-footer-contact-item">
+              <span>📧</span> info@therelax.com
+            </a>
+            <a href="tel:+966123456789" class="rl-footer-contact-item">
+              <span>📞</span> +966 123 456 789
+            </a>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;padding:30px 0;border-top:1px solid rgba(255,255,255,0.2);margin-top:30px;color:rgba(255,255,255,0.7);">
+        <p>&copy; 2024 The Relax. جميع الحقوق محفوظة.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="appModal" onclick="closeOnOverlay(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-logo"><img src="logo.png" alt="The Relax"></div>
+      <h2 class="modal-title">حمّل التطبيق الآن</h2>
+      <p class="modal-desc">ابدأ رحلتك نحو الصحة النفسية الآن.<br>حمّل التطبيق من <span>Google Play</span> أو <span>App Store</span>.</p>
+      <div class="modal-btns">
+        <a class="store-btn google" href="https://play.google.com/store/apps/details?id=co.therelax.patient" target="_blank" rel="noopener">
+          <span class="store-btn-icon">▶</span>
+          <span class="store-btn-text">
+            <span class="store-btn-small">متوفر على</span>
+            <span class="store-btn-big">Google Play</span>
+          </span>
+        </a>
+        <a class="store-btn apple" href="https://apps.apple.com/qa/app/therelax/id6739005130?l=ar" target="_blank" rel="noopener">
+          <span class="store-btn-icon"></span>
+          <span class="store-btn-text">
+            <span class="store-btn-small">Download on the</span>
+            <span class="store-btn-big">App Store</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('active');
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobileMenu').classList.remove('active');
+    }
+    function openModal() {
+      document.getElementById('appModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      document.getElementById('appModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+    function closeOnOverlay(e) {
+      if (e.target.id === 'appModal') closeModal();
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // Filter
+    function filterCourses(btn, type) {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.course-card');
+      let visible = 0;
+
+      cards.forEach(card => {
+        const types = card.dataset.type || '';
+        if (type === 'all' || types.includes(type)) {
+          card.style.display = 'flex';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      document.getElementById('countDisplay').textContent = visible;
+    }
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.course-card, .workshop-card, .instructor-card, .cert-badge').forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(28px)';
+      el.style.transition = `opacity 0.5s ease ${i * 0.07}s, transform 0.5s ease ${i * 0.07}s`;
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>

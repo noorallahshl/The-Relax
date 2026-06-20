@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>من نحن - The Relax</title>
+  <meta name="description" content="تعرف على منصة The Relax للصحة النفسية والعلاج أونلاين" />
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* ========================= */
+/* PRIVACY POLICY */
+/* ========================= */
+
+.privacy-hero{
+    padding: 180px 20px 120px;
+    background: linear-gradient( #4064f7 60%, white);
+    position: relative;
+    overflow: hidden;
+}
+
+.privacy-hero::before{
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: rgba(255,255,255,.08);
+    border-radius: 50%;
+    top: -200px;
+    left: -150px;
+}
+
+.privacy-hero-content{
+    max-width: 850px;
+    margin: auto;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.privacy-hero-content span{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.15);
+    padding: 12px 22px;
+    border-radius: 50px;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.privacy-hero-content h1{
+    font-size: clamp(2.5rem,5vw,4.5rem);
+    line-height: 1.2;
+    color: white;
+    font-weight: 900;
+    margin-bottom: 25px;
+}
+
+.privacy-hero-content p{
+    color: rgba(255,255,255,.9);
+    font-size: 1.1rem;
+    line-height: 2;
+    max-width: 700px;
+    margin: auto;
+}
+
+.privacy-section{
+    padding: 120px 20px;
+    background: #f8fbff;
+}
+
+.privacy-wrapper{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+    gap: 30px;
+}
+
+.privacy-box{
+    background: white;
+    border-radius: 30px;
+    padding: 40px;
+    transition: .3s;
+    box-shadow: 0 10px 40px rgba(0,0,0,.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.privacy-box::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg,#4064f7,#49ccf0);
+}
+
+.privacy-box:hover{
+    transform: translateY(-10px);
+}
+
+.privacy-icon{
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg,#4064f7,#49ccf0);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 32px;
+    margin-bottom: 25px;
+}
+
+.privacy-box h2{
+    font-size: 1.5rem;
+    margin-bottom: 18px;
+    line-height: 1.4;
+}
+
+.privacy-box p{
+    color: #666;
+    line-height: 2;
+}
+
+.privacy-cta{
+    padding: 120px 20px;
+    background: white;
+}
+
+.privacy-cta-box{
+    max-width: 1000px;
+    margin: auto;
+    background: linear-gradient(135deg,#4064f7,#3556e0);
+    border-radius: 40px;
+    padding: 80px 40px;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.privacy-cta-box::before{
+    content: "";
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: rgba(255,255,255,.05);
+    border-radius: 50%;
+    top: -150px;
+    left: -100px;
+}
+
+.privacy-cta-box h2{
+    font-size: clamp(2rem,4vw,3.5rem);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.privacy-cta-box p{
+    opacity: .9;
+    margin-bottom: 35px;
+    line-height: 2;
+    position: relative;
+    z-index: 2;
+}
+
+.privacy-btn{
+    background: white;
+    color: #4064f7;
+    padding: 16px 38px;
+    border-radius: 18px;
+    display: inline-block;
+    font-weight: 800;
+    transition: .3s;
+    position: relative;
+    z-index: 2;
+}
+
+.privacy-btn:hover{
+    background: #e19832;
+    color: white;
+    transform: translateY(-5px);
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media(max-width:768px){
+
+    .privacy-hero{
+        padding: 150px 20px 90px;
+    }
+
+    .privacy-box{
+        padding: 30px;
+    }
+
+    .privacy-cta-box{
+        padding: 60px 25px;
+    }
+
+}
+  </style>
+</head>
+
+<body>
+
+  <!-- ========== HEADER (نفس الهيدر) ========== -->
+  <header>
+    <nav>
+      <div class="logo">
+        <img src="logo.png" alt="The Relax Logo">
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="book.html">المكتبة</a></li>
+        <li><a href="#services">خدماتنا</a></li>
+        <li><a href="serves.html">برامجنا</a></li>
+        <li><a href="about.html" style="color: var(--secondary);">من نحن</a></li>
+        <li><a href="index.html#pricing">الأسعار</a></li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="download-btn" onclick="openModal()">
+          <span>⬇️</span>
+          <span>حمل التطبيق</span>
+        </button>
+        <button class="menu-toggle" onclick="toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul>
+        <li><a href="index.html" onclick="closeMobileMenu()">الرئيسية</a></li>
+        <li><a href="index.html#services" onclick="closeMobileMenu()">خدماتنا</a></li>
+        <li><a href="serves.html" onclick="closeMobileMenu()">برامجنا</a></li>
+        <li><a href="index.html#pricing" onclick="closeMobileMenu()">الأسعار</a></li>
+        <li><a href="about.html" onclick="closeMobileMenu()">من نحن</a></li>
+      </ul>
+      <button class="mobile-download-btn" onclick="openModal()">تحميل التطبيق</button>
+    </div>
+  </header>
+
+<!-- ========================= -->
+<!-- PRIVACY HERO -->
+<!-- ========================= -->
+
+<section class="privacy-hero">
+
+    <div class="container">
+
+        <div class="privacy-hero-content">
+
+            <span>
+                <i class="fa-solid fa-shield-heart"></i>
+                سياسة الخصوصية
+            </span>
+
+            <h1>
+                خصوصيتك وأمان بياناتك
+                <br>
+                أولوية لدينا
+            </h1>
+
+            <p>
+                في The Relax نلتزم بحماية معلوماتك الشخصية
+                وتوفير تجربة آمنة وموثوقة لجميع المستخدمين.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- PRIVACY CONTENT -->
+<!-- ========================= -->
+
+<section class="privacy-section">
+
+    <div class="container">
+
+        <div class="privacy-wrapper">
+
+            <!-- BOX -->
+            <div class="privacy-box">
+
+                <div class="privacy-icon">
+                    <i class="fa-solid fa-user-lock"></i>
+                </div>
+
+                <h2>
+                    المعلومات التي نقوم بجمعها
+                </h2>
+
+                <p>
+                    قد نقوم بجمع بعض المعلومات الأساسية مثل الاسم،
+                    البريد الإلكتروني، رقم الهاتف، وبيانات الاستخدام
+                    لتحسين تجربة المستخدم داخل المنصة.
+                </p>
+
+            </div>
+
+            <!-- BOX -->
+            <div class="privacy-box">
+
+                <div class="privacy-icon">
+                    <i class="fa-solid fa-database"></i>
+                </div>
+
+                <h2>
+                    كيفية استخدام البيانات
+                </h2>
+
+                <p>
+                    يتم استخدام المعلومات لتقديم الخدمات النفسية،
+                    تحسين جودة المنصة، التواصل مع المستخدمين،
+                    وتطوير التجربة بشكل مستمر.
+                </p>
+
+            </div>
+
+            <!-- BOX -->
+            <div class="privacy-box">
+
+                <div class="privacy-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <h2>
+                    حماية المعلومات
+                </h2>
+
+                <p>
+                    نستخدم تقنيات حماية وأمان متقدمة للحفاظ على
+                    خصوصية بيانات المستخدمين ومنع أي وصول غير مصرح به.
+                </p>
+
+            </div>
+
+            <!-- BOX -->
+            <div class="privacy-box">
+
+                <div class="privacy-icon">
+                    <i class="fa-solid fa-cookie-bite"></i>
+                </div>
+
+                <h2>
+                    ملفات تعريف الارتباط
+                </h2>
+
+                <p>
+                    قد نستخدم ملفات تعريف الارتباط لتحسين الأداء،
+                    تخصيص المحتوى، وتحليل استخدام المنصة بطريقة أفضل.
+                </p>
+
+            </div>
+
+            <!-- BOX -->
+            <div class="privacy-box">
+
+                <div class="privacy-icon">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </div>
+
+                <h2>
+                    مشاركة البيانات
+                </h2>
+
+                <p>
+                    لا نقوم ببيع أو مشاركة بيانات المستخدمين
+                    مع أي جهة خارجية إلا عند الضرورة القانونية
+                    أو لتحسين الخدمة بشكل آمن.
+                </p>
+
+            </div>
+
+            <!-- BOX -->
+            <div class="privacy-box">
+
+                <div class="privacy-icon">
+                    <i class="fa-solid fa-file-circle-check"></i>
+                </div>
+
+                <h2>
+                    موافقة المستخدم
+                </h2>
+
+                <p>
+                    باستخدامك لمنصة The Relax فإنك توافق
+                    على سياسة الخصوصية والشروط الخاصة باستخدام المنصة.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- CTA -->
+<!-- ========================= -->
+
+<section class="privacy-cta">
+
+    <div class="container">
+
+        <div class="privacy-cta-box">
+
+            <h2>
+                لديك أي استفسار حول الخصوصية؟
+            </h2>
+
+            <p>
+                يمكنك التواصل معنا في أي وقت وسنكون سعداء بمساعدتك.
+            </p>
+
+            <a href="#" class="privacy-btn">
+                تواصل معنا
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+  <!-- ========== FOOTER (نفس الفوتر) ========== -->
+  <footer class="rl-footer">
+    <div class="container">
+      <div class="rl-footer-hero">
+        <h2>انضم إلى آلاف المستفيدين <span>الذين بدأوا رحلتهم مع The Relax</span></h2>
+      </div>
+      <div class="rl-footer-main">
+        <div class="footer-col">
+          <h3 class="rl-footer-col-title">عن The Relax</h3>
+          <p>منصتك الأولى للصحة النفسية في الوطن العربي. نوفر جلسات علاج نفسي أونلاين مع أخصائيين معتمدين.</p>
+        </div>
+        <div class="footer-col">
+          <h3 class="rl-footer-col-title">روابط سريعة</h3>
+          <ul class="rl-footer-links">
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="index.html#services">خدماتنا</a></li>
+            <li><a href="serves.html">برامجنا</a></li>
+            <li><a href="index.html#pricing">الأسعار</a></li>
+            <li><a href="about.html">من نحن</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3 class="rl-footer-col-title">تواصل معنا</h3>
+          <div class="rl-footer-contact">
+            <a href="mailto:info@therelax.com" class="rl-footer-contact-item">
+              <span>📧</span> info@therelax.com
+            </a>
+            <a href="tel:+966123456789" class="rl-footer-contact-item">
+              <span>📞</span> +966 123 456 789
+            </a>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.2); margin-top: 30px; color: rgba(255,255,255,0.7);">
+        <p>&copy; 2024 The Relax. جميع الحقوق محفوظة.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- App Download Modal -->
+  <div class="modal-overlay" id="appModal" onclick="closeOnOverlay(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-logo">
+        <img src="logo.png" alt="The Relax">
+      </div>
+      <h2 class="modal-title">حمّل التطبيق الآن</h2>
+      <p class="modal-desc">
+        ابدأ رحلتك نحو الصحة النفسية الآن.<br>
+        حمّل التطبيق من <span>Google Play</span> أو <span>App Store</span>.
+      </p>
+      <div class="modal-btns">
+        <a class="store-btn google"
+          href="https://play.google.com/store/apps/details?id=co.therelax.patient&pcampaignid=web_share"
+          target="_blank" rel="noopener">
+          <span class="store-btn-icon">▶</span>
+          <span class="store-btn-text">
+            <span class="store-btn-small">متوفر على</span>
+            <span class="store-btn-big">Google Play</span>
+          </span>
+        </a>
+        <a class="store-btn apple"
+          href="https://apps.apple.com/qa/app/therelax/id6739005130?l=ar"
+          target="_blank" rel="noopener">
+          <span class="store-btn-icon"></span>
+          <span class="store-btn-text">
+            <span class="store-btn-small">Download on the</span>
+            <span class="store-btn-big">App Store</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('active');
+    }
+
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.remove('active');
+    }
+
+    function openModal() {
+      document.getElementById('appModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('appModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function closeOnOverlay(event) {
+      if (event.target.id === 'appModal') closeModal();
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
+    // Scroll animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.value-card, .team-card, .timeline-content, .vm-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>

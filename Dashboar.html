@@ -1,0 +1,2000 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>لوحة التحكم الكاملة — The Relax</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --primary:#4064f7;--primary-d:#2a3fb5;--primary-l:#e8eeff;
+  --accent:#0c8f73;--accent-l:#e6f7f3;
+  --secondary:#e19832;--secondary-l:#fef9ec;
+  --danger:#e53935;--danger-l:#fce8e8;
+  --warning:#f59e0b;--purple:#7c3aed;--purple-l:#f3eeff;
+  --bg:#f0f2f8;--sidebar-bg:#12152a;--sidebar-w:268px;
+  --card:#fff;--border:#e4e7f0;--text:#1a1a2e;--muted:#7a7e9a;
+  --radius:14px;--shadow:0 2px 18px rgba(64,100,247,.07);
+  --tr:.22s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Cairo','Tajawal',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;font-size:14px;}
+button,input,select,textarea{font-family:inherit;font-size:inherit;}
+a{text-decoration:none;color:inherit;}
+img{max-width:100%;}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-thumb{background:#ccc;border-radius:10px;}
+
+/* ===== SIDEBAR ===== */
+.sidebar{width:var(--sidebar-w);background:var(--sidebar-bg);position:fixed;top:0;right:0;height:100vh;display:flex;flex-direction:column;z-index:200;transition:transform var(--tr);overflow:hidden;}
+.sb-logo{padding:22px 18px 16px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:11px;flex-shrink:0;}
+.sb-logo-mark{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,var(--primary),#2a3fb5);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:white;font-weight:900;flex-shrink:0;box-shadow:0 4px 12px rgba(64,100,247,.4);}
+.sb-logo-text{color:white;font-size:.98rem;font-weight:800;line-height:1.2;}
+.sb-logo-sub{color:rgba(255,255,255,.38);font-size:.65rem;margin-top:1px;}
+.sb-nav{flex:1;overflow-y:auto;padding:10px 0 20px;}
+.sb-nav::-webkit-scrollbar{width:3px;}
+.sb-grp{padding:14px 18px 5px;font-size:.63rem;font-weight:800;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:1.2px;}
+.sb-item{display:flex;align-items:center;gap:11px;padding:10px 18px;cursor:pointer;color:rgba(255,255,255,.5);font-size:.84rem;font-weight:600;position:relative;transition:all var(--tr);border-radius:0;}
+.sb-item:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.9);}
+.sb-item.active{background:linear-gradient(90deg,rgba(64,100,247,.25),rgba(64,100,247,.08));color:white;}
+.sb-item.active::before{content:'';position:absolute;right:0;top:5px;bottom:5px;width:3px;background:var(--primary);border-radius:2px 0 0 2px;}
+.sb-item i{width:17px;text-align:center;font-size:.88rem;opacity:.8;}
+.sb-item.active i{opacity:1;color:var(--primary);}
+.sb-badge{margin-right:auto;background:var(--danger);color:white;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:9px;min-width:18px;text-align:center;}
+.sb-badge.blue{background:var(--primary);}
+.sb-badge.green{background:var(--accent);}
+.sb-footer{padding:14px 18px;border-top:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.3);font-size:.72rem;flex-shrink:0;}
+.sb-save-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#4ade80;margin-left:5px;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+
+/* ===== TOPBAR ===== */
+.topbar{background:white;padding:0 28px;height:60px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 1px 12px rgba(0,0,0,.05);}
+.tb-hamburger{display:none;width:36px;height:36px;border-radius:9px;border:1px solid var(--border);background:white;cursor:pointer;align-items:center;justify-content:center;color:var(--muted);font-size:.9rem;}
+.tb-breadcrumb{flex:1;display:flex;align-items:center;gap:6px;}
+.tb-breadcrumb .bc-home{color:var(--muted);font-size:.8rem;}
+.tb-breadcrumb .bc-sep{color:var(--muted);font-size:.75rem;}
+.tb-breadcrumb .bc-current{font-size:.88rem;font-weight:800;color:var(--text);}
+.tb-right{display:flex;align-items:center;gap:10px;}
+.tb-ico{width:36px;height:36px;border-radius:9px;border:1px solid var(--border);background:white;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.88rem;transition:all var(--tr);position:relative;}
+.tb-ico:hover{background:var(--bg);color:var(--primary);border-color:var(--primary);}
+.tb-ico .notif-dot{position:absolute;top:-3px;left:-3px;width:15px;height:15px;border-radius:50%;background:var(--danger);color:white;font-size:.55rem;display:flex;align-items:center;justify-content:center;border:2px solid white;}
+.tb-preview{background:var(--primary);color:white;padding:8px 16px;border-radius:9px;font-size:.8rem;font-weight:700;border:none;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all var(--tr);}
+.tb-preview:hover{background:var(--primary-d);transform:translateY(-1px);}
+.tb-save-all{background:var(--accent);color:white;padding:8px 16px;border-radius:9px;font-size:.8rem;font-weight:700;border:none;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all var(--tr);}
+.tb-save-all:hover{opacity:.88;transform:translateY(-1px);}
+.tb-user{display:flex;align-items:center;gap:9px;cursor:pointer;padding:5px 10px;border-radius:9px;transition:background var(--tr);}
+.tb-user:hover{background:var(--bg);}
+.tb-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:.9rem;color:white;font-weight:700;}
+.tb-uname{font-size:.82rem;font-weight:800;line-height:1.2;}
+.tb-role{font-size:.65rem;color:var(--muted);}
+
+/* ===== MAIN ===== */
+.main{margin-right:var(--sidebar-w);flex:1;display:flex;flex-direction:column;min-height:100vh;}
+.page{display:none;padding:26px 28px 60px;animation:fadeUp .25s ease;}
+.page.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* ===== COMPONENTS ===== */
+.page-hdr{margin-bottom:22px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.page-hdr-left h1{font-size:1.3rem;font-weight:900;color:var(--text);margin-bottom:3px;}
+.page-hdr-left p{color:var(--muted);font-size:.83rem;}
+.page-hdr-right{display:flex;gap:9px;flex-wrap:wrap;}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+.s-card{background:white;border-radius:var(--radius);padding:18px 16px;border:1px solid var(--border);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:2px;position:relative;overflow:hidden;}
+.s-card::after{content:'';position:absolute;top:0;right:0;left:0;height:3px;border-radius:var(--radius) var(--radius) 0 0;}
+.s-card.blue::after{background:var(--primary);}
+.s-card.green::after{background:var(--accent);}
+.s-card.orange::after{background:var(--secondary);}
+.s-card.red::after{background:var(--danger);}
+.s-card.purple::after{background:var(--purple);}
+.s-lbl{font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.s-val{font-size:1.8rem;font-weight:900;color:var(--text);line-height:1.1;margin:4px 0;}
+.s-sub{font-size:.72rem;color:var(--muted);}
+.s-change{font-size:.72rem;font-weight:700;}
+.s-change.up{color:var(--accent);}
+.s-change.down{color:var(--danger);}
+.s-icon{position:absolute;top:16px;left:16px;width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.s-icon.blue{background:var(--primary-l);color:var(--primary);}
+.s-icon.green{background:var(--accent-l);color:var(--accent);}
+.s-icon.orange{background:var(--secondary-l);color:var(--secondary);}
+.s-icon.red{background:var(--danger-l);color:var(--danger);}
+.s-icon.purple{background:var(--purple-l);color:var(--purple);}
+
+/* CARD */
+.card{background:white;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:18px;overflow:hidden;}
+.card-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.card-head h3{font-size:.92rem;font-weight:800;display:flex;align-items:center;gap:8px;}
+.card-head h3 i{color:var(--primary);}
+.card-body{padding:20px;}
+.card-body.np{padding:0;}
+.card-foot{padding:14px 20px;border-top:1px solid var(--border);background:#fafbff;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+
+/* GRID */
+.fg{display:grid;gap:14px;}
+.fg-2{grid-template-columns:1fr 1fr;}
+.fg-3{grid-template-columns:1fr 1fr 1fr;}
+.fg-4{grid-template-columns:1fr 1fr 1fr 1fr;}
+.fg-1{grid-template-columns:1fr;}
+.col-2{grid-column:span 2;}
+.col-3{grid-column:span 3;}
+
+/* FIELD */
+.f{display:flex;flex-direction:column;gap:5px;}
+.f label{font-size:.74rem;font-weight:800;color:var(--text);display:flex;align-items:center;gap:5px;}
+.f label .req{color:var(--danger);}
+.f input,.f select,.f textarea{padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:.85rem;color:var(--text);background:white;outline:none;transition:border-color var(--tr),box-shadow var(--tr);}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(64,100,247,.08);}
+.f textarea{resize:vertical;min-height:80px;line-height:1.7;}
+.f .hint{font-size:.7rem;color:var(--muted);}
+.f input[type="color"]{height:38px;padding:3px 6px;cursor:pointer;}
+.f input[type="file"]{padding:7px;cursor:pointer;}
+.f input[type="range"]{padding:0;height:5px;cursor:pointer;accent-color:var(--primary);}
+.char-count{font-size:.68rem;color:var(--muted);text-align:left;margin-top:2px;}
+
+/* TOGGLE */
+.tgl-wrap{display:flex;align-items:center;gap:10px;padding:3px 0;}
+.tgl{width:42px;height:22px;border-radius:11px;background:#ddd;position:relative;cursor:pointer;border:none;flex-shrink:0;transition:background .2s;}
+.tgl.on{background:var(--primary);}
+.tgl::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:white;top:3px;right:3px;transition:transform .2s;box-shadow:0 1px 4px rgba(0,0,0,.2);}
+.tgl.on::after{transform:translateX(-20px);}
+.tgl-lbl{font-size:.82rem;font-weight:600;}
+.tgl-lbl .on-txt{color:var(--accent);display:none;}
+.tgl-lbl .off-txt{color:var(--muted);}
+.tgl.on ~ .tgl-lbl .on-txt{display:inline;}
+.tgl.on ~ .tgl-lbl .off-txt{display:none;}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:7px;border:none;cursor:pointer;font-weight:700;border-radius:9px;transition:all var(--tr);font-family:inherit;}
+.btn-p{background:var(--primary);color:white;padding:9px 18px;font-size:.83rem;}
+.btn-p:hover{background:var(--primary-d);transform:translateY(-1px);}
+.btn-g{background:var(--accent);color:white;padding:9px 18px;font-size:.83rem;}
+.btn-g:hover{opacity:.88;transform:translateY(-1px);}
+.btn-o{background:white;color:var(--primary);padding:8px 16px;font-size:.83rem;border:1.5px solid var(--primary);}
+.btn-o:hover{background:var(--primary);color:white;}
+.btn-d{background:var(--danger-l);color:var(--danger);padding:8px 16px;font-size:.83rem;border:1.5px solid rgba(229,57,53,.2);}
+.btn-d:hover{background:var(--danger);color:white;}
+.btn-ghost{background:transparent;color:var(--muted);padding:8px 14px;font-size:.8rem;border:1px solid var(--border);}
+.btn-ghost:hover{border-color:var(--primary);color:var(--primary);}
+.btn-sm{padding:6px 13px;font-size:.76rem;border-radius:7px;}
+.btn-xs{padding:5px 10px;font-size:.72rem;border-radius:6px;}
+.act-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid var(--border);}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+th{background:#f7f8fc;padding:10px 14px;font-size:.72rem;font-weight:800;color:var(--muted);text-align:right;border-bottom:1px solid var(--border);white-space:nowrap;}
+td{padding:11px 14px;font-size:.82rem;border-bottom:1px solid #f4f5f9;vertical-align:middle;}
+tr:hover td{background:#fafbff;}
+tr:last-child td{border-bottom:none;}
+.td-name{font-weight:700;}
+.td-m{color:var(--muted);font-size:.75rem;}
+
+/* BADGE */
+.b{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:50px;font-size:.7rem;font-weight:700;white-space:nowrap;}
+.b-blue{background:var(--primary-l);color:var(--primary);}
+.b-green{background:var(--accent-l);color:var(--accent);}
+.b-orange{background:var(--secondary-l);color:#b8741a;}
+.b-red{background:var(--danger-l);color:var(--danger);}
+.b-purple{background:var(--purple-l);color:var(--purple);}
+.b-gray{background:#f0f0f0;color:#666;}
+
+/* DRAG ITEMS */
+.drag-list{display:flex;flex-direction:column;gap:9px;}
+.drag-item{background:white;border:1.5px solid var(--border);border-radius:12px;padding:12px 15px;display:flex;align-items:center;gap:12px;transition:all var(--tr);}
+.drag-item:hover{border-color:rgba(64,100,247,.3);box-shadow:0 3px 14px rgba(64,100,247,.08);}
+.drag-item.featured{border-color:rgba(225,152,50,.4);background:#fffdf8;}
+.drag-item.pinned{border-color:rgba(64,100,247,.4);background:#f8f9ff;}
+.drag-hnd{color:#d0d0d8;font-size:1rem;cursor:grab;flex-shrink:0;}
+.drag-hnd:active{cursor:grabbing;}
+.drag-thumb{width:48px;height:48px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;overflow:hidden;}
+.drag-thumb img{width:100%;height:100%;object-fit:cover;border-radius:10px;}
+.drag-info{flex:1;min-width:0;}
+.drag-title{font-size:.86rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.drag-sub{font-size:.73rem;color:var(--muted);margin-top:2px;}
+.drag-acts{display:flex;align-items:center;gap:7px;flex-shrink:0;}
+
+/* ICON BUTTONS */
+.ib{width:30px;height:30px;border-radius:7px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.78rem;color:var(--muted);background:white;transition:all .18s;flex-shrink:0;}
+.ib:hover.edit{background:var(--primary-l);color:var(--primary);border-color:rgba(64,100,247,.3);}
+.ib:hover.del{background:var(--danger-l);color:var(--danger);border-color:rgba(229,57,53,.3);}
+.ib:hover.star{background:var(--secondary-l);color:var(--secondary);border-color:rgba(225,152,50,.3);}
+.ib:hover.view{background:var(--accent-l);color:var(--accent);border-color:rgba(12,143,115,.3);}
+.ib:hover.move{background:var(--purple-l);color:var(--purple);border-color:rgba(124,58,237,.3);}
+.ib.starred{background:var(--secondary-l);color:var(--secondary);border-color:rgba(225,152,50,.3);}
+
+/* TABS */
+.tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:20px;overflow-x:auto;}
+.tab{padding:10px 16px;font-size:.84rem;font-weight:700;cursor:pointer;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .2s;}
+.tab.active{color:var(--primary);border-bottom-color:var(--primary);}
+.tab:hover{color:var(--primary);}
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+
+/* SEARCH */
+.srch{display:flex;align-items:center;gap:9px;background:var(--bg);border:1.5px solid var(--border);border-radius:9px;padding:8px 13px;transition:border-color var(--tr);}
+.srch:focus-within{border-color:var(--primary);}
+.srch i{color:var(--muted);font-size:.85rem;}
+.srch input{border:none;background:transparent;outline:none;font-size:.84rem;flex:1;min-width:0;}
+
+/* SORT PILLS */
+.sort-pills{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.sort-pill{padding:5px 13px;border-radius:50px;font-size:.75rem;font-weight:700;cursor:pointer;border:1.5px solid var(--border);background:white;color:var(--muted);transition:all .2s;}
+.sort-pill.active,.sort-pill:hover{background:var(--primary);border-color:var(--primary);color:white;}
+
+/* SECTION DIVIDER */
+.sec-div{display:flex;align-items:center;gap:12px;margin:20px 0 14px;color:var(--muted);font-size:.75rem;font-weight:700;}
+.sec-div::before,.sec-div::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* IMAGE UPLOAD AREA */
+.img-upload{border:2px dashed var(--border);border-radius:12px;padding:28px 20px;text-align:center;cursor:pointer;transition:all var(--tr);position:relative;}
+.img-upload:hover{border-color:var(--primary);background:var(--primary-l);}
+.img-upload input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.img-upload-icon{font-size:2rem;margin-bottom:8px;display:block;}
+.img-upload-text{font-size:.82rem;color:var(--muted);}
+.img-upload-text b{color:var(--primary);}
+.img-preview-wrap{position:relative;display:inline-block;}
+.img-preview-wrap img{width:100%;height:160px;object-fit:cover;border-radius:10px;border:1px solid var(--border);}
+.img-preview-remove{position:absolute;top:-8px;left:-8px;width:22px;height:22px;border-radius:50%;background:var(--danger);color:white;font-size:.65rem;display:flex;align-items:center;justify-content:center;cursor:pointer;border:2px solid white;}
+
+/* CHART BAR */
+.mini-chart{display:flex;align-items:flex-end;gap:5px;height:60px;padding:0 4px;}
+.mini-bar{flex:1;border-radius:4px 4px 0 0;background:var(--primary-l);transition:all .5s;cursor:pointer;}
+.mini-bar:hover{background:var(--primary);opacity:.8;}
+.mini-bar.active{background:var(--primary);}
+
+/* COLOR PICKER */
+.clr-row{display:flex;gap:7px;flex-wrap:wrap;align-items:center;}
+.clr-chip{width:30px;height:30px;border-radius:7px;cursor:pointer;border:3px solid transparent;transition:all .2s;}
+.clr-chip:hover,.clr-chip.active{border-color:var(--text);transform:scale(1.12);}
+
+/* ALERT */
+.alert{padding:12px 16px;border-radius:10px;font-size:.82rem;font-weight:600;display:flex;align-items:center;gap:9px;margin-bottom:14px;}
+.alert-info{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
+.alert-success{background:var(--accent-l);color:var(--accent);border:1px solid rgba(12,143,115,.2);}
+.alert-warn{background:var(--secondary-l);color:#92400e;border:1px solid rgba(225,152,50,.3);}
+.alert-danger{background:var(--danger-l);color:var(--danger);border:1px solid rgba(229,57,53,.2);}
+
+/* TIMELINE */
+.timeline{position:relative;padding-right:28px;}
+.timeline::before{content:'';position:absolute;right:8px;top:0;bottom:0;width:2px;background:var(--border);}
+.tl-item{position:relative;margin-bottom:16px;}
+.tl-dot{position:absolute;right:-25px;top:3px;width:14px;height:14px;border-radius:50%;background:var(--primary);border:2px solid white;box-shadow:0 0 0 3px var(--primary-l);}
+.tl-content{background:var(--bg);border-radius:10px;padding:11px 14px;}
+.tl-time{font-size:.7rem;color:var(--muted);margin-bottom:3px;}
+.tl-text{font-size:.82rem;font-weight:600;}
+
+/* STAR RATING DISPLAY */
+.star-display{display:flex;align-items:center;gap:3px;}
+.star-display i{color:#ddd;font-size:.85rem;}
+.star-display i.lit{color:#f59e0b;}
+
+/* REVIEW CARD */
+.rev-card{background:white;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;}
+.rev-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.rev-user{display:flex;align-items:center;gap:10px;}
+.rev-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:1rem;color:white;flex-shrink:0;}
+.rev-name{font-size:.85rem;font-weight:700;}
+.rev-date{font-size:.7rem;color:var(--muted);}
+.rev-text{font-size:.83rem;color:#444;line-height:1.7;margin-bottom:8px;}
+.rev-actions{display:flex;align-items:center;justify-content:space-between;}
+.rev-verified{font-size:.7rem;color:var(--accent);font-weight:700;display:flex;align-items:center;gap:4px;}
+.rev-sort-type{font-size:.7rem;color:var(--muted);display:flex;align-items:center;gap:4px;}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;display:none;align-items:center;justify-content:center;backdrop-filter:blur(3px);}
+.modal-overlay.show{display:flex;}
+.modal{background:white;border-radius:18px;padding:26px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;animation:modalIn .25s ease;}
+@keyframes modalIn{from{opacity:0;transform:scale(.95);}to{opacity:1;transform:scale(1);}}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.modal-head h3{font-size:1rem;font-weight:800;}
+.modal-close{width:30px;height:30px;border-radius:7px;border:1px solid var(--border);background:white;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:24px;background:#12152a;color:white;padding:12px 18px;border-radius:12px;font-size:.83rem;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:9999;display:flex;align-items:center;gap:10px;transform:translateY(80px);opacity:0;transition:all .3s ease;max-width:360px;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.success .t-icon{color:#4ade80;}
+.toast.error .t-icon{color:#f87171;}
+.toast.warn .t-icon{color:#fbbf24;}
+.t-icon{font-size:1rem;}
+
+/* OVERLAY MOBILE */
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:199;backdrop-filter:blur(2px);}
+.mob-overlay.show{display:block;}
+
+/* SECTION HEADER (reusable) */
+.sh{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
+.sh h2{font-size:1rem;font-weight:800;display:flex;align-items:center;gap:8px;}
+.sh-sub{font-size:.78rem;color:var(--muted);margin-top:2px;}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .fg-4{grid-template-columns:1fr 1fr;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:900px){
+  .fg-3{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:768px){
+  .sidebar{transform:translateX(100%);}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-right:0;}
+  .tb-hamburger{display:flex;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .fg-2{grid-template-columns:1fr;}
+  .fg-3{grid-template-columns:1fr;}
+  .page{padding:16px 14px 60px;}
+}
+@media(max-width:500px){
+  .stats-row{grid-template-columns:1fr;}
+}
+</style>
+
+</head>
+<body>
+
+<div class="mob-overlay" id="mobOverlay" onclick="closeSB()"></div>
+
+<!-- ===================================================
+     SIDEBAR
+=================================================== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-logo">
+    <div class="sb-logo-mark">R</div>
+    <div>
+      <div class="sb-logo-text">The Relax</div>
+      <div class="sb-logo-sub">لوحة التحكم الكاملة</div>
+    </div>
+  </div>
+  <nav class="sb-nav">
+
+    <div class="sb-grp">عام</div>
+    <div class="sb-item active" onclick="go('overview')"><i class="fa-solid fa-chart-pie"></i> نظرة عامة</div>
+    <div class="sb-item" onclick="go('activity')"><i class="fa-solid fa-clock-rotate-left"></i> سجل النشاط</div>
+
+    <div class="sb-grp">الصفحة الرئيسية</div>
+    <div class="sb-item" onclick="go('hero')"><i class="fa-solid fa-wand-magic-sparkles"></i> الهيرو والعنوان</div>
+    <div class="sb-item" onclick="go('services')"><i class="fa-solid fa-briefcase-medical"></i> خدماتنا (4 خدمات)</div>
+    <div class="sb-item" onclick="go('appbanner')"><i class="fa-solid fa-mobile-screen"></i> بنر التطبيق</div>
+    <div class="sb-item" onclick="go('slider')"><i class="fa-solid fa-images"></i> البنر السلايدر</div>
+    <div class="sb-item" onclick="go('programs')"><i class="fa-solid fa-layer-group"></i> برامجنا</div>
+    <div class="sb-item" onclick="go('stats')"><i class="fa-solid fa-chart-bar"></i> إحصائيات الموقع</div>
+    <div class="sb-item" onclick="go('why')"><i class="fa-solid fa-trophy"></i> لماذا The Relax</div>
+    <div class="sb-item" onclick="go('about')"><i class="fa-solid fa-circle-info"></i> من نحن</div>
+    <div class="sb-item" onclick="go('stories')"><i class="fa-solid fa-heart"></i> قصص النجاح</div>
+    <div class="sb-item" onclick="go('trust')"><i class="fa-solid fa-handshake"></i> الذين يثقون بنا</div>
+    <div class="sb-item" onclick="go('pricing')"><i class="fa-solid fa-tags"></i> خطط الأسعار</div>
+    <div class="sb-item" onclick="go('faq')"><i class="fa-solid fa-circle-question"></i> الأسئلة الشائعة</div>
+
+    <div class="sb-grp">المحتوى</div>
+    <div class="sb-item" onclick="go('consultants')"><i class="fa-solid fa-user-doctor"></i> الاستشاريون <span class="sb-badge">8</span></div>
+    <div class="sb-item" onclick="go('courses')"><i class="fa-solid fa-graduation-cap"></i> الكورسات <span class="sb-badge blue">7</span></div>
+    <div class="sb-item" onclick="go('articles')"><i class="fa-solid fa-newspaper"></i> المقالات <span class="sb-badge green">24</span></div>
+    <div class="sb-item" onclick="go('reviews')"><i class="fa-solid fa-star"></i> التقييمات <span class="sb-badge">92</span></div>
+
+    <div class="sb-grp">إعدادات الموقع</div>
+    <div class="sb-item" onclick="go('header')"><i class="fa-solid fa-heading"></i> الهيدر والنافبار</div>
+    <div class="sb-item" onclick="go('footer')"><i class="fa-solid fa-grip-lines"></i> الفوتر</div>
+    <div class="sb-item" onclick="go('colors')"><i class="fa-solid fa-palette"></i> الألوان والثيم</div>
+    <div class="sb-item" onclick="go('seo')"><i class="fa-solid fa-magnifying-glass-chart"></i> SEO والبحث</div>
+    <div class="sb-item" onclick="go('categories')"><i class="fa-solid fa-tags"></i> التصنيفات</div>
+    <div class="sb-item" onclick="go('settings')"><i class="fa-solid fa-gear"></i> الإعدادات العامة</div>
+  </nav>
+  <div class="sb-footer">
+    <span class="sb-save-dot"></span> آخر حفظ: منذ دقيقتين ✓
+  </div>
+</aside>
+<!-- ===================================================
+     TOPBAR + MAIN WRAPPER
+=================================================== -->
+<div class="main">
+<div class="topbar">
+  <button class="tb-hamburger" onclick="openSB()"><i class="fa-solid fa-bars"></i></button>
+  <div class="tb-breadcrumb">
+    <span class="bc-home"><i class="fa-solid fa-house"></i></span>
+    <span class="bc-sep"><i class="fa-solid fa-chevron-left"></i></span>
+    <span class="bc-current" id="tbTitle">نظرة عامة</span>
+  </div>
+  <div class="tb-right">
+    <button class="tb-ico" title="إشعارات"><i class="fa-solid fa-bell"></i><span class="notif-dot">3</span></button>
+    <button class="tb-ico" title="وضع الليل" onclick="toggleDark()"><i class="fa-solid fa-moon"></i></button>
+    <button class="tb-save-all" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i> حفظ الكل</button>
+    <button class="tb-preview" onclick="toast('سيتم فتح الموقع في تبويب جديد','success')"><i class="fa-solid fa-eye"></i> معاينة</button>
+    <div class="tb-user">
+      <div class="tb-avatar">👤</div>
+      <div><div class="tb-uname">المدير</div><div class="tb-role">Super Admin</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE: OVERVIEW
+================================================================ -->
+<div class="page active" id="pg-overview">
+  <div class="page-hdr">
+    <div class="page-hdr-left"><h1>🎛️ نظرة عامة على الموقع</h1><p>ملخص سريع لكل محتوى الموقع وآخر التحديثات</p></div>
+    <div class="page-hdr-right">
+      <button class="btn btn-p btn-sm" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i> حفظ الكل</button>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="s-card blue"><div class="s-icon blue"><i class="fa-solid fa-user-doctor"></i></div><div class="s-lbl">الاستشاريون</div><div class="s-val">8</div><div class="s-change up">↑ 2 هذا الشهر</div></div>
+    <div class="s-card green"><div class="s-icon green"><i class="fa-solid fa-newspaper"></i></div><div class="s-lbl">المقالات</div><div class="s-val">24</div><div class="s-change up">↑ 6 مقالات</div></div>
+    <div class="s-card orange"><div class="s-icon orange"><i class="fa-solid fa-graduation-cap"></i></div><div class="s-lbl">الكورسات</div><div class="s-val">7</div><div class="s-change up">↑ 1 كورس</div></div>
+    <div class="s-card red"><div class="s-icon red"><i class="fa-solid fa-star"></i></div><div class="s-lbl">التقييمات</div><div class="s-val">92</div><div class="s-change up">↑ 14 جديد</div></div>
+  </div>
+
+  <div class="fg fg-2">
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-rocket"></i> إجراءات سريعة</h3></div>
+      <div class="card-body">
+        <div class="fg fg-2" style="gap:9px;">
+          <button class="btn btn-p" style="justify-content:center" onclick="go('consultants')"><i class="fa-solid fa-plus"></i> استشاري جديد</button>
+          <button class="btn btn-g" style="justify-content:center" onclick="go('articles')"><i class="fa-solid fa-plus"></i> مقال جديد</button>
+          <button class="btn btn-o" style="justify-content:center" onclick="go('courses')"><i class="fa-solid fa-plus"></i> كورس جديد</button>
+          <button class="btn btn-ghost" style="justify-content:center" onclick="go('faq')"><i class="fa-solid fa-plus"></i> سؤال شائع</button>
+          <button class="btn btn-ghost" style="justify-content:center" onclick="go('stories')"><i class="fa-solid fa-plus"></i> قصة نجاح</button>
+          <button class="btn btn-ghost" style="justify-content:center" onclick="go('reviews')"><i class="fa-solid fa-plus"></i> تقييم جديد</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-clock-rotate-left"></i> آخر التحديثات</h3></div>
+      <div class="card-body">
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-time">منذ 5 دقائق</div><div class="tl-text">تم تحديث بيانات Dr. Ammar Shalabi</div></div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-time">منذ ساعة</div><div class="tl-text">تم إضافة مقال جديد: "إدارة القلق"</div></div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-time">منذ 3 ساعات</div><div class="tl-text">تقييم جديد من سارة م. — 5 نجوم</div></div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-time">أمس</div><div class="tl-text">تم تفعيل كورس CBT للظهور في الرئيسية</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-map"></i> خريطة أقسام الموقع — اضغط للتعديل</h3></div>
+    <div class="card-body">
+      <div class="fg fg-4" style="gap:10px;">
+        <div class="drag-item" onclick="go('hero')" style="cursor:pointer;"><div class="drag-thumb">✨</div><div class="drag-info"><div class="drag-title">الهيرو</div><div class="drag-sub">عنوان + بحث + CTA</div></div><i class="fa-solid fa-chevron-left" style="color:#ccc;font-size:.7rem;"></i></div>
+        <div class="drag-item" onclick="go('services')" style="cursor:pointer;"><div class="drag-thumb">💼</div><div class="drag-info"><div class="drag-title">الخدمات</div><div class="drag-sub">4 بطاقات</div></div><i class="fa-solid fa-chevron-left" style="color:#ccc;font-size:.7rem;"></i></div>
+        <div class="drag-item" onclick="go('consultants')" style="cursor:pointer;"><div class="drag-thumb">👨‍⚕️</div><div class="drag-info"><div class="drag-title">الاستشاريون</div><div class="drag-sub">8 أخصائيين</div></div><i class="fa-solid fa-chevron-left" style="color:#ccc;font-size:.7rem;"></i></div>
+        <div class="drag-item" onclick="go('courses')" style="cursor:pointer;"><div class="drag-thumb">🎓</div><div class="drag-info"><div class="drag-title">الكورسات</div><div class="drag-sub">7 كورسات</div></div><i class="fa-solid fa-chevron-left" style="color:#ccc;font-size:.7rem;"></i></div>
+        <div class="drag-item" onclick="go('articles')" style="cursor:pointer;"><div class="drag-thumb">📰</div><div class="drag-info"><div class="drag-title">المقالات</div><div class="drag-sub">24 مقال</div></div><i class="fa-solid fa-chevron-left" style="color:#ccc;font-size:.7rem;"></i></div>
+        <div class="drag-item" onclick="go('reviews')" style="cursor:pointer;"><div class="drag-thumb">⭐</div><div class="drag-info"><div class="drag-title">التقييمات</div><div class="drag-sub">92 تقييم</div></div><i class="fa-solid fa-chevron-left" style="color:#ccc;font-size:.7rem;"></i></div>
+        <div class="drag-item" onclick="go('stories')" style="cursor:pointer;"><div class="drag-thumb">💬</div><div class="drag-info"><div class="drag-title">قصص النجاح</div><div class="drag-sub">3 قصص</div></div><i class="fa-solid fa-chevron-left" style="color:#ccc;font-size:.7rem;"></i></div>
+        <div class="drag-item" onclick="go('faq')" style="cursor:pointer;"><div class="drag-thumb">❓</div><div class="drag-info"><div class="drag-title">الأسئلة الشائعة</div><div class="drag-sub">12 سؤال</div></div><i class="fa-solid fa-chevron-left" style="color:#ccc;font-size:.7rem;"></i></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE: HERO
+================================================================ -->
+<div class="page" id="pg-hero">
+  <div class="page-hdr">
+    <div class="page-hdr-left"><h1>✨ الهيرو والعنوان الرئيسي</h1><p>تحكم كامل بكل عناصر القسم الأول</p></div>
+  </div>
+  <div class="alert alert-info"><i class="fa-solid fa-circle-info"></i> أي تغيير هنا يؤثر مباشرة على الشاشة الأولى التي يراها الزوار</div>
+  <div class="fg fg-1">
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-heading"></i> النصوص الرئيسية</h3></div>
+      <div class="card-body fg fg-1" style="gap:14px;">
+        <div class="f">
+          <label>العنوان الرئيسي H1 <span class="req">*</span></label>
+          <input type="text" id="h1" value="منصة متخصصة في الصحة النفسية والعلاج النفسي أونلاين" oninput="cc(this,'h1cc',80)"/>
+          <div class="char-count" id="h1cc">0/80</div>
+        </div>
+        <div class="f">
+          <label>النص التوضيحي (Sub-headline)</label>
+          <textarea id="heroDesc" oninput="cc(this,'hdcc',200)">دعنا نوجد أفضل رحلة لك نحو راحة نفسية واستقرار داخلي، مع نخبة من الأخصائيين المعتمدين.</textarea>
+          <div class="char-count" id="hdcc">0/200</div>
+        </div>
+        <div class="fg fg-2">
+          <div class="f"><label>نص زر الـ CTA الرئيسي</label><input type="text" value="ابدأ رحلتك الآن"/></div>
+          <div class="f"><label>أيقونة الزر (FA class)</label><input type="text" value="fa-arrow-left" placeholder="fa-arrow-left"/></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-magnifying-glass"></i> صندوق البحث</h3></div>
+      <div class="card-body">
+        <div class="fg fg-2">
+          <div class="f"><label>Placeholder البحث</label><input type="text" value="ابحث عن موضوع أو خدمة..."/></div>
+          <div class="f"><label>حالة البحث</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">مفعّل</span><span class="off-txt">موقوف</span></span></div></div>
+          <div class="f"><label>ربط البحث بصفحة المقالات</label><input type="text" value="book.html?q={query}"/></div>
+          <div class="f"><label>بحث فوري (Live Search)</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">مفعّل</span><span class="off-txt">موقوف</span></span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-image"></i> صورة / خلفية الهيرو</h3></div>
+      <div class="card-body">
+        <div class="fg fg-2">
+          <div>
+            <div class="img-upload">
+              <input type="file" accept="image/*"/>
+              <span class="img-upload-icon">🖼️</span>
+              <div class="img-upload-text">اسحب الصورة هنا أو <b>اضغط للرفع</b></div>
+              <div style="font-size:.7rem;color:var(--muted);margin-top:5px;">PNG, JPG, WebP — حد أقصى 2MB</div>
+            </div>
+          </div>
+          <div class="fg fg-1" style="gap:12px;">
+            <div class="f"><label>رابط الصورة الحالية</label><input type="text" value="phones.png"/></div>
+            <div class="f"><label>Alt Text (للـ SEO)</label><input type="text" value="The Relax App Mockup"/></div>
+            <div class="f"><label>موضع الصورة</label><select><option>يسار</option><option selected>يمين</option><option>وسط</option></select></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-sliders"></i> إعدادات متقدمة</h3></div>
+      <div class="card-body">
+        <div class="fg fg-3">
+          <div class="f"><label>لون خلفية الهيرو</label><input type="color" value="#4064f7"/></div>
+          <div class="f"><label>نمط الخلفية</label><select><option>غراديان</option><option>صورة</option><option>لون ثابت</option></select></div>
+          <div class="f"><label>ارتفاع الهيرو (vh)</label><input type="range" min="60" max="100" value="85"/> <span style="font-size:.75rem;color:var(--muted);">85vh</span></div>
+          <div class="f"><label>تأثير الدخول</label><select><option>Fade Up</option><option>Fade In</option><option>Slide Right</option><option>بدون</option></select></div>
+          <div class="f"><label>إظهار إحصائيات سريعة</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">ظاهرة</span><span class="off-txt">مخفية</span></span></div></div>
+          <div class="f"><label>إظهار بحث الهيرو</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">ظاهر</span><span class="off-txt">مخفي</span></span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="act-row"><button class="btn btn-p" onclick="toast('تم حفظ الهيرو ✓','success')"><i class="fa-solid fa-floppy-disk"></i> حفظ</button><button class="btn btn-ghost">معاينة <i class="fa-solid fa-eye"></i></button></div>
+</div>
+
+<!-- ================================================================
+     PAGE: SERVICES
+================================================================ -->
+<div class="page" id="pg-services">
+  <div class="page-hdr"><div class="page-hdr-left"><h1>💼 قسم خدماتنا</h1><p>تعديل بطاقات الخدمات الأربع وعنوان القسم</p></div><div class="page-hdr-right"><button class="btn btn-p btn-sm" onclick="addService()"><i class="fa-solid fa-plus"></i> خدمة جديدة</button></div></div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-heading"></i> عنوان القسم وإعداداته</h3></div>
+    <div class="card-body">
+      <div class="fg fg-3">
+        <div class="f"><label>عنوان القسم</label><input type="text" value="خدماتنا"/></div>
+        <div class="f"><label>عنوان فرعي</label><input type="text" placeholder="اختياري..."/></div>
+        <div class="f"><label>عدد الأعمدة</label><select><option>2</option><option selected>4</option><option>3</option></select></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-grip"></i> بطاقات الخدمات</h3><span style="font-size:.75rem;color:var(--muted);">اسحب لإعادة الترتيب</span></div>
+    <div class="card-body"><div class="drag-list" id="svcList"></div></div>
+    <div class="card-foot"><button class="btn btn-p" onclick="toast('تم حفظ الخدمات ✓','success')"><i class="fa-solid fa-floppy-disk"></i> حفظ</button></div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE: APP BANNER
+================================================================ -->
+<div class="page" id="pg-appbanner">
+  <div class="page-hdr"><div class="page-hdr-left"><h1>📱 بنر تحميل التطبيق</h1><p>القسم الذي يدعو لتحميل التطبيق</p></div></div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-mobile-screen"></i> نصوص البنر</h3></div>
+    <div class="card-body">
+      <div class="fg fg-2">
+        <div class="f"><label>العنوان</label><input type="text" value="حمّل تطبيق The Relax الآن"/></div>
+        <div class="f"><label>النص الفرعي</label><input type="text" value="متاح على iOS و Android مجاناً"/></div>
+        <div class="f"><label>رابط Google Play</label><input type="text" value="https://play.google.com/store/apps/details?id=co.therelax.patient"/></div>
+        <div class="f"><label>رابط App Store</label><input type="text" value="https://apps.apple.com/qa/app/therelax/id6739005130?l=ar"/></div>
+        <div class="f"><label>نص زر Google Play</label><input type="text" value="Get it on Google Play"/></div>
+        <div class="f"><label>نص زر App Store</label><input type="text" value="Download on the App Store"/></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-image"></i> صورة الموكاب</h3></div>
+    <div class="card-body">
+      <div class="fg fg-2">
+        <div class="img-upload"><input type="file" accept="image/*"/><span class="img-upload-icon">📱</span><div class="img-upload-text">ارفع صورة الموكاب</div></div>
+        <div class="fg fg-1" style="gap:12px;">
+          <div class="f"><label>الرابط الحالي</label><input type="text" value="phones.png"/></div>
+          <div class="f"><label>إظهار البنر</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">ظاهر</span><span class="off-txt">مخفي</span></span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="act-row"><button class="btn btn-p" onclick="toast('تم الحفظ ✓','success')"><i class="fa-solid fa-floppy-disk"></i> حفظ</button></div>
+</div>
+
+<!-- ================================================================
+     PAGE: SLIDER
+================================================================ -->
+<div class="page" id="pg-slider">
+  <div class="page-hdr"><div class="page-hdr-left"><h1>🎠 البنر السلايدر</h1><p>إدارة شرائح السلايدر الإعلانية</p></div><div class="page-hdr-right"><button class="btn btn-p btn-sm" onclick="addSlide()"><i class="fa-solid fa-plus"></i> شريحة جديدة</button></div></div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-gear"></i> إعدادات السلايدر</h3></div>
+    <div class="card-body">
+      <div class="fg fg-3">
+        <div class="f"><label>سرعة الانتقال (ms)</label><input type="number" value="3000"/></div>
+        <div class="f"><label>تأثير الانتقال</label><select><option>Slide</option><option>Fade</option><option>Cube</option></select></div>
+        <div class="f"><label>تشغيل تلقائي</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">مفعّل</span><span class="off-txt">موقوف</span></span></div></div>
+        <div class="f"><label>إظهار الأسهم</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">ظاهرة</span><span class="off-txt">مخفية</span></span></div></div>
+        <div class="f"><label>إظهار النقاط</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">ظاهرة</span><span class="off-txt">مخفية</span></span></div></div>
+        <div class="f"><label>اللف اللانهائي</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">مفعّل</span><span class="off-txt">موقوف</span></span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-images"></i> الشرائح</h3></div>
+    <div class="card-body">
+      <div class="drag-list" id="slidesList">
+        <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb">🧠</div><div class="drag-info"><div class="drag-title">شريحة الصحة النفسية</div><div class="drag-sub">banner-1.png • رابط: #services</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib edit" title="تعديل"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb">💆</div><div class="drag-info"><div class="drag-title">شريحة الاسترخاء</div><div class="drag-sub">banner-2.png • رابط: courses.html</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="act-row"><button class="btn btn-p" onclick="toast('تم الحفظ ✓','success')"><i class="fa-solid fa-floppy-disk"></i> حفظ</button></div>
+</div>
+<!-- ================================================================
+     PAGE: STATS
+================================================================ -->
+<div class="page" id="pg-stats">
+  <div class="page-hdr"><div class="page-hdr-left"><h1>📊 إحصائيات الموقع</h1><p>الأرقام التي تظهر في قسم الإحصائيات</p></div></div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-chart-bar"></i> الأرقام الظاهرة للزوار</h3></div>
+    <div class="card-body">
+      <div class="fg fg-2">
+        <div class="f"><label>الرقم الأول (نص)</label><input type="text" value="+50 أخصائي"/></div>
+        <div class="f"><label>وصف الرقم الأول</label><input type="text" value="أخصائي نفسي معتمد"/></div>
+        <div class="f"><label>الرقم الثاني</label><input type="text" value="+10,000"/></div>
+        <div class="f"><label>وصف الرقم الثاني</label><input type="text" value="جلسة مكتملة"/></div>
+        <div class="f"><label>الرقم الثالث</label><input type="text" value="+2,500"/></div>
+        <div class="f"><label>وصف الرقم الثالث</label><input type="text" value="مستفيد سعيد"/></div>
+        <div class="f"><label>الرقم الرابع</label><input type="text" value="4.9⭐"/></div>
+        <div class="f"><label>وصف الرقم الرابع</label><input type="text" value="متوسط التقييم"/></div>
+      </div>
+      <div class="fg fg-2" style="margin-top:14px;">
+        <div class="f"><label>تأثير العداد (Count-up)</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">مفعّل</span><span class="off-txt">موقوف</span></span></div></div>
+        <div class="f"><label>سرعة العداد (ms)</label><input type="number" value="2000"/></div>
+      </div>
+    </div>
+  </div>
+  <div class="act-row"><button class="btn btn-p" onclick="toast('تم الحفظ ✓','success')"><i class="fa-solid fa-floppy-disk"></i> حفظ</button></div>
+</div>
+
+<!-- ================================================================
+     PAGE: WHY
+================================================================ -->
+<div class="page" id="pg-why">
+  <div class="page-hdr"><div class="page-hdr-left"><h1>🏆 لماذا تختار The Relax</h1><p>جدول المقارنة والمميزات</p></div><div class="page-hdr-right"><button class="btn btn-p btn-sm" onclick="addWhyRow()"><i class="fa-solid fa-plus"></i> ميزة جديدة</button></div></div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-heading"></i> عناوين القسم</h3></div>
+    <div class="card-body fg fg-2">
+      <div class="f"><label>العنوان الرئيسي</label><input type="text" value="لماذا The Relax مختلف؟"/></div>
+      <div class="f"><label>العنوان الفرعي</label><input type="text" value="اكتشف ما يجعلنا الخيار الأمثل"/></div>
+      <div class="f"><label>اسم عمود منصتنا</label><input type="text" value="The Relax"/></div>
+      <div class="f"><label>اسم عمود المنافسين</label><input type="text" value="المنصات الأخرى"/></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-table"></i> بنود المقارنة</h3></div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table id="whyTable">
+          <thead><tr><th>الميزة</th><th>The Relax</th><th>المنافسون</th><th></th></tr></thead>
+          <tbody>
+            <tr><td><input type="text" value="أخصائيون معتمدون دولياً" style="border:none;background:transparent;width:100%;font-size:.82rem;"/></td><td><select style="font-size:.8rem;"><option value="yes">✓ نعم</option><option>✗ لا</option><option>جزئي</option></select></td><td><select style="font-size:.8rem;"><option>✗ لا</option><option value="yes">✓ نعم</option><option>جزئي</option></select></td><td><button class="ib del" onclick="this.closest('tr').remove()"><i class="fa-solid fa-trash"></i></button></td></tr>
+            <tr><td><input type="text" value="جلسات أونلاين 24/7" style="border:none;background:transparent;width:100%;font-size:.82rem;"/></td><td><select style="font-size:.8rem;"><option value="yes">✓ نعم</option><option>✗ لا</option><option>جزئي</option></select></td><td><select style="font-size:.8rem;"><option>جزئي</option><option value="yes">✓ نعم</option><option>✗ لا</option></select></td><td><button class="ib del" onclick="this.closest('tr').remove()"><i class="fa-solid fa-trash"></i></button></td></tr>
+            <tr><td><input type="text" value="خصوصية وسرية تامة" style="border:none;background:transparent;width:100%;font-size:.82rem;"/></td><td><select style="font-size:.8rem;"><option value="yes">✓ نعم</option></select></td><td><select style="font-size:.8rem;"><option>✗ لا</option></select></td><td><button class="ib del" onclick="this.closest('tr').remove()"><i class="fa-solid fa-trash"></i></button></td></tr>
+            <tr><td><input type="text" value="أسعار مناسبة للجميع" style="border:none;background:transparent;width:100%;font-size:.82rem;"/></td><td><select style="font-size:.8rem;"><option value="yes">✓ نعم</option></select></td><td><select style="font-size:.8rem;"><option>جزئي</option></select></td><td><button class="ib del" onclick="this.closest('tr').remove()"><i class="fa-solid fa-trash"></i></button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="act-row"><button class="btn btn-p" onclick="toast('تم الحفظ ✓','success')"><i class="fa-solid fa-floppy-disk"></i> حفظ</button></div>
+</div>
+
+<!-- ================================================================
+     PAGE: ABOUT
+================================================================ -->
+<div class="page" id="pg-about">
+  <div class="page-hdr"><div class="page-hdr-left"><h1>ℹ️ قسم من نحن</h1><p>نصوص وصورة قسم من نحن في الرئيسية</p></div></div>
+  <div class="card">
+    <div class="card-body fg fg-1" style="gap:14px;">
+      <div class="f"><label>عنوان القسم</label><input type="text" value="من نحن؟"/></div>
+      <div class="f"><label>النص الرئيسي</label><textarea rows="4">منصة The Relax وُلدت من إيمان حقيقي بأن الصحة النفسية حق لكل إنسان...</textarea></div>
+      <div class="fg fg-2">
+        <div class="f"><label>نص الزر</label><input type="text" value="اقرأ المزيد عنّا"/></div>
+        <div class="f"><label>رابط الزر</label><input type="text" value="about.html"/></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-image"></i> صورة القسم</h3></div>
+    <div class="card-body fg fg-2">
+      <div class="img-upload"><input type="file" accept="image/*"/><span class="img-upload-icon">🖼️</span><div class="img-upload-text">ارفع صورة القسم</div></div>
+      <div class="fg fg-1" style="gap:10px;">
+        <div class="f"><label>الرابط الحالي</label><input type="text" placeholder="about-img.jpg"/></div>
+        <div class="f"><label>شكل الصورة</label><select><option>مستطيل</option><option>مدور</option><option>مع إطار</option></select></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-chart-simple"></i> الأرقام السريعة</h3><button class="btn btn-p btn-sm" onclick="toast('تمت الإضافة','success')"><i class="fa-solid fa-plus"></i> إضافة</button></div>
+    <div class="card-body">
+      <div class="drag-list">
+        <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-info"><div class="drag-title">+50 أخصائي معتمد</div></div><div class="drag-acts"><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-info"><div class="drag-title">+10,000 جلسة مكتملة</div></div><div class="drag-acts"><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-info"><div class="drag-title">+2,500 مستفيد سعيد</div></div><div class="drag-acts"><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="act-row"><button class="btn btn-p" onclick="toast('تم الحفظ ✓','success')"><i class="fa-solid fa-floppy-disk"></i> حفظ</button></div>
+</div>
+
+<!-- ================================================================
+     PAGE: STORIES
+================================================================ -->
+<div class="page" id="pg-stories">
+  <div class="page-hdr"><div class="page-hdr-left"><h1>💬 قصص النجاح</h1><p>إدارة قصص النجاح والشهادات</p></div><div class="page-hdr-right"><button class="btn btn-p btn-sm" onclick="showModal('addStory')"><i class="fa-solid fa-plus"></i> قصة جديدة</button></div></div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-gear"></i> إعدادات القسم</h3></div>
+    <div class="card-body fg fg-3">
+      <div class="f"><label>عنوان القسم</label><input type="text" value="قصص نجاح ملهمة"/></div>
+      <div class="f"><label>العنوان الفرعي</label><input type="text" value="رحلات حقيقية نحو التعافي"/></div>
+      <div class="f"><label>عدد القصص في الرئيسية</label><select><option>2</option><option selected>3</option><option>4</option></select></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-heart"></i> القصص</h3></div>
+    <div class="card-body"><div class="drag-list" id="storiesList"></div></div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE: TRUST
+================================================================ -->
+<div class="page" id="pg-trust">
+  <div class="page-hdr"><div class="page-hdr-left"><h1>🤝 الذين يثقون بنا</h1><p>شعارات الشركاء والمؤسسات الراعية</p></div><div class="page-hdr-right"><button class="btn btn-p btn-sm" onclick="addTrust()"><i class="fa-solid fa-plus"></i> شريك جديد</button></div></div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-gear"></i> إعدادات</h3></div>
+    <div class="card-body fg fg-3">
+      <div class="f"><label>عنوان القسم</label><input type="text" value="يثقون بنا"/></div>
+      <div class="f"><label>سرعة الكاروسيل (ms)</label><input type="number" value="2000"/></div>
+      <div class="f"><label>تشغيل تلقائي</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">مفعّل</span><span class="off-txt">موقوف</span></span></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-building"></i> شعارات الشركاء</h3></div>
+    <div class="card-body">
+      <div class="drag-list" id="trustList">
+        <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb">🏛️</div><div class="drag-info"><div class="drag-title">جامعة كامبرج</div><div class="drag-sub">cambridge-logo.png</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb">🇺🇸</div><div class="drag-info"><div class="drag-title">APA — المعهد الأمريكي</div><div class="drag-sub">apa-logo.png</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb">🌍</div><div class="drag-info"><div class="drag-title">المجلس الدولي للصحة النفسية</div><div class="drag-sub">icmh-logo.png</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="act-row"><button class="btn btn-p" onclick="toast('تم الحفظ ✓','success')"><i class="fa-solid fa-floppy-disk"></i> حفظ</button></div>
+</div>
+
+<!-- ================================================================
+     PAGE: PRICING
+================================================================ -->
+<div class="page" id="pg-pricing">
+  <div class="page-hdr"><div class="page-hdr-left"><h1>💰 خطط الأسعار</h1><p>إدارة خطط الاشتراك والأسعار</p></div><div class="page-hdr-right"><button class="btn btn-p btn-sm" onclick="toast('إضافة خطة...','success')"><i class="fa-solid fa-plus"></i> خطة جديدة</button></div></div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-tags"></i> خطط الاشتراك</h3></div>
+    <div class="card-body">
+      <div class="drag-list">
+        <div class="drag-item pinned"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-info"><div class="drag-title">الخطة الأساسية — $29 / شهر <span class="b b-blue">مميزة</span></div><div class="drag-sub">جلسة واحدة أسبوعياً + دعم نصي</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-info"><div class="drag-title">الخطة المتقدمة — $59 / شهر</div><div class="drag-sub">جلستان أسبوعياً + دعم نصي وصوتي</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-info"><div class="drag-title">الخطة الاحترافية — $99 / شهر</div><div class="drag-sub">جلسات غير محدودة + دعم على مدار الساعة</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="act-row"><button class="btn btn-p" onclick="toast('تم الحفظ ✓','success')"><i class="fa-solid fa-floppy-disk"></i> حفظ</button></div>
+</div>
+
+<!-- ================================================================
+     PAGE: FAQ
+================================================================ -->
+<div class="page" id="pg-faq">
+  <div class="page-hdr"><div class="page-hdr-left"><h1>❓ الأسئلة الشائعة</h1><p>أضف وعدّل الأسئلة الشائعة</p></div></div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-plus"></i> إضافة سؤال جديد</h3></div>
+    <div class="card-body fg fg-1" style="gap:12px;">
+      <div class="f"><label>السؤال <span class="req">*</span></label><input type="text" placeholder="اكتب السؤال..." id="faqQ"/></div>
+      <div class="f"><label>الجواب <span class="req">*</span></label><textarea placeholder="اكتب الجواب التفصيلي..." id="faqA" rows="3"></textarea></div>
+      <div class="fg fg-2">
+        <div class="f"><label>التصنيف</label><select id="faqCat"><option>عام</option><option>الجلسات</option><option>الأسعار</option><option>الخصوصية</option><option>التقنية</option></select></div>
+        <div class="f"><label>مرتبة العرض</label><input type="number" placeholder="1" id="faqOrder"/></div>
+      </div>
+      <button class="btn btn-p" onclick="addFaq()"><i class="fa-solid fa-plus"></i> إضافة السؤال</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-list"></i> الأسئلة الحالية</h3></div>
+    <div class="card-body"><div class="drag-list" id="faqList"></div></div>
+  </div>
+</div>
+<!-- ================================================================
+     PAGE: CONSULTANTS
+================================================================ -->
+<div class="page" id="pg-consultants">
+  <div class="page-hdr">
+    <div class="page-hdr-left"><h1>👨‍⚕️ إدارة الاستشاريين</h1><p>إضافة وتعديل وترتيب الاستشاريين — تحديد 4 للرئيسية</p></div>
+    <div class="page-hdr-right"><button class="btn btn-p btn-sm" onclick="showModal('addConsultant')"><i class="fa-solid fa-plus"></i> استشاري جديد</button></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="swTab('cons','list',this)">كل الاستشاريين</div>
+    <div class="tab" onclick="swTab('cons','home',this)">إعدادات الرئيسية</div>
+    <div class="tab" onclick="swTab('cons','add',this)">إضافة استشاري</div>
+  </div>
+
+  <!-- LIST -->
+  <div class="tab-pane active" id="cons-list">
+    <div class="card">
+      <div class="card-head">
+        <h3><i class="fa-solid fa-filter"></i> بحث وفلترة</h3>
+      </div>
+      <div class="card-body">
+        <div class="fg fg-3">
+          <div class="srch" style="grid-column:1/3"><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="ابحث باسم الاستشاري..." oninput="filterCons(this.value)"/></div>
+          <div class="f"><select onchange="filterConsBySpec(this.value)"><option value="">كل التخصصات</option><option>الطب النفسي</option><option>علم نفس إكلينيكي</option><option>إرشاد نفسي</option><option>إرشاد أسري</option></select></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body np">
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>الاستشاري</th><th>التخصص</th><th>التقييم</th><th>الجلسات</th><th>السعر</th><th>الرئيسية</th><th>الصفحة الكاملة</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+            <tbody id="consTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOME DISPLAY -->
+  <div class="tab-pane" id="cons-home">
+    <div class="alert alert-info"><i class="fa-solid fa-info-circle"></i> فعّل التبديل على الاستشاريين الأربعة الذين تريد إظهارهم في الصفحة الرئيسية فقط.</div>
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-star"></i> استشاريو الرئيسية (4 فقط)</h3><span style="font-size:.75rem;color:var(--muted);">اسحب لإعادة الترتيب</span></div>
+      <div class="card-body"><div class="drag-list" id="consHomeDrag"></div></div>
+      <div class="card-foot"><button class="btn btn-p" onclick="toast('تم حفظ ترتيب الرئيسية ✓','success')"><i class="fa-solid fa-floppy-disk"></i> حفظ الترتيب</button></div>
+    </div>
+  </div>
+
+  <!-- ADD -->
+  <div class="tab-pane" id="cons-add">
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-user-plus"></i> بيانات الاستشاري</h3></div>
+      <div class="card-body">
+        <div class="fg fg-2">
+          <div class="f"><label>الاسم الكامل <span class="req">*</span></label><input type="text" placeholder="Dr. Firstname Lastname" id="cName"/></div>
+          <div class="f"><label>التخصص <span class="req">*</span></label><select id="cSpec"><option>الطب النفسي</option><option>علم نفس إكلينيكي</option><option>إرشاد نفسي</option><option>إرشاد أسري</option></select></div>
+          <div class="f"><label>التقييم (1-5)</label><input type="number" step=".1" min="1" max="5" placeholder="4.8" id="cRating"/></div>
+          <div class="f"><label>سعر الجلسة ($)</label><input type="number" placeholder="49.50" id="cPrice"/></div>
+          <div class="f"><label>عدد الجلسات المكتملة</label><input type="number" placeholder="240" id="cSessions"/></div>
+          <div class="f"><label>سنوات الخبرة</label><input type="number" placeholder="8" id="cExp"/></div>
+          <div class="f"><label>اللغات</label><input type="text" placeholder="عربي، إنجليزي" id="cLangs"/></div>
+          <div class="f"><label>أيام الإتاحة</label><input type="text" placeholder="السبت - الخميس" id="cDays"/></div>
+        </div>
+        <div class="sec-div">الصورة والنبذة</div>
+        <div class="fg fg-2">
+          <div>
+            <div class="img-upload" id="cPhotoUpload">
+              <input type="file" accept="image/*" onchange="previewImg(this,'cPhotoPreview')"/>
+              <span class="img-upload-icon">📷</span>
+              <div class="img-upload-text">ارفع صورة الاستشاري<br><b>اضغط للاختيار</b></div>
+            </div>
+            <div id="cPhotoPreview" style="display:none;margin-top:10px;"></div>
+          </div>
+          <div class="fg fg-1" style="gap:12px;">
+            <div class="f"><label>أو رابط الصورة</label><input type="text" placeholder="https://... أو consultant.jpg" id="cPhotoUrl"/></div>
+            <div class="f"><label>نبذة قصيرة</label><textarea placeholder="خبرة واسعة في..." rows="3" id="cBio"></textarea></div>
+          </div>
+        </div>
+        <div class="sec-div">الخيارات</div>
+        <div class="fg fg-3">
+          <div class="f"><label>يظهر في الرئيسية</label><div class="tgl-wrap"><button class="tgl on" id="cFeatured" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">نعم</span><span class="off-txt">لا</span></span></div></div>
+          <div class="f"><label>حالة الحساب</label><select id="cStatus"><option>نشط</option><option>موقوف</option><option>قيد المراجعة</option></select></div>
+          <div class="f"><label>نوع الجلسات</label><select><option>فيديو + نصي + صوتي</option><option>فيديو فقط</option><option>نصي فقط</option></select></div>
+        </div>
+        <div class="act-row"><button class="btn btn-p" onclick="addConsultant()"><i class="fa-solid fa-plus"></i> إضافة الاستشاري</button><button class="btn btn-ghost" onclick="swTab('cons','list',document.querySelector('#cons-list').previousElementSibling)">إلغاء</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE: COURSES
+================================================================ -->
+<div class="page" id="pg-courses">
+  <div class="page-hdr">
+    <div class="page-hdr-left"><h1>🎓 إدارة الكورسات والورشات</h1><p>أضف وعدّل — تحديد 3 للرئيسية</p></div>
+    <div class="page-hdr-right"><button class="btn btn-p btn-sm" onclick="showModal('addCourse')"><i class="fa-solid fa-plus"></i> كورس جديد</button></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="swTab('crs','list',this)">كل الكورسات</div>
+    <div class="tab" onclick="swTab('crs','home',this)">الرئيسية (3 كورسات)</div>
+    <div class="tab" onclick="swTab('crs','add',this)">إضافة كورس</div>
+  </div>
+
+  <div class="tab-pane active" id="crs-list">
+    <div class="card">
+      <div class="card-body np">
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>الكورس</th><th>النوع</th><th>الساعات</th><th>السعر</th><th>الاعتماد</th><th>الرئيسية</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+            <tbody id="crsTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="crs-home">
+    <div class="alert alert-info"><i class="fa-solid fa-info-circle"></i> 3 كورسات تظهر في الصفحة الرئيسية — فعّل وعدّل الترتيب.</div>
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-star"></i> كورسات الرئيسية</h3></div>
+      <div class="card-body"><div class="drag-list" id="crsHomeDrag"></div></div>
+      <div class="card-foot"><button class="btn btn-p" onclick="toast('تم الحفظ ✓','success')"><i class="fa-solid fa-floppy-disk"></i> حفظ</button></div>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="crs-add">
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-graduation-cap"></i> بيانات الكورس</h3></div>
+      <div class="card-body">
+        <div class="fg fg-2">
+          <div class="f"><label>عنوان الكورس <span class="req">*</span></label><input type="text" placeholder="دورة العلاج..." id="crName"/></div>
+          <div class="f"><label>النوع</label><select id="crType"><option>كورس</option><option>ورشة عمل</option><option>لايف مباشر</option></select></div>
+          <div class="f"><label>الساعات</label><input type="number" placeholder="60" id="crHours"/></div>
+          <div class="f"><label>عدد المستويات</label><input type="number" placeholder="3" id="crLevels"/></div>
+          <div class="f"><label>السعر ($)</label><input type="number" placeholder="199" id="crPrice"/></div>
+          <div class="f"><label>السعر القديم ($)</label><input type="number" placeholder="299" id="crOldPrice"/></div>
+          <div class="f"><label>جهة الاعتماد</label><input type="text" placeholder="جامعة كامبرج" id="crAccred"/></div>
+          <div class="f"><label>المدرب</label><input type="text" placeholder="Dr. ..." id="crInstructor"/></div>
+        </div>
+        <div class="fg fg-1" style="margin-top:12px;">
+          <div class="f"><label>وصف الكورس</label><textarea placeholder="وصف تفصيلي..." rows="3" id="crDesc"></textarea></div>
+        </div>
+        <div class="sec-div">الصورة والخيارات</div>
+        <div class="fg fg-2">
+          <div class="img-upload"><input type="file" accept="image/*"/><span class="img-upload-icon">🖼️</span><div class="img-upload-text">صورة الكورس</div></div>
+          <div class="fg fg-1" style="gap:12px;">
+            <div class="f"><label>الأيقونة (إيموجي)</label><input type="text" placeholder="📚" id="crEmoji"/></div>
+            <div class="f"><label>يظهر في الرئيسية</label><div class="tgl-wrap"><button class="tgl on" id="crFeat" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">نعم</span><span class="off-txt">لا</span></span></div></div>
+            <div class="f"><label>الحالة</label><select id="crStatus"><option>منشور</option><option>مسودة</option><option>قريباً</option></select></div>
+          </div>
+        </div>
+        <div class="act-row"><button class="btn btn-p" onclick="addCourse()"><i class="fa-solid fa-plus"></i> إضافة الكورس</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE: ARTICLES
+================================================================ -->
+<div class="page" id="pg-articles">
+  <div class="page-hdr">
+    <div class="page-hdr-left"><h1>📰 إدارة المقالات</h1><p>إضافة وترتيب وفلترة المقالات — 6 تظهر في الرئيسية</p></div>
+    <div class="page-hdr-right"><button class="btn btn-p btn-sm" onclick="swTab('art','add',document.querySelectorAll('#pg-articles .tab')[1])"><i class="fa-solid fa-plus"></i> مقال جديد</button></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="swTab('art','list',this)">كل المقالات</div>
+    <div class="tab" onclick="swTab('art','add',this)">إضافة مقال</div>
+    <div class="tab" onclick="swTab('art','home',this)">الرئيسية (6 مقالات)</div>
+  </div>
+
+  <!-- LIST -->
+  <div class="tab-pane active" id="art-list">
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-filter"></i> بحث وفلترة وترتيب</h3></div>
+      <div class="card-body">
+        <div class="fg fg-3" style="margin-bottom:12px;">
+          <div class="srch" style="grid-column:1/3"><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="ابحث في المقالات..." oninput="filterArts(this.value)"/></div>
+          <div class="f"><select id="artCatFilter" onchange="filterArts()"><option value="">كل التصنيفات</option><option>اضطرابات وأمراض نفسية</option><option>القلق ونوبات الهلع</option><option>الاكتئاب</option><option>أطفال ومراهقون</option><option>تربية وعلاقات أسرية</option><option>علاقات زوجية وعاطفية</option><option>الأنا والهوية</option></select></div>
+        </div>
+        <div class="sort-pills">
+          <div class="sort-pill active" onclick="sortArts('newest',this)"><i class="fa-solid fa-clock"></i> الأحدث</div>
+          <div class="sort-pill" onclick="sortArts('oldest',this)"><i class="fa-solid fa-hourglass-start"></i> الأقدم</div>
+          <div class="sort-pill" onclick="sortArts('popular',this)"><i class="fa-solid fa-fire"></i> الأكثر انتشاراً</div>
+          <div class="sort-pill" onclick="sortArts('featured',this)"><i class="fa-solid fa-star"></i> المميزة أولاً</div>
+          <div class="sort-pill" onclick="sortArts('alpha',this)"><i class="fa-solid fa-arrow-down-a-z"></i> أبجدي</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>المقالات <span id="artCountBadge" class="b b-blue">24</span></h3></div>
+      <div class="card-body" id="artListBody"></div>
+    </div>
+  </div>
+
+  <!-- ADD -->
+  <div class="tab-pane" id="art-add">
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-pen-to-square"></i> مقال جديد</h3></div>
+      <div class="card-body">
+        <div class="fg fg-1" style="gap:13px;">
+          <div class="f"><label>عنوان المقال <span class="req">*</span></label><input type="text" placeholder="اكتب عنوان المقال..." id="aTitle" oninput="cc(this,'aTcc',100)"/><div class="char-count" id="aTcc">0/100</div></div>
+          <div class="f"><label>مقدمة / وصف المقال</label><textarea placeholder="وصف مختصر يظهر في البطاقة..." rows="2" id="aDesc" oninput="cc(this,'aDcc',200)"></textarea><div class="char-count" id="aDcc">0/200</div></div>
+        </div>
+        <div class="fg fg-3" style="margin-top:12px;">
+          <div class="f"><label>التصنيف <span class="req">*</span></label><select id="aCat"><option>اضطرابات وأمراض نفسية</option><option>القلق ونوبات الهلع</option><option>الاكتئاب</option><option>أطفال ومراهقون</option><option>تربية وعلاقات أسرية</option><option>علاقات زوجية وعاطفية</option><option>الأنا والهوية</option></select></div>
+          <div class="f"><label>رابط المقال الكامل</label><input type="text" placeholder="https://..." id="aUrl"/></div>
+          <div class="f"><label>الكاتب</label><input type="text" placeholder="اسم الكاتب" id="aAuthor"/></div>
+          <div class="f"><label>وقت القراءة (دقائق)</label><input type="number" placeholder="5" id="aReadTime"/></div>
+          <div class="f"><label>تاريخ النشر</label><input type="date" id="aDate"/></div>
+          <div class="f"><label>عدد المشاهدات</label><input type="number" placeholder="0" id="aViews"/></div>
+        </div>
+        <div class="sec-div">الصورة والتصنيف</div>
+        <div class="fg fg-2">
+          <div>
+            <div class="img-upload"><input type="file" accept="image/*" onchange="previewImg(this,'aImgPrev')"/><span class="img-upload-icon">🖼️</span><div class="img-upload-text">صورة المقال</div></div>
+            <div id="aImgPrev" style="display:none;margin-top:8px;"></div>
+          </div>
+          <div class="fg fg-1" style="gap:12px;">
+            <div class="f"><label>أو رابط الصورة</label><input type="text" placeholder="article.jpg" id="aImg"/></div>
+            <div class="f"><label>إيموجي بديل عن الصورة</label><input type="text" placeholder="😴" id="aEmoji"/></div>
+            <div class="f"><label>يظهر في الرئيسية</label><div class="tgl-wrap"><button class="tgl on" id="aFeat" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">نعم</span><span class="off-txt">لا</span></span></div></div>
+            <div class="f"><label>حالة المقال</label><select id="aStatus"><option>منشور</option><option>مسودة</option><option>مجدول</option></select></div>
+          </div>
+        </div>
+        <div class="act-row">
+          <button class="btn btn-p" onclick="addArticle()"><i class="fa-solid fa-paper-plane"></i> نشر المقال</button>
+          <button class="btn btn-ghost" onclick="toast('تم الحفظ كمسودة','warn')"><i class="fa-solid fa-floppy-disk"></i> حفظ مسودة</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <div class="tab-pane" id="art-home">
+    <div class="alert alert-info"><i class="fa-solid fa-star"></i> المقالات المضاءة بنجمة ⭐ تظهر في الرئيسية (6 كحد أقصى). اسحب لترتيبها.</div>
+    <div class="card">
+      <div class="card-head"><h3><i class="fa-solid fa-home"></i> مقالات الرئيسية</h3></div>
+      <div class="card-body"><div class="drag-list" id="artHomeDrag"></div></div>
+      <div class="card-foot"><button class="btn btn-p" onclick="toast('تم حفظ الترتيب ✓','success')"><i class="fa-solid fa-floppy-disk"></i> حفظ الترتيب</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE: REVIEWS (التقييمات — نظام الـ SORT)
+================================================================ -->
+<div class="page" id="pg-reviews">
+  <div class="page-hdr">
+    <div class="page-hdr-left"><h1>⭐ إدارة التقييمات</h1><p>عرض وترتيب وإدارة كل تقييمات المستفيدين</p></div>
+    <div class="page-hdr-right"><button class="btn btn-p btn-sm" onclick="showModal('addReview')"><i class="fa-solid fa-plus"></i> إضافة تقييم</button></div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-row">
+    <div class="s-card blue"><div class="s-icon blue"><i class="fa-solid fa-star"></i></div><div class="s-lbl">متوسط التقييم</div><div class="s-val">4.9</div><div class="s-sub">من أصل 5</div></div>
+    <div class="s-card green"><div class="s-icon green"><i class="fa-solid fa-comment-dots"></i></div><div class="s-lbl">إجمالي التقييمات</div><div class="s-val">92</div><div class="s-change up">↑ 14 جديد</div></div>
+    <div class="s-card orange"><div class="s-icon orange"><i class="fa-solid fa-thumbs-up"></i></div><div class="s-lbl">5 نجوم</div><div class="s-val">78</div><div class="s-sub">85% من الكل</div></div>
+    <div class="s-card purple"><div class="s-icon purple"><i class="fa-solid fa-clock"></i></div><div class="s-lbl">بانتظار الموافقة</div><div class="s-val">5</div><div class="s-change down">تحتاج مراجعة</div></div>
+  </div>
+
+  <!-- RATING BREAKDOWN -->
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-chart-bar"></i> توزيع التقييمات</h3></div>
+    <div class="card-body">
+      <div style="display:flex;flex-direction:column;gap:9px;max-width:500px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="font-size:.8rem;font-weight:700;width:40px;">5 ⭐</span>
+          <div style="flex:1;height:10px;background:#f0f0f0;border-radius:10px;overflow:hidden;"><div style="height:100%;width:85%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:10px;transition:width 1s;"></div></div>
+          <span style="font-size:.78rem;color:var(--muted);width:35px;">85%</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="font-size:.8rem;font-weight:700;width:40px;">4 ⭐</span>
+          <div style="flex:1;height:10px;background:#f0f0f0;border-radius:10px;overflow:hidden;"><div style="height:100%;width:10%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:10px;"></div></div>
+          <span style="font-size:.78rem;color:var(--muted);width:35px;">10%</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="font-size:.8rem;font-weight:700;width:40px;">3 ⭐</span>
+          <div style="flex:1;height:10px;background:#f0f0f0;border-radius:10px;overflow:hidden;"><div style="height:100%;width:3%;background:#f59e0b;border-radius:10px;"></div></div>
+          <span style="font-size:.78rem;color:var(--muted);width:35px;">3%</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="font-size:.8rem;font-weight:700;width:40px;">2 ⭐</span>
+          <div style="flex:1;height:10px;background:#f0f0f0;border-radius:10px;overflow:hidden;"><div style="height:100%;width:1.5%;background:var(--danger);border-radius:10px;"></div></div>
+          <span style="font-size:.78rem;color:var(--muted);width:35px;">1.5%</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="font-size:.8rem;font-weight:700;width:40px;">1 ⭐</span>
+          <div style="flex:1;height:10px;background:#f0f0f0;border-radius:10px;overflow:hidden;"><div style="height:100%;width:0.5%;background:var(--danger);border-radius:10px;"></div></div>
+          <span style="font-size:.78rem;color:var(--muted);width:35px;">0.5%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTER & SORT -->
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-filter"></i> فلترة وترتيب التقييمات</h3></div>
+    <div class="card-body">
+      <div class="fg fg-3" style="margin-bottom:12px;">
+        <div class="srch" style="grid-column:1/3"><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="ابحث في التقييمات..." oninput="filterRevs(this.value)"/></div>
+        <div class="f"><select onchange="filterRevsBySpec(this.value)">
+          <option value="">كل الاستشاريين</option>
+          <option>Dr. Ahmed Qandeel</option><option>Dr. Ahmad Hamed</option>
+          <option>Dr. Ammar Shalabi</option><option>Mr. Batool Alobeid</option>
+          <option>Mr. Basel Abo Zaied</option><option>Dr. Ishraq AlTarawneh</option>
+        </select></div>
+      </div>
+      <div class="sort-pills">
+        <div class="sort-pill active" onclick="sortRevs('newest',this)"><i class="fa-solid fa-clock"></i> الأحدث</div>
+        <div class="sort-pill" onclick="sortRevs('oldest',this)"><i class="fa-solid fa-hourglass-start"></i> الأقدم</div>
+        <div class="sort-pill" onclick="sortRevs('high',this)"><i class="fa-solid fa-arrow-up"></i> الأعلى تقييماً</div>
+        <div class="sort-pill" onclick="sortRevs('low',this)"><i class="fa-solid fa-arrow-down"></i> الأدنى تقييماً</div>
+        <div class="sort-pill" onclick="sortRevs('featured',this)"><i class="fa-solid fa-star"></i> المميزة</div>
+        <div class="sort-pill" onclick="sortRevs('pending',this)"><i class="fa-solid fa-clock-rotate-left"></i> بانتظار الموافقة</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVIEWS LIST -->
+  <div class="card">
+    <div class="card-head">
+      <h3><i class="fa-solid fa-comments"></i> التقييمات <span id="revCount" class="b b-blue">92</span></h3>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span style="font-size:.75rem;color:var(--muted);">إظهار النجمة = يظهر في الرئيسية</span>
+      </div>
+    </div>
+    <div class="card-body" id="revListBody"></div>
+  </div>
+</div>
+<!-- ================================================================
+     PAGE: HEADER
+================================================================ -->
+<div class="page" id="pg-header">
+  <div class="page-hdr"><div class="page-hdr-left"><h1>🔝 الهيدر والنافبار</h1><p>تحكم بشعار ولينكات وأزرار الهيدر</p></div></div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-image"></i> الشعار (Logo)</h3></div>
+    <div class="card-body fg fg-2">
+      <div class="img-upload"><input type="file" accept="image/*"/><span class="img-upload-icon">🖼️</span><div class="img-upload-text">ارفع شعار الموقع</div></div>
+      <div class="fg fg-1" style="gap:12px;">
+        <div class="f"><label>رابط الشعار الحالي</label><input type="text" value="logo.png"/></div>
+        <div class="f"><label>Alt Text الشعار</label><input type="text" value="The Relax Logo"/></div>
+        <div class="f"><label>حجم الشعار (px)</label><input type="number" value="50"/></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-link"></i> روابط النافبار</h3><button class="btn btn-p btn-sm" onclick="addNavLink()"><i class="fa-solid fa-plus"></i> رابط جديد</button></div>
+    <div class="card-body">
+      <div class="drag-list" id="navLinksList">
+        <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-info"><div class="drag-title">الرئيسية</div><div class="drag-sub">href: index.html</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-info"><div class="drag-title">المكتبة</div><div class="drag-sub">href: book.html</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-info"><div class="drag-title">خدماتنا</div><div class="drag-sub">href: #services</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-info"><div class="drag-title">برامجنا</div><div class="drag-sub">href: serves.html</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-info"><div class="drag-title">من نحن</div><div class="drag-sub">href: about.html</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-info"><div class="drag-title">الأسعار</div><div class="drag-sub">href: #pricing</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-mobile-screen-button"></i> زر تحميل التطبيق</h3></div>
+    <div class="card-body fg fg-2">
+      <div class="f"><label>نص الزر</label><input type="text" value="حمّل التطبيق"/></div>
+      <div class="f"><label>إظهار الزر</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">ظاهر</span><span class="off-txt">مخفي</span></span></div></div>
+    </div>
+  </div>
+  <div class="act-row"><button class="btn btn-p" onclick="toast('تم حفظ الهيدر ✓','success')"><i class="fa-solid fa-floppy-disk"></i> حفظ</button></div>
+</div>
+
+<!-- ================================================================
+     PAGE: FOOTER
+================================================================ -->
+<div class="page" id="pg-footer">
+  <div class="page-hdr"><div class="page-hdr-left"><h1>🔻 إعدادات الفوتر</h1><p>تحكم بكل نصوص وروابط الفوتر</p></div></div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-heading"></i> النصوص الرئيسية</h3></div>
+    <div class="card-body fg fg-1" style="gap:13px;">
+      <div class="f"><label>العنوان الكبير</label><input type="text" value="انضم إلى آلاف المستفيدين الذين بدأوا رحلتهم مع The Relax"/></div>
+      <div class="f"><label>الكلمة المميزة (تلوّن)</label><input type="text" value="الذين بدأوا رحلتهم مع The Relax"/></div>
+      <div class="f"><label>النبذة عن المنصة</label><textarea>منصتك الأولى للصحة النفسية في الوطن العربي. نوفر جلسات علاج نفسي أونلاين مع أخصائيين معتمدين.</textarea></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-address-book"></i> بيانات التواصل</h3></div>
+    <div class="card-body fg fg-2">
+      <div class="f"><label>البريد الإلكتروني</label><input type="email" value="info@therelax.com"/></div>
+      <div class="f"><label>رقم الهاتف / واتساب</label><input type="text" value="+966 123 456 789"/></div>
+      <div class="f"><label>العنوان</label><input type="text" placeholder="الرياض، السعودية"/></div>
+      <div class="f"><label>ساعات الدعم</label><input type="text" value="24/7 — طوال الأسبوع"/></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-share-nodes"></i> حسابات التواصل الاجتماعي</h3></div>
+    <div class="card-body fg fg-2">
+      <div class="f"><label><i class="fa-brands fa-instagram" style="color:#e1306c;"></i> إنستاجرام</label><input type="text" placeholder="https://instagram.com/therelax"/></div>
+      <div class="f"><label><i class="fa-brands fa-x-twitter" style="color:#000;"></i> تويتر / X</label><input type="text" placeholder="https://x.com/therelax"/></div>
+      <div class="f"><label><i class="fa-brands fa-tiktok" style="color:#010101;"></i> تيك توك</label><input type="text" placeholder="https://tiktok.com/@therelax"/></div>
+      <div class="f"><label><i class="fa-brands fa-facebook" style="color:#1877f2;"></i> فيسبوك</label><input type="text" placeholder="https://facebook.com/therelax"/></div>
+      <div class="f"><label><i class="fa-brands fa-youtube" style="color:#ff0000;"></i> يوتيوب</label><input type="text" placeholder="https://youtube.com/@therelax"/></div>
+      <div class="f"><label><i class="fa-brands fa-snapchat" style="color:#fffc00;"></i> سناب شات</label><input type="text" placeholder="https://snapchat.com/add/therelax"/></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-link"></i> روابط الفوتر</h3></div>
+    <div class="card-body fg fg-2">
+      <div>
+        <div class="sh"><h2>العمود الأول</h2></div>
+        <div class="drag-list">
+          <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-info"><div class="drag-title">الرئيسية → index.html</div></div><div class="drag-acts"><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+          <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-info"><div class="drag-title">خدماتنا → #services</div></div><div class="drag-acts"><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+          <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-info"><div class="drag-title">من نحن → about.html</div></div><div class="drag-acts"><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="sh"><h2>العمود الثاني</h2></div>
+        <div class="drag-list">
+          <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-info"><div class="drag-title">سياسة الخصوصية</div></div><div class="drag-acts"><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+          <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-info"><div class="drag-title">الشروط والأحكام</div></div><div class="drag-acts"><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-copyright"></i> حقوق النشر</h3></div>
+    <div class="card-body fg fg-2">
+      <div class="f"><label>نص حقوق النشر</label><input type="text" value="© 2024 The Relax. جميع الحقوق محفوظة."/></div>
+      <div class="f"><label>سنة حقوق النشر</label><input type="number" value="2024"/></div>
+    </div>
+  </div>
+  <div class="act-row"><button class="btn btn-p" onclick="toast('تم حفظ الفوتر ✓','success')"><i class="fa-solid fa-floppy-disk"></i> حفظ</button></div>
+</div>
+
+<!-- ================================================================
+     PAGE: COLORS
+================================================================ -->
+<div class="page" id="pg-colors">
+  <div class="page-hdr"><div class="page-hdr-left"><h1>🎨 الألوان والثيم</h1><p>تخصيص ألوان وخطوط الموقع</p></div></div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-palette"></i> الألوان الرئيسية</h3></div>
+    <div class="card-body fg fg-3">
+      <div class="f"><label>اللون الرئيسي (Primary)</label><input type="color" value="#4064f7"/><div class="hint">أزرار وروابط وأقسام</div></div>
+      <div class="f"><label>اللون الثانوي (Accent)</label><input type="color" value="#0c8f73"/><div class="hint">التأكيدات والنجاح</div></div>
+      <div class="f"><label>اللون الذهبي (Secondary)</label><input type="color" value="#e19832"/><div class="hint">النجوم والعناصر المميزة</div></div>
+      <div class="f"><label>لون الهيدر</label><input type="color" value="#ffffff"/></div>
+      <div class="f"><label>لون الفوتر</label><input type="color" value="#1a1d2e"/></div>
+      <div class="f"><label>لون خلفية الصفحة</label><input type="color" value="#f0f2f8"/></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-font"></i> الخطوط</h3></div>
+    <div class="card-body fg fg-2">
+      <div class="f"><label>خط العناوين</label><select><option>Cairo</option><option>Tajawal</option><option>Almarai</option><option>IBM Plex Arabic</option></select></div>
+      <div class="f"><label>خط النص العادي</label><select><option>Cairo</option><option>Tajawal</option><option>Almarai</option></select></div>
+      <div class="f"><label>حجم الخط الأساسي</label><input type="number" value="16" min="12" max="20"/> px</div>
+      <div class="f"><label>وزن خط الـ Body</label><select><option>400</option><option selected>500</option><option>600</option></select></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-swatchbook"></i> ثيمات جاهزة</h3></div>
+    <div class="card-body">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <div onclick="applyTheme('blue')" style="cursor:pointer;padding:14px 20px;border-radius:12px;border:2px solid var(--primary);background:linear-gradient(135deg,#4064f7,#2a3fb5);color:white;font-size:.82rem;font-weight:700;text-align:center;">🔵 أزرق (الافتراضي)</div>
+        <div onclick="applyTheme('green')" style="cursor:pointer;padding:14px 20px;border-radius:12px;border:2px solid #0c8f73;background:linear-gradient(135deg,#0c8f73,#065f4d);color:white;font-size:.82rem;font-weight:700;text-align:center;">🟢 أخضر</div>
+        <div onclick="applyTheme('purple')" style="cursor:pointer;padding:14px 20px;border-radius:12px;border:2px solid #7c3aed;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:white;font-size:.82rem;font-weight:700;text-align:center;">🟣 بنفسجي</div>
+        <div onclick="applyTheme('dark')" style="cursor:pointer;padding:14px 20px;border-radius:12px;border:2px solid #1a1d2e;background:#1a1d2e;color:white;font-size:.82rem;font-weight:700;text-align:center;">⚫ داكن</div>
+      </div>
+    </div>
+  </div>
+  <div class="act-row"><button class="btn btn-p" onclick="toast('تم حفظ الثيم ✓','success')"><i class="fa-solid fa-floppy-disk"></i> حفظ</button></div>
+</div>
+
+<!-- ================================================================
+     PAGE: SEO
+================================================================ -->
+<div class="page" id="pg-seo">
+  <div class="page-hdr"><div class="page-hdr-left"><h1>🔍 SEO والبحث</h1><p>تحسين ظهور الموقع في محركات البحث وضبط البحث الداخلي</p></div></div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-brands fa-google"></i> Meta Tags الأساسية</h3></div>
+    <div class="card-body fg fg-1" style="gap:13px;">
+      <div class="f"><label>Page Title (يظهر في تبويب المتصفح وجوجل)</label><input type="text" value="The Relax - منصة الصحة النفسية والعلاج أونلاين" oninput="cc(this,'seoTcc',60)"/><div class="char-count" id="seoTcc">0/60</div></div>
+      <div class="f"><label>Meta Description (يظهر تحت العنوان في جوجل)</label><textarea oninput="cc(this,'seoDcc',160)">منصة The Relax للصحة النفسية والعلاج أونلاين مع أخصائيين معتمدين. جلسات نفسية، إرشاد أسري، كورسات معتمدة.</textarea><div class="char-count" id="seoDcc">0/160</div></div>
+      <div class="f"><label>Keywords (كلمات مفتاحية مفصولة بفاصلة)</label><input type="text" value="الصحة النفسية, علاج نفسي, جلسات أونلاين, The Relax, قلق, اكتئاب, مختص نفسي"/></div>
+      <div class="f"><label>OG Image (صورة المشاركة على السوشيال)</label><input type="text" value="og-image.jpg"/></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-magnifying-glass"></i> إعدادات البحث الداخلي</h3></div>
+    <div class="card-body fg fg-2">
+      <div class="f"><label>تفعيل البحث الداخلي</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">مفعّل</span><span class="off-txt">موقوف</span></span></div></div>
+      <div class="f"><label>البحث في (اختر)</label><select multiple style="height:90px;"><option selected>المقالات</option><option selected>الاستشاريين</option><option selected>الكورسات</option><option>الأسئلة الشائعة</option></select></div>
+      <div class="f"><label>عدد نتائج البحث الفوري</label><input type="number" value="5" min="3" max="10"/></div>
+      <div class="f"><label>بحث بالصور</label><div class="tgl-wrap"><button class="tgl" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">مفعّل</span><span class="off-txt">موقوف</span></span></div></div>
+    </div>
+  </div>
+  <div class="act-row"><button class="btn btn-p" onclick="toast('تم حفظ إعدادات SEO ✓','success')"><i class="fa-solid fa-floppy-disk"></i> حفظ</button></div>
+</div>
+
+<!-- ================================================================
+     PAGE: CATEGORIES
+================================================================ -->
+<div class="page" id="pg-categories">
+  <div class="page-hdr"><div class="page-hdr-left"><h1>🏷️ إدارة التصنيفات</h1><p>تصنيفات المقالات تُستخدم كفلاتر في الموقع وتقوّي الـ SEO</p></div><div class="page-hdr-right"><button class="btn btn-p btn-sm" onclick="addCat()"><i class="fa-solid fa-plus"></i> تصنيف جديد</button></div></div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-tags"></i> التصنيفات الحالية</h3><span style="font-size:.75rem;color:var(--muted);">اسحب لإعادة الترتيب في الفلتر</span></div>
+    <div class="card-body">
+      <div class="drag-list" id="catsDrag">
+        <div class="drag-item pinned"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb" style="background:var(--primary-l);color:var(--primary);font-size:.8rem;font-weight:700;">🧠</div><div class="drag-info"><div class="drag-title">اضطرابات وأمراض نفسية</div><div class="drag-sub">slug: mental-disorders • 8 مقالات</div></div><div class="drag-acts"><span class="b b-green">نشط</span><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        <div class="drag-item pinned"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb" style="background:var(--secondary-l);font-size:.8rem;font-weight:700;">😰</div><div class="drag-info"><div class="drag-title">القلق ونوبات الهلع</div><div class="drag-sub">slug: anxiety • 5 مقالات</div></div><div class="drag-acts"><span class="b b-green">نشط</span><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        <div class="drag-item pinned"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb" style="background:var(--danger-l);font-size:.8rem;font-weight:700;">😔</div><div class="drag-info"><div class="drag-title">الاكتئاب</div><div class="drag-sub">slug: depression • 4 مقالات</div></div><div class="drag-acts"><span class="b b-green">نشط</span><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        <div class="drag-item pinned"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb" style="background:#f0f9ff;font-size:.8rem;font-weight:700;">👧</div><div class="drag-info"><div class="drag-title">أطفال ومراهقون</div><div class="drag-sub">slug: children • 3 مقالات</div></div><div class="drag-acts"><span class="b b-green">نشط</span><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        <div class="drag-item pinned"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb" style="background:var(--accent-l);font-size:.8rem;font-weight:700;">👨‍👩‍👧</div><div class="drag-info"><div class="drag-title">تربية وعلاقات أسرية</div><div class="drag-sub">slug: family • 4 مقالات</div></div><div class="drag-acts"><span class="b b-green">نشط</span><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        <div class="drag-item pinned"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb" style="background:var(--purple-l);font-size:.8rem;font-weight:700;">💑</div><div class="drag-info"><div class="drag-title">علاقات زوجية وعاطفية</div><div class="drag-sub">slug: relationships • 4 مقالات</div></div><div class="drag-acts"><span class="b b-green">نشط</span><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+        <div class="drag-item pinned"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb" style="background:#fef9ec;font-size:.8rem;font-weight:700;">🪞</div><div class="drag-info"><div class="drag-title">الأنا والهوية</div><div class="drag-sub">slug: identity • 3 مقالات</div></div><div class="drag-acts"><span class="b b-green">نشط</span><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-plus"></i> إضافة تصنيف جديد</h3></div>
+    <div class="card-body fg fg-3">
+      <div class="f"><label>اسم التصنيف <span class="req">*</span></label><input type="text" placeholder="مثال: الوسواس القهري" id="catName"/></div>
+      <div class="f"><label>Slug (للـ URL والـ SEO)</label><input type="text" placeholder="ocd" id="catSlug"/></div>
+      <div class="f"><label>إيموجي التصنيف</label><input type="text" placeholder="🔄" id="catEmoji"/></div>
+      <div class="f col-3"><button class="btn btn-p" onclick="addCat()"><i class="fa-solid fa-plus"></i> إضافة</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE: SETTINGS
+================================================================ -->
+<div class="page" id="pg-settings">
+  <div class="page-hdr"><div class="page-hdr-left"><h1>⚙️ الإعدادات العامة</h1><p>إعدادات الموقع الأساسية والتقنية</p></div></div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-globe"></i> معلومات الموقع</h3></div>
+    <div class="card-body fg fg-2">
+      <div class="f"><label>اسم الموقع</label><input type="text" value="The Relax"/></div>
+      <div class="f"><label>رابط الموقع</label><input type="text" value="https://therelax.co"/></div>
+      <div class="f"><label>اللغة الافتراضية</label><select><option selected>العربية (RTL)</option><option>English (LTR)</option></select></div>
+      <div class="f"><label>المنطقة الزمنية</label><select><option selected>Asia/Riyadh (GMT+3)</option><option>Asia/Amman (GMT+2)</option><option>Asia/Dubai (GMT+4)</option></select></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-toggle-on"></i> تفعيل/إيقاف الأقسام</h3></div>
+    <div class="card-body fg fg-2">
+      <div class="f"><label>قسم الاستشاريين</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">مفعّل</span><span class="off-txt">موقوف</span></span></div></div>
+      <div class="f"><label>قسم الكورسات</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">مفعّل</span><span class="off-txt">موقوف</span></span></div></div>
+      <div class="f"><label>قسم المقالات</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">مفعّل</span><span class="off-txt">موقوف</span></span></div></div>
+      <div class="f"><label>قسم التقييمات</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">مفعّل</span><span class="off-txt">موقوف</span></span></div></div>
+      <div class="f"><label>قسم قصص النجاح</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">مفعّل</span><span class="off-txt">موقوف</span></span></div></div>
+      <div class="f"><label>قسم الأسعار</label><div class="tgl-wrap"><button class="tgl on" onclick="this.classList.toggle('on')"></button><span class="tgl-lbl"><span class="on-txt">مفعّل</span><span class="off-txt">موقوف</span></span></div></div>
+    </div>
+  </div>
+  <div class="act-row"><button class="btn btn-p" onclick="toast('تم حفظ الإعدادات ✓','success')"><i class="fa-solid fa-floppy-disk"></i> حفظ</button></div>
+</div>
+
+<!-- ================================================================
+     PAGE: ACTIVITY LOG
+================================================================ -->
+<div class="page" id="pg-activity">
+  <div class="page-hdr"><div class="page-hdr-left"><h1>📋 سجل النشاط</h1><p>كل التغييرات التي تمت على الموقع</p></div></div>
+  <div class="card">
+    <div class="card-body" id="activityLog">
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-time">اليوم 12:15</div><div class="tl-text">تم تعديل بيانات Dr. Ammar Shalabi — السعر: $49.50</div></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-time">اليوم 11:40</div><div class="tl-text">تم إضافة مقال: "5 استراتيجيات لإدارة نوبات الهلع"</div></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-time">اليوم 10:22</div><div class="tl-text">تقييم جديد من سارة م. — ⭐⭐⭐⭐⭐</div></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-time">أمس 18:05</div><div class="tl-text">تم تفعيل كورس CBT في الرئيسية</div></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-time">أمس 15:30</div><div class="tl-text">تم تحديث الهيرو — نص العنوان الرئيسي</div></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-time">أمس 12:00</div><div class="tl-text">تم إضافة استشاري جديد: Dr. Sara Mansour</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PAGE: PROGRAMS
+================================================================ -->
+<div class="page" id="pg-programs">
+  <div class="page-hdr"><div class="page-hdr-left"><h1>🚀 برامجنا وابدأ رحلتك</h1><p>إدارة قسم البرامج العلاجية وزر ابدأ رحلتك</p></div><div class="page-hdr-right"><button class="btn btn-p btn-sm" onclick="addProgram()"><i class="fa-solid fa-plus"></i> برنامج جديد</button></div></div>
+
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-bullhorn"></i> قسم CTA — ابدأ رحلتك</h3></div>
+    <div class="card-body fg fg-1" style="gap:13px;">
+      <div class="f"><label>العنوان الرئيسي</label><input type="text" value="ابدأ رحلتك نحو الصحة النفسية اليوم"/></div>
+      <div class="f"><label>النص التوضيحي</label><textarea rows="2">انضم لآلاف المستفيدين الذين بدأوا رحلتهم مع The Relax واكتشف عالماً من الدعم النفسي المتخصص.</textarea></div>
+      <div class="fg fg-2">
+        <div class="f"><label>نص الزر الرئيسي</label><input type="text" value="ابدأ الآن — مجاناً"/></div>
+        <div class="f"><label>نص الزر الثانوي</label><input type="text" value="تعرف على المختصين"/></div>
+        <div class="f"><label>رابط الزر الرئيسي</label><input type="text" value="#consultants"/></div>
+        <div class="f"><label>رابط الزر الثانوي</label><input type="text" value="specialists.html"/></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-layer-group"></i> البرامج العلاجية</h3><span style="font-size:.75rem;color:var(--muted);">اسحب لإعادة الترتيب</span></div>
+    <div class="card-body"><div class="drag-list" id="programsList">
+      <div class="drag-item featured"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb">🧘</div><div class="drag-info"><div class="drag-title">برنامج إدارة القلق</div><div class="drag-sub">8 أسابيع • 24 جلسة • $199</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+      <div class="drag-item featured"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb">👨‍👩‍👧</div><div class="drag-info"><div class="drag-title">برنامج الإرشاد الأسري</div><div class="drag-sub">6 أسابيع • 18 جلسة • $159</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+      <div class="drag-item"><span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb">🌙</div><div class="drag-info"><div class="drag-title">برنامج اضطرابات النوم</div><div class="drag-sub">4 أسابيع • 12 جلسة • $119</div></div><div class="drag-acts"><button class="tgl" onclick="this.classList.toggle('on')"></button><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div></div>
+    </div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h3><i class="fa-solid fa-plus"></i> إضافة برنامج جديد</h3></div>
+    <div class="card-body">
+      <div class="fg fg-3">
+        <div class="f"><label>اسم البرنامج</label><input type="text" placeholder="برنامج..." id="progName"/></div>
+        <div class="f"><label>المدة (أسابيع)</label><input type="number" placeholder="8" id="progWeeks"/></div>
+        <div class="f"><label>عدد الجلسات</label><input type="number" placeholder="24" id="progSessions"/></div>
+        <div class="f"><label>السعر ($)</label><input type="number" placeholder="199" id="progPrice"/></div>
+        <div class="f"><label>الإيموجي</label><input type="text" placeholder="🧘" id="progEmoji"/></div>
+        <div class="f"><label>الحالة</label><select id="progStatus"><option>نشط</option><option>قريباً</option><option>موقوف</option></select></div>
+      </div>
+      <div class="act-row"><button class="btn btn-p" onclick="addProgram()"><i class="fa-solid fa-plus"></i> إضافة</button></div>
+    </div>
+  </div>
+  <div class="act-row"><button class="btn btn-p" onclick="toast('تم حفظ البرامج ✓','success')"><i class="fa-solid fa-floppy-disk"></i> حفظ الكل</button></div>
+</div>
+
+</div><!-- /main -->
+
+<!-- ================================================================
+     MODALS
+================================================================ -->
+<div class="modal-overlay" id="modalOverlay" onclick="hideModal(event)">
+  <div class="modal" id="modalBox">
+    <div class="modal-head"><h3 id="modalTitle">العنوان</h3><button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button></div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toastEl"><i class="fa-solid fa-check-circle t-icon"></i><span id="toastMsg"></span></div>
+
+<script>
+/* ================================================================
+   DATA
+================================================================ */
+const consultants=[
+  {name:'Dr. Ahmed Qandeel',spec:'الطب النفسي',rating:5.0,price:56,sessions:290,exp:12,photo:'👨‍💼',featured:true,status:'نشط'},
+  {name:'Dr. Ahmad Hamed',spec:'الطب النفسي',rating:4.9,price:56,sessions:180,exp:9,photo:'👨‍⚕️',featured:true,status:'نشط'},
+  {name:'Mr. Batool Alobeid',spec:'علم نفس إكلينيكي',rating:4.8,price:49.5,sessions:210,exp:7,photo:'👩‍⚕️',featured:true,status:'نشط'},
+  {name:'Dr. Ammar Shalabi',spec:'علم نفس إكلينيكي',rating:4.8,price:49.5,sessions:240,exp:8,photo:'🧑‍⚕️',featured:true,status:'نشط'},
+  {name:'Dr. Ishraq AlTarawneh',spec:'إرشاد نفسي',rating:5.0,price:49.5,sessions:195,exp:6,photo:'👩‍🎓',featured:false,status:'نشط'},
+  {name:'Mr. Basel Abo Zaied',spec:'علم نفس إكلينيكي',rating:4.7,price:49.5,sessions:160,exp:5,photo:'👨‍💻',featured:false,status:'نشط'},
+  {name:'Dr. Lina Haddad',spec:'إرشاد أسري',rating:5.0,price:49.5,sessions:320,exp:11,photo:'👩‍⚕️',featured:false,status:'نشط'},
+  {name:'Dr. Sara Mansour',spec:'إرشاد نفسي',rating:4.9,price:42,sessions:142,exp:6,photo:'👩‍💼',featured:false,status:'نشط'},
+];
+
+const courses=[
+  {name:'دورة العلاج المعرفي السلوكي CBT',type:'كورس',hours:60,levels:3,price:199,oldPrice:299,accred:'جامعة كامبرج',instructor:'Dr. Sara',emoji:'🧠',featured:true,status:'منشور'},
+  {name:'دورة علم النفس التحليلي',type:'كورس',hours:40,levels:2,price:149,oldPrice:199,accred:'APA',instructor:'Dr. Ahmad',emoji:'📚',featured:true,status:'منشور'},
+  {name:'دورة الإرشاد الأسري',type:'ورشة عمل',hours:30,levels:1,price:99,oldPrice:149,accred:'المجلس الدولي',instructor:'Dr. Lina',emoji:'👨‍👩‍👧',featured:true,status:'منشور'},
+  {name:'إدارة القلق والاكتئاب',type:'كورس',hours:35,levels:2,price:129,oldPrice:169,accred:'APA',instructor:'Dr. Ammar',emoji:'🌿',featured:false,status:'منشور'},
+  {name:'ورشة اليقظة الذهنية',type:'ورشة عمل',hours:8,levels:1,price:59,oldPrice:89,accred:'',instructor:'Mr. Basel',emoji:'🧘',featured:false,status:'منشور'},
+  {name:'علم النفس التنموي',type:'كورس',hours:25,levels:2,price:89,oldPrice:119,accred:'',instructor:'Dr. Sara',emoji:'👶',featured:false,status:'مسودة'},
+  {name:'لايف: التشخيص الدقيق DSM-5',type:'لايف مباشر',hours:6,levels:1,price:79,oldPrice:0,accred:'',instructor:'Dr. Ahmad',emoji:'🎙️',featured:false,status:'قريباً'},
+];
+
+const articles=[
+  {title:'هل تكرار الكوابيس مرض نفسي؟',cat:'اضطرابات وأمراض نفسية',emoji:'😴',views:3400,date:'2025-03-10',featured:true,status:'منشور',author:'Dr. Ammar',readTime:4},
+  {title:'صدمة التحرش عند الأطفال: كيف تساعد طفلك؟',cat:'أطفال ومراهقون',emoji:'👧',views:5200,date:'2025-02-18',featured:true,status:'منشور',author:'Dr. Sara',readTime:6},
+  {title:'تأثير الشيرة على الصحة النفسية للمرأة',cat:'الأنا والهوية',emoji:'🤱',views:2800,date:'2025-01-25',featured:true,status:'منشور',author:'Dr. Lina',readTime:5},
+  {title:'كيف تعبر عن حبك لأطفالك؟',cat:'تربية وعلاقات أسرية',emoji:'👨‍👧',views:4100,date:'2025-03-01',featured:true,status:'منشور',author:'Dr. Lina',readTime:4},
+  {title:'5 استراتيجيات لإدارة نوبات الهلع',cat:'القلق ونوبات الهلع',emoji:'🧘‍♂️',views:6700,date:'2025-04-05',featured:true,status:'منشور',author:'Dr. Ammar',readTime:7},
+  {title:'التوحد والتواصل في العلاقات',cat:'علاقات زوجية وعاطفية',emoji:'💑',views:3200,date:'2024-12-14',featured:true,status:'منشور',author:'Dr. Ahmad',readTime:5},
+  {title:'الاكتئاب الموسمي: أسبابه وطرق علاجه',cat:'الاكتئاب',emoji:'🌧️',views:2900,date:'2025-01-10',featured:false,status:'منشور',author:'Dr. Sara',readTime:6},
+  {title:'نصائح لتحسين نوعية النوم',cat:'اضطرابات وأمراض نفسية',emoji:'🌙',views:1800,date:'2025-02-05',featured:false,status:'منشور',author:'Dr. Basel',readTime:3},
+];
+
+const reviews=[
+  {name:'سارة م.',avatar:'😊',spec:'Dr. Ammar Shalabi',rating:5,text:'الدكتور عمار متفهم جداً وبيعطيك مساحة تحكي براحتك. بعد ٤ جلسات حسيت بفرق كبير.',date:'2025-04-08',featured:true,status:'معتمد',type:'جلسة علاجية'},
+  {name:'أحمد خ.',avatar:'🙋‍♂️',spec:'Dr. Ahmad Hamed',rating:5,text:'جلسة CBT مع الدكتور عمار غيّرت نظرتي للأمور. تقنياته واضحة وعملية وسهل تطبيقها.',date:'2025-03-22',featured:true,status:'معتمد',type:'جلسة علاجية'},
+  {name:'نور ع.',avatar:'🌸',spec:'Dr. Ammar Shalabi',rating:5,text:'كنت خايفة من فكرة الجلسات أونلاين بس الدكتور خلّى الموضوع طبيعي جداً.',date:'2025-03-10',featured:true,status:'معتمد',type:'استشارة'},
+  {name:'خالد ي.',avatar:'👨‍💼',spec:'Dr. Lina Haddad',rating:4,text:'أخصائية ممتازة. تشرح وتوضح ولا تتركك تحس إنك لوحدك في المشكلة.',date:'2025-02-18',featured:false,status:'معتمد',type:'إرشاد أسري'},
+  {name:'ريم ن.',avatar:'👩‍👧',spec:'Mr. Batool Alobeid',rating:5,text:'ساعدتنا جلسات الإرشاد الأسري على حل خلافات كنا نعتقد أنها بلا حل.',date:'2025-02-05',featured:true,status:'معتمد',type:'إرشاد أسري'},
+  {name:'محمد ق.',avatar:'👨‍🎓',spec:'Dr. Sara Mansour',rating:5,text:'كورس CBT كان استثماراً حقيقياً في مسيرتي المهنية. المحتوى علمي ومنظّم.',date:'2025-04-15',featured:false,status:'بانتظار الموافقة',type:'كورس'},
+  {name:'هند ب.',avatar:'📱',spec:'Mr. Basel Abo Zaied',rating:5,text:'التطبيق سهل الاستخدام وجميل التصميم. حجز الجلسة لا يأخذ أكثر من دقيقتين.',date:'2025-03-28',featured:false,status:'معتمد',type:'جلسة علاجية'},
+  {name:'فيصل م.',avatar:'🌟',spec:'Dr. Ahmad Hamed',rating:5,text:'جربت منصات أخرى قبل The Relax لكن الفرق واضح جداً. المختصون هنا متخصصون فعلاً.',date:'2025-01-20',featured:false,status:'بانتظار الموافقة',type:'جلسة علاجية'},
+];
+
+const stories=[
+  {name:'نور م.',country:'الأردن',since:'8 أشهر',category:'قلق واكتئاب',avatar:'🌸',text:'كنت أعيش في دوامة من الأفكار السلبية لسنوات... بعد أربعة أشهر أصبحت أنظر للحياة بعين مختلفة.',featured:true},
+  {name:'خالد وسمر ع.',country:'السعودية',since:'سنة',category:'إرشاد أسري',avatar:'👨‍👩‍👦',text:'كادت علاقتنا الزوجية تنهار... اليوم في مكان أفضل بكثير مما كنا عليه حتى في بداية زواجنا.',featured:true},
+  {name:'أحمد ي.',country:'الإمارات',since:'6 أشهر',category:'ضغوط عمل',avatar:'💼',text:'كنت على وشك ترك وظيفتي... الآن أحب عملي مجدداً.',featured:true},
+];
+
+const faqs=[
+  {q:'ما هي مدة الجلسة؟',a:'تتراوح مدة الجلسة بين 45-60 دقيقة حسب نوع الجلسة.',cat:'الجلسات'},
+  {q:'هل الجلسات سرية تماماً؟',a:'نعم، جميع الجلسات سرية تماماً ومحمية وفق أعلى معايير الخصوصية.',cat:'الخصوصية'},
+  {q:'كيف أختار المختص المناسب؟',a:'يمكنك تصفح ملفات المختصين وقراءة تقييماتهم واختيار التخصص المناسب لحالتك.',cat:'عام'},
+  {q:'هل يمكنني تغيير المختص؟',a:'نعم، يمكنك تغيير مختصك في أي وقت دون أي رسوم إضافية.',cat:'الجلسات'},
+  {q:'ما هي طرق الدفع المتاحة؟',a:'نقبل بطاقات الائتمان، Apple Pay، Google Pay، وحوالات بنكية.',cat:'الأسعار'},
+];
+
+let artSortMode='newest',revSortMode='newest';
+
+/* ================================================================
+   NAVIGATION
+================================================================ */
+const titles={overview:'نظرة عامة',hero:'الهيرو والعنوان الرئيسي',services:'قسم خدماتنا',appbanner:'بنر التطبيق',slider:'البنر السلايدر',stats:'إحصائيات الموقع',why:'لماذا تختار The Relax',about:'من نحن',stories:'قصص النجاح',trust:'الذين يثقون بنا',pricing:'خطط الأسعار',faq:'الأسئلة الشائعة',consultants:'إدارة الاستشاريين',courses:'إدارة الكورسات',articles:'إدارة المقالات',reviews:'إدارة التقييمات',header:'الهيدر والنافبار',footer:'الفوتر',colors:'الألوان والثيم',seo:'SEO والبحث',categories:'إدارة التصنيفات',settings:'الإعدادات العامة',activity:'سجل النشاط',programs:'برامجنا'};
+
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(n=>n.classList.remove('active'));
+  const pg=document.getElementById('pg-'+id);
+  if(pg) pg.classList.add('active');
+  document.querySelectorAll('.sb-item').forEach(n=>{
+    if((n.getAttribute('onclick')||'').includes("'"+id+"'")) n.classList.add('active');
+  });
+  document.getElementById('tbTitle').textContent=titles[id]||id;
+  closeSB(); window.scrollTo({top:0,behavior:'smooth'});
+  if(id==='consultants'){renderConsTbody();renderConsHome();}
+  if(id==='courses'){renderCrsTbody();renderCrsHome();}
+  if(id==='articles'){renderArtList();renderArtHome();}
+  if(id==='reviews'){renderRevList();}
+  if(id==='stories'){renderStories();}
+  if(id==='services'){renderServices();}
+  if(id==='faq'){renderFaqs();}
+}
+
+/* ================================================================
+   SIDEBAR
+================================================================ */
+function openSB(){document.getElementById('sidebar').classList.add('open');document.getElementById('mobOverlay').classList.add('show');}
+function closeSB(){document.getElementById('sidebar').classList.remove('open');document.getElementById('mobOverlay').classList.remove('show');}
+
+/* ================================================================
+   TABS
+================================================================ */
+function swTab(prefix,id,btn){
+  const panes=document.querySelectorAll(`[id^="${prefix}-"]`);
+  panes.forEach(p=>p.classList.remove('active'));
+  const pane=document.getElementById(prefix+'-'+id);
+  if(pane) pane.classList.add('active');
+  if(btn){btn.closest('.tabs').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');}
+  if(prefix==='cons'&&id==='list') renderConsTbody();
+  if(prefix==='cons'&&id==='home') renderConsHome();
+  if(prefix==='crs'&&id==='list') renderCrsTbody();
+  if(prefix==='crs'&&id==='home') renderCrsHome();
+  if(prefix==='art'&&id==='list') renderArtList();
+  if(prefix==='art'&&id==='home') renderArtHome();
+}
+
+/* ================================================================
+   TOAST
+================================================================ */
+let _tt;
+function toast(msg,type='success'){
+  const el=document.getElementById('toastEl');
+  document.getElementById('toastMsg').textContent=msg;
+  el.className='toast show '+type;
+  const icon=el.querySelector('.t-icon');
+  icon.className='t-icon fa-solid '+(type==='success'?'fa-check-circle':type==='error'?'fa-circle-xmark':'fa-triangle-exclamation');
+  clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),3200);
+}
+
+/* ================================================================
+   CHAR COUNT
+================================================================ */
+function cc(el,id,max){const l=el.value.length;const d=document.getElementById(id);if(d){d.textContent=l+'/'+max;d.style.color=l>max?'var(--danger)':'var(--muted)';}}
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('input[oninput],textarea[oninput]').forEach(el=>{const m=el.getAttribute('oninput');if(m&&m.startsWith('cc('))el.dispatchEvent(new Event('input'));});
+});
+
+/* ================================================================
+   SAVE ALL
+================================================================ */
+function saveAll(){toast('تم حفظ جميع التغييرات بنجاح ✓','success');}
+
+/* ================================================================
+   DARK MODE
+================================================================ */
+function toggleDark(){document.body.style.filter=document.body.style.filter?'':'invert(1) hue-rotate(180deg)';toast('تم تبديل الوضع','success');}
+
+/* ================================================================
+   SERVICES
+================================================================ */
+const svcs=[
+  {icon:'🧠',title:'جلسات علاج نفسي',desc:'جلسات أونلاين مع مختصين معتمدين في الصحة النفسية.',active:true},
+  {icon:'📊',title:'تقييم وتشخيص',desc:'اختبارات علمية لفهم حالتك النفسية بشكل أدق.',active:true},
+  {icon:'🎓',title:'دورات وورشات',desc:'دورات تدريبية مع اعتماد عالمي.',active:true},
+  {icon:'📖',title:'محتوى توعوي',desc:'مقالات وفيديوهات تساعدك تفهم نفسك أكثر.',active:true},
+];
+function renderServices(){
+  const c=document.getElementById('svcList');if(!c)return;
+  c.innerHTML=svcs.map((s,i)=>`
+    <div class="drag-item">
+      <span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span>
+      <div class="drag-thumb">${s.icon}</div>
+      <div class="drag-info" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div class="f"><label style="font-size:.7rem;">العنوان</label><input type="text" value="${s.title}" style="font-size:.82rem;"/></div>
+        <div class="f"><label style="font-size:.7rem;">الأيقونة</label><input type="text" value="${s.icon}" style="font-size:.82rem;max-width:70px;"/></div>
+        <div class="f" style="grid-column:1/3"><label style="font-size:.7rem;">الوصف</label><input type="text" value="${s.desc}" style="font-size:.82rem;"/></div>
+      </div>
+      <div class="drag-acts">
+        <button class="tgl ${s.active?'on':''}" onclick="this.classList.toggle('on')"></button>
+        <button class="ib del" onclick="svcs.splice(${i},1);renderServices()"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>`).join('');
+}
+function addService(){svcs.push({icon:'✨',title:'خدمة جديدة',desc:'وصف الخدمة...',active:true});renderServices();toast('تمت الإضافة ✓','success');}
+
+/* ================================================================
+   CONSULTANTS
+================================================================ */
+function renderConsTbody(){
+  const tb=document.getElementById('consTbody');if(!tb)return;
+  tb.innerHTML=consultants.map((c,i)=>`<tr>
+    <td><div class="td-name">${c.photo} ${c.name}</div></td>
+    <td><span class="b b-blue">${c.spec}</span></td>
+    <td>⭐ ${c.rating}</td>
+    <td><span class="td-m">+${c.sessions}</span></td>
+    <td><b>$${c.price}</b></td>
+    <td><button class="tgl ${c.featured?'on':''}" onclick="consultants[${i}].featured=!consultants[${i}].featured;this.classList.toggle('on');toast(consultants[${i}].featured?'ظاهر في الرئيسية ✓':'تم الإخفاء','success')"></button></td>
+    <td><button class="btn btn-p btn-xs" onclick="toast('سيتم فتح الصفحة','success')"><i class="fa-solid fa-external-link-alt"></i> الصفحة</button></td>
+    <td><span class="b ${c.status==='نشط'?'b-green':'b-red'}">${c.status}</span></td>
+    <td><div style="display:flex;gap:5px;">
+      <button class="ib edit" title="تعديل" onclick="editCons(${i})"><i class="fa-solid fa-pen"></i></button>
+      <button class="ib del" title="حذف" onclick="if(confirm('هل تريد الحذف؟')){consultants.splice(${i},1);renderConsTbody();renderConsHome();toast('تم الحذف','error');}"><i class="fa-solid fa-trash"></i></button>
+    </div></td>
+  </tr>`).join('');
+}
+function renderConsHome(){
+  const el=document.getElementById('consHomeDrag');if(!el)return;
+  el.innerHTML=consultants.filter(c=>c.featured).map((c,i)=>`
+    <div class="drag-item featured">
+      <span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span>
+      <div class="drag-thumb">${c.photo}</div>
+      <div class="drag-info"><div class="drag-title">${c.name} <span class="b b-blue">${c.spec}</span></div><div class="drag-sub">⭐ ${c.rating} • $${c.price} • ${c.sessions}+ جلسة</div></div>
+      <div class="drag-acts">
+        <button class="tgl on" onclick="c.featured=false;renderConsHome();toast('تم الإخفاء','success')"></button>
+      </div>
+    </div>`).join('');
+}
+function filterCons(q){document.querySelectorAll('#consTbody tr').forEach(tr=>{tr.style.display=(tr.textContent.toLowerCase().includes(q.toLowerCase()))?'':'none';});}
+function filterConsBySpec(s){document.querySelectorAll('#consTbody tr').forEach(tr=>{tr.style.display=(!s||tr.textContent.includes(s))?'':'none';});}
+function editCons(i){swTab('cons','add',document.querySelectorAll('#pg-consultants .tab')[2]);document.getElementById('cName').value=consultants[i].name;document.getElementById('cSpec').value=consultants[i].spec;document.getElementById('cRating').value=consultants[i].rating;document.getElementById('cPrice').value=consultants[i].price;toast('جاري التعديل...','warn');}
+function addConsultant(){
+  const name=document.getElementById('cName').value.trim();
+  if(!name){toast('أدخل اسم الاستشاري','error');return;}
+  consultants.push({name,spec:document.getElementById('cSpec').value,rating:parseFloat(document.getElementById('cRating').value)||5,price:parseFloat(document.getElementById('cPrice').value)||49.5,sessions:parseInt(document.getElementById('cSessions').value)||0,exp:parseInt(document.getElementById('cExp').value)||1,photo:'👤',featured:document.getElementById('cFeatured').classList.contains('on'),status:'نشط'});
+  document.getElementById('cName').value='';document.getElementById('cRating').value='';document.getElementById('cPrice').value='';
+  renderConsTbody();renderConsHome();swTab('cons','list',document.querySelectorAll('#pg-consultants .tab')[0]);
+  toast('تمت إضافة الاستشاري بنجاح ✓','success');
+}
+
+/* ================================================================
+   COURSES
+================================================================ */
+function renderCrsTbody(){
+  const tb=document.getElementById('crsTbody');if(!tb)return;
+  tb.innerHTML=courses.map((c,i)=>`<tr>
+    <td><div class="td-name">${c.emoji} ${c.name}</div><div class="td-m">${c.instructor}</div></td>
+    <td><span class="b ${c.type==='كورس'?'b-blue':c.type==='ورشة عمل'?'b-green':'b-orange'}">${c.type}</span></td>
+    <td>${c.hours} ساعة</td>
+    <td><b>$${c.price}</b>${c.oldPrice?`<span class="td-m" style="text-decoration:line-through;margin-right:5px;">$${c.oldPrice}</span>`:''}</td>
+    <td>${c.accred||'—'}</td>
+    <td><button class="tgl ${c.featured?'on':''}" onclick="courses[${i}].featured=!courses[${i}].featured;this.classList.toggle('on');toast(courses[${i}].featured?'ظاهر في الرئيسية':'تم الإخفاء','success')"></button></td>
+    <td><span class="b ${c.status==='منشور'?'b-green':c.status==='مسودة'?'b-gray':'b-orange'}">${c.status}</span></td>
+    <td><div style="display:flex;gap:5px;">
+      <button class="ib edit"><i class="fa-solid fa-pen"></i></button>
+      <button class="ib del" onclick="if(confirm('حذف؟')){courses.splice(${i},1);renderCrsTbody();toast('تم الحذف','error');}"><i class="fa-solid fa-trash"></i></button>
+    </div></td>
+  </tr>`).join('');
+}
+function renderCrsHome(){
+  const el=document.getElementById('crsHomeDrag');if(!el)return;
+  el.innerHTML=courses.filter(c=>c.featured).map((c,i)=>`
+    <div class="drag-item featured">
+      <span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span>
+      <div class="drag-thumb">${c.emoji}</div>
+      <div class="drag-info"><div class="drag-title">${c.name}</div><div class="drag-sub">${c.hours} ساعة • ${c.type} • $${c.price}</div></div>
+      <div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div>
+    </div>`).join('');
+}
+function addCourse(){
+  const name=document.getElementById('crName').value.trim();
+  if(!name){toast('أدخل عنوان الكورس','error');return;}
+  courses.push({name,type:document.getElementById('crType').value,hours:parseInt(document.getElementById('crHours').value)||0,levels:parseInt(document.getElementById('crLevels').value)||1,price:parseFloat(document.getElementById('crPrice').value)||0,oldPrice:parseFloat(document.getElementById('crOldPrice').value)||0,accred:document.getElementById('crAccred').value,instructor:document.getElementById('crInstructor').value,emoji:document.getElementById('crEmoji').value||'📚',featured:document.getElementById('crFeat').classList.contains('on'),status:document.getElementById('crStatus').value});
+  document.getElementById('crName').value='';renderCrsTbody();renderCrsHome();
+  swTab('crs','list',document.querySelectorAll('#pg-courses .tab')[0]);toast('تمت إضافة الكورس ✓','success');
+}
+
+/* ================================================================
+   ARTICLES
+================================================================ */
+function renderArtList(filter='',cat=''){
+  const el=document.getElementById('artListBody');if(!el)return;
+  let list=[...articles];
+  if(filter) list=list.filter(a=>a.title.includes(filter)||a.author.includes(filter));
+  if(cat) list=list.filter(a=>a.cat===cat);
+  if(artSortMode==='oldest') list.sort((a,b)=>new Date(a.date)-new Date(b.date));
+  else if(artSortMode==='popular') list.sort((a,b)=>b.views-a.views);
+  else if(artSortMode==='featured') list.sort((a,b)=>b.featured-a.featured);
+  else if(artSortMode==='alpha') list.sort((a,b)=>a.title.localeCompare(b.title,'ar'));
+  else list.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  document.getElementById('artCountBadge').textContent=list.length;
+  el.innerHTML=list.map(a=>{
+    const i=articles.indexOf(a);
+    return `<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f4f5f9;">
+      <div class="drag-thumb">${a.emoji}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:.86rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${a.title}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+          <span class="b b-blue">${a.cat}</span>
+          <span style="font-size:.72rem;color:var(--muted);">👁 ${a.views.toLocaleString()}</span>
+          <span style="font-size:.72rem;color:var(--muted);">📅 ${a.date}</span>
+          <span style="font-size:.72rem;color:var(--muted);">✍️ ${a.author}</span>
+          <span class="b ${a.status==='منشور'?'b-green':'b-gray'}">${a.status}</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:5px;flex-shrink:0;">
+        <button class="ib star ${a.featured?'starred':''}" title="إظهار في الرئيسية" onclick="articles[${i}].featured=!articles[${i}].featured;this.classList.toggle('starred');renderArtHome();toast(articles[${i}].featured?'مضاف للرئيسية ✓':'تم الإخفاء')"><i class="fa-solid fa-star"></i></button>
+        <button class="ib edit"><i class="fa-solid fa-pen"></i></button>
+        <button class="ib del" onclick="if(confirm('حذف؟')){articles.splice(${i},1);renderArtList();toast('تم الحذف','error');}"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>`;}).join('');
+}
+function renderArtHome(){
+  const el=document.getElementById('artHomeDrag');if(!el)return;
+  el.innerHTML=articles.filter(a=>a.featured).map((a,i)=>`
+    <div class="drag-item featured">
+      <span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span>
+      <div class="drag-thumb">${a.emoji}</div>
+      <div class="drag-info"><div class="drag-title">${a.title}</div><div class="drag-sub">${a.cat} • 👁 ${a.views.toLocaleString()} • ${a.date}</div></div>
+      <div class="drag-acts">
+        <button class="ib star starred" onclick="articles[articles.findIndex(x=>x.title==='${a.title}')].featured=false;renderArtList();renderArtHome();"><i class="fa-solid fa-star"></i></button>
+        <button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>`).join('');
+}
+function filterArts(q){const cat=document.getElementById('artCatFilter')?.value||'';renderArtList(q||'',cat);}
+function sortArts(mode,btn){artSortMode=mode;document.querySelectorAll('.sort-pill').forEach(p=>p.classList.remove('active'));btn.classList.add('active');filterArts();}
+function addArticle(){
+  const t=document.getElementById('aTitle').value.trim();if(!t){toast('أدخل عنوان المقال','error');return;}
+  articles.unshift({title:t,cat:document.getElementById('aCat').value,emoji:document.getElementById('aEmoji').value||'📄',views:parseInt(document.getElementById('aViews').value)||0,date:document.getElementById('aDate').value||new Date().toISOString().slice(0,10),featured:document.getElementById('aFeat').classList.contains('on'),status:document.getElementById('aStatus').value,author:document.getElementById('aAuthor').value||'—',readTime:parseInt(document.getElementById('aReadTime').value)||3});
+  document.getElementById('aTitle').value='';renderArtList();renderArtHome();
+  swTab('art','list',document.querySelectorAll('#pg-articles .tab')[0]);toast('تم نشر المقال ✓','success');
+}
+
+/* ================================================================
+   REVIEWS
+================================================================ */
+function renderRevList(filter='',specFilter='',sortMode=''){
+  const el=document.getElementById('revListBody');if(!el)return;
+  let list=[...reviews];
+  if(filter) list=list.filter(r=>r.name.includes(filter)||r.text.includes(filter));
+  if(specFilter) list=list.filter(r=>r.spec===specFilter);
+  const sm=sortMode||revSortMode;
+  if(sm==='oldest') list.sort((a,b)=>new Date(a.date)-new Date(b.date));
+  else if(sm==='high') list.sort((a,b)=>b.rating-a.rating);
+  else if(sm==='low') list.sort((a,b)=>a.rating-b.rating);
+  else if(sm==='featured') list.sort((a,b)=>b.featured-a.featured);
+  else if(sm==='pending') list=list.filter(r=>r.status==='بانتظار الموافقة');
+  else list.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  document.getElementById('revCount').textContent=list.length;
+  el.innerHTML=list.map(r=>{
+    const i=reviews.indexOf(r);
+    const stars='★'.repeat(r.rating)+'☆'.repeat(5-r.rating);
+    return `<div class="rev-card">
+      <div class="rev-top">
+        <div class="rev-user">
+          <div class="rev-avatar">${r.avatar}</div>
+          <div><div class="rev-name">${r.name}</div><div class="rev-date">${r.date} • ${r.spec}</div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;">
+          <div style="color:#f59e0b;font-size:.9rem;">${stars}</div>
+          <span class="b ${r.status==='معتمد'?'b-green':r.status==='بانتظار الموافقة'?'b-orange':'b-red'}">${r.status}</span>
+        </div>
+      </div>
+      <div class="rev-text">${r.text}</div>
+      <div class="rev-actions">
+        <div style="display:flex;gap:6px;align-items:center;">
+          <span class="b b-blue">${r.type}</span>
+          ${r.status==='بانتظار الموافقة'?`<button class="btn btn-g btn-xs" onclick="reviews[${i}].status='معتمد';renderRevList();toast('تم الاعتماد ✓','success')"><i class="fa-solid fa-check"></i> اعتماد</button>`:''}
+        </div>
+        <div style="display:flex;gap:5px;">
+          <button class="ib star ${r.featured?'starred':''}" title="مميز في الرئيسية" onclick="reviews[${i}].featured=!reviews[${i}].featured;this.classList.toggle('starred');toast(reviews[${i}].featured?'مميز في الرئيسية ✓':'تم الإخفاء')"><i class="fa-solid fa-star"></i></button>
+          <button class="ib del" onclick="if(confirm('حذف؟')){reviews.splice(${i},1);renderRevList();toast('تم الحذف','error');}"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      </div>
+    </div>`;}).join('');
+}
+function filterRevs(q){renderRevList(q||'');}
+function filterRevsBySpec(s){renderRevList('',s);}
+function sortRevs(mode,btn){revSortMode=mode;document.querySelectorAll('#pg-reviews .sort-pill').forEach(p=>p.classList.remove('active'));btn.classList.add('active');renderRevList();}
+
+/* ================================================================
+   STORIES
+================================================================ */
+function renderStories(){
+  const el=document.getElementById('storiesList');if(!el)return;
+  el.innerHTML=stories.map((s,i)=>`
+    <div class="drag-item ${s.featured?'featured':''}">
+      <span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span>
+      <div class="drag-thumb">${s.avatar}</div>
+      <div class="drag-info"><div class="drag-title">${s.name} — ${s.country}</div><div class="drag-sub">${s.category} • منذ ${s.since} • "${s.text.substring(0,60)}..."</div></div>
+      <div class="drag-acts">
+        <button class="tgl ${s.featured?'on':''}" onclick="stories[${i}].featured=!stories[${i}].featured;this.classList.toggle('on');renderStories()"></button>
+        <button class="ib edit"><i class="fa-solid fa-pen"></i></button>
+        <button class="ib del" onclick="if(confirm('حذف؟')){stories.splice(${i},1);renderStories();toast('تم الحذف','error');}"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>`).join('');
+}
+
+/* ================================================================
+   FAQ
+================================================================ */
+function renderFaqs(){
+  const el=document.getElementById('faqList');if(!el)return;
+  el.innerHTML=faqs.map((f,i)=>`
+    <div class="drag-item">
+      <span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span>
+      <div class="drag-info"><div class="drag-title">${f.q}</div><div class="drag-sub">${f.a.substring(0,80)}... <span class="b b-gray">${f.cat}</span></div></div>
+      <div class="drag-acts">
+        <button class="ib edit"><i class="fa-solid fa-pen"></i></button>
+        <button class="ib del" onclick="faqs.splice(${i},1);renderFaqs();toast('تم الحذف','error')"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    </div>`).join('');
+}
+function addFaq(){
+  const q=document.getElementById('faqQ').value.trim();
+  const a=document.getElementById('faqA').value.trim();
+  if(!q||!a){toast('أدخل السؤال والجواب','error');return;}
+  faqs.unshift({q,a,cat:document.getElementById('faqCat').value});
+  document.getElementById('faqQ').value='';document.getElementById('faqA').value='';
+  renderFaqs();toast('تمت إضافة السؤال ✓','success');
+}
+
+/* ================================================================
+   WHY TABLE
+================================================================ */
+function addWhyRow(){
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td><input type="text" placeholder="ميزة جديدة..." style="border:none;background:transparent;width:100%;font-size:.82rem;"/></td><td><select style="font-size:.8rem;"><option value="yes">✓ نعم</option><option>✗ لا</option><option>جزئي</option></select></td><td><select style="font-size:.8rem;"><option>✗ لا</option><option value="yes">✓ نعم</option><option>جزئي</option></select></td><td><button class="ib del" onclick="this.closest('tr').remove()"><i class="fa-solid fa-trash"></i></button></td>`;
+  document.querySelector('#whyTable tbody').appendChild(tr);
+}
+
+/* ================================================================
+   TRUST
+================================================================ */
+function addTrust(){
+  const name=prompt('اسم الشريك:');if(!name)return;
+  const item=document.createElement('div');item.className='drag-item';
+  item.innerHTML=`<span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb">🤝</div><div class="drag-info"><div class="drag-title">${name}</div><div class="drag-sub">logo.png</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div>`;
+  document.getElementById('trustList').appendChild(item);toast('تمت الإضافة ✓','success');
+}
+
+/* ================================================================
+   CATEGORIES
+================================================================ */
+function addCat(){
+  const name=document.getElementById('catName')?.value.trim();
+  if(!name){toast('أدخل اسم التصنيف','error');return;}
+  const em=document.getElementById('catEmoji')?.value||'🏷️';
+  const item=document.createElement('div');item.className='drag-item pinned';
+  item.innerHTML=`<span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb" style="background:var(--primary-l);font-size:.8rem;font-weight:700;">${em}</div><div class="drag-info"><div class="drag-title">${name}</div><div class="drag-sub">slug: new • 0 مقالات</div></div><div class="drag-acts"><span class="b b-green">نشط</span><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div>`;
+  document.getElementById('catsDrag').prepend(item);
+  if(document.getElementById('catName')) document.getElementById('catName').value='';
+  toast('تمت إضافة التصنيف ✓','success');
+}
+
+/* ================================================================
+   HEADER NAV LINKS
+================================================================ */
+function addNavLink(){
+  const item=document.createElement('div');item.className='drag-item';
+  item.innerHTML=`<span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-info" style="display:flex;gap:8px;flex:1;"><input type="text" placeholder="نص الرابط" style="flex:1;border:1.5px solid var(--border);border-radius:7px;padding:6px 10px;font-size:.82rem;"/><input type="text" placeholder="href: #section" style="flex:1;border:1.5px solid var(--border);border-radius:7px;padding:6px 10px;font-size:.82rem;"/></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div>`;
+  document.getElementById('navLinksList').appendChild(item);toast('تمت الإضافة','success');
+}
+
+/* ================================================================
+   THEME
+================================================================ */
+function applyTheme(t){const colors={blue:'#4064f7',green:'#0c8f73',purple:'#7c3aed',dark:'#1a1a2e'};document.documentElement.style.setProperty('--primary',colors[t]||colors.blue);toast('تم تطبيق الثيم ✓','success');}
+
+/* ================================================================
+   IMG PREVIEW
+================================================================ */
+function previewImg(input,targetId){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const d=document.getElementById(targetId);if(!d)return;
+    d.style.display='block';
+    d.innerHTML=`<div class="img-preview-wrap"><img src="${e.target.result}" style="width:100%;height:120px;object-fit:cover;border-radius:10px;"/><span class="img-preview-remove" onclick="this.parentElement.parentElement.style.display='none'">✕</span></div>`;
+  };reader.readAsDataURL(file);
+}
+
+/* ================================================================
+   MODAL
+================================================================ */
+function showModal(type){
+  const titles={addConsultant:'إضافة استشاري جديد',addCourse:'إضافة كورس جديد',addReview:'إضافة تقييم جديد',addStory:'إضافة قصة نجاح'};
+  document.getElementById('modalTitle').textContent=titles[type]||'';
+  const bodies={
+    addReview:`<div class="fg fg-1" style="gap:12px;">
+      <div class="f"><label>اسم المستفيد</label><input type="text" placeholder="أحمد م." id="mrName"/></div>
+      <div class="f"><label>التقييم</label><select id="mrRating"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></div>
+      <div class="f"><label>الاستشاري</label><select id="mrSpec">${consultants.map(c=>`<option>${c.name}</option>`).join('')}</select></div>
+      <div class="f"><label>نوع الخدمة</label><select id="mrType"><option>جلسة علاجية</option><option>استشارة</option><option>إرشاد أسري</option><option>كورس</option></select></div>
+      <div class="f"><label>نص التقييم</label><textarea rows="3" placeholder="اكتب التقييم..." id="mrText"></textarea></div>
+      <div class="f"><label>الحالة</label><select id="mrStatus"><option>معتمد</option><option>بانتظار الموافقة</option></select></div>
+      <button class="btn btn-p" onclick="submitReview()"><i class="fa-solid fa-plus"></i> إضافة التقييم</button>
+    </div>`,
+    addStory:`<div class="fg fg-1" style="gap:12px;">
+      <div class="f"><label>الاسم</label><input type="text" placeholder="أحمد م." id="msName"/></div>
+      <div class="f"><label>الدولة</label><input type="text" placeholder="الأردن" id="msCountry"/></div>
+      <div class="f"><label>المدة (منذ...)</label><input type="text" placeholder="6 أشهر" id="msSince"/></div>
+      <div class="f"><label>الفئة</label><select id="msCat"><option>قلق واكتئاب</option><option>إرشاد أسري</option><option>ضغوط عمل</option><option>علاقات</option></select></div>
+      <div class="f"><label>الإيموجي</label><input type="text" placeholder="🌸" id="msEmoji"/></div>
+      <div class="f"><label>نص القصة</label><textarea rows="4" placeholder="اكتب القصة..." id="msText"></textarea></div>
+      <button class="btn btn-p" onclick="submitStory()"><i class="fa-solid fa-plus"></i> إضافة القصة</button>
+    </div>`
+  };
+  document.getElementById('modalBody').innerHTML=bodies[type]||'<p>قريباً...</p>';
+  document.getElementById('modalOverlay').classList.add('show');
+}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('show');}
+function hideModal(e){if(e.target===document.getElementById('modalOverlay'))closeModal();}
+function submitReview(){
+  const name=document.getElementById('mrName').value.trim();
+  if(!name){toast('أدخل الاسم','error');return;}
+  reviews.unshift({name,avatar:'🌟',spec:document.getElementById('mrSpec').value,rating:parseInt(document.getElementById('mrRating').value)||5,text:document.getElementById('mrText').value,date:new Date().toISOString().slice(0,10),featured:false,status:document.getElementById('mrStatus').value,type:document.getElementById('mrType').value});
+  closeModal();renderRevList();toast('تمت إضافة التقييم ✓','success');
+}
+function submitStory(){
+  const name=document.getElementById('msName').value.trim();
+  if(!name){toast('أدخل الاسم','error');return;}
+  stories.unshift({name,country:document.getElementById('msCountry').value,since:document.getElementById('msSince').value,category:document.getElementById('msCat').value,avatar:document.getElementById('msEmoji').value||'✨',text:document.getElementById('msText').value,featured:true});
+  closeModal();renderStories();toast('تمت إضافة القصة ✓','success');
+}
+
+
+/* ================================================================
+   PROGRAMS
+================================================================ */
+function addProgram(){
+  const name=document.getElementById('progName')?.value.trim();
+  if(!name){toast('أدخل اسم البرنامج','error');return;}
+  const item=document.createElement('div');item.className='drag-item featured';
+  const emoji=document.getElementById('progEmoji')?.value||'✨';
+  const weeks=document.getElementById('progWeeks')?.value||'4';
+  const sess=document.getElementById('progSessions')?.value||'12';
+  const price=document.getElementById('progPrice')?.value||'0';
+  item.innerHTML=`<span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb">${emoji}</div><div class="drag-info"><div class="drag-title">${name}</div><div class="drag-sub">${weeks} أسابيع • ${sess} جلسة • $${price}</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib edit"><i class="fa-solid fa-pen"></i></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div>`;
+  document.getElementById('programsList')?.appendChild(item);
+  if(document.getElementById('progName')) document.getElementById('progName').value='';
+  toast('تمت إضافة البرنامج ✓','success');
+}
+function addSlide(){
+  const item=document.createElement('div');item.className='drag-item';
+  item.innerHTML='<span class="drag-hnd"><i class="fa-solid fa-grip-vertical"></i></span><div class="drag-thumb">🖼️</div><div class="drag-info"><div class="drag-title">شريحة جديدة</div><div class="drag-sub">banner-new.png</div></div><div class="drag-acts"><button class="tgl on" onclick="this.classList.toggle('on')"></button><button class="ib del" onclick="this.closest('.drag-item').remove()"><i class="fa-solid fa-trash"></i></button></div>';
+  document.getElementById('slidesList')?.appendChild(item);toast('تمت إضافة الشريحة ✓','success');
+}
+
+/* ================================================================
+   INIT
+================================================================ */
+// DOM is ready - script runs after body
+renderServices();
+renderConsTbody();
+renderConsHome();
+renderCrsTbody();
+renderCrsHome();
+renderArtList();
+renderArtHome();
+renderRevList();
+renderStories();
+renderFaqs();
+</script>
+</body>
+</html>

@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>من نحن - The Relax</title>
+  <meta name="description" content="تعرف على منصة The Relax للصحة النفسية والعلاج أونلاين" />
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+
+    body{
+      font-family: 'SST Arabic';
+    }
+    /* ========================================
+       PAGE HERO - من نحن
+    ======================================== */
+    .about-hero {
+      background: linear-gradient( #4064f7 30%, white);
+      padding: 130px 20px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: -80px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .about-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; right: -60px;
+      width: 250px; height: 250px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .about-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 750px;
+      margin: 0 auto;
+    }
+
+    .about-hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      padding: 6px 20px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .about-hero h1 {
+      color: white;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 18px;
+    }
+
+    .about-hero h1 span {
+      color: var(--secondary);
+    }
+
+    .about-hero p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    /* ========================================
+       OUR STORY
+    ======================================== */
+    .our-story {
+      padding: 80px 20px;
+      background: var(--gray-50);
+    }
+
+    .our-story .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .story-text h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .story-text .section-line {
+      width: 60px;
+      height: 4px;
+      background: var(--secondary);
+      border-radius: 4px;
+      margin-bottom: 24px;
+    }
+
+    .story-text p {
+      color: var(--gray-600);
+      font-size: 1rem;
+      line-height: 1.9;
+      margin-bottom: 16px;
+    }
+
+    .story-visual {
+      background-color: var(--primary);
+      border-radius: 24px;
+      padding: 50px 40px;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(64, 100, 247, 0.3);
+    }
+
+    .story-visual::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .story-visual .big-icon {
+      font-size: 5rem;
+      display: block;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .story-visual h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .story-visual p {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ========================================
+       VALUES
+    ======================================== */
+    .our-values {
+      padding: 80px 20px;
+      background: white;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--foreground);
+      margin-bottom: 12px;
+    }
+
+    .section-header p {
+      color: var(--gray-500);
+      font-size: 1rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .section-header .tag {
+      display: inline-block;
+      background: rgba(64, 100, 247, 0.08);
+      color: var(--primary);
+      padding: 5px 18px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .value-card {
+      background: var(--gray-50);
+      border-radius: 20px;
+      padding: 36px 28px;
+      text-align: center;
+      border: 1px solid var(--gray-200);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .value-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 100%; height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+
+    .value-card:hover::before { transform: scaleX(1); }
+
+    .value-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(64, 100, 247, 0.12);
+    }
+
+    .value-icon {
+      width: 68px; height: 68px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+      margin: 0 auto 20px;
+      box-shadow: 0 8px 20px rgba(64, 100, 247, 0.25);
+    }
+
+    .value-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--foreground);
+      margin-bottom: 10px;
+    }
+
+    .value-card p {
+      color: var(--gray-500);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    /* ========================================
+       TEAM
+    ======================================== */
+    .our-team {
+      padding: 80px 20px;
+      background: var(--gray-50);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .team-card {
+      background: white;
+      border-radius: 20px;
+      padding: 28px 20px;
+      text-align: center;
+      border: 1px solid var(--gray-200);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .team-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 35px rgba(64, 100, 247, 0.1);
+    }
+
+    .team-avatar {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 16px;
+      border: 3px solid white;
+      box-shadow: 0 6px 18px rgba(64, 100, 247, 0.2);
+    }
+
+    .team-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--foreground);
+      margin-bottom: 6px;
+    }
+
+    .team-card .role {
+      font-size: 0.82rem;
+      color: var(--primary);
+      font-weight: 600;
+      background: rgba(64, 100, 247, 0.08);
+      padding: 3px 12px;
+      border-radius: 50px;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
+    .team-card p {
+      font-size: 0.85rem;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+
+    /* ========================================
+       TIMELINE
+    ======================================== */
+    .our-journey {
+      padding: 80px 20px;
+      background: white;
+    }
+
+    .timeline {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      right: 28px;
+      top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--primary), var(--accent));
+      border-radius: 3px;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 40px;
+      position: relative;
+      padding-right: 72px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      right: 14px;
+      top: 4px;
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid var(--primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      z-index: 2;
+      flex-shrink: 0;
+    }
+
+    .timeline-content {
+      background: var(--gray-50);
+      border-radius: 16px;
+      padding: 24px 28px;
+      border: 1px solid var(--gray-200);
+      flex: 1;
+      transition: transform 0.3s ease;
+    }
+
+    .timeline-content:hover {
+      transform: translateX(-4px);
+      border-color: var(--primary);
+    }
+
+    .timeline-year {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: rgba(64,100,247,0.08);
+      padding: 3px 12px;
+      border-radius: 50px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .timeline-content h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--foreground);
+      margin-bottom: 8px;
+    }
+
+    .timeline-content p {
+      font-size: 0.9rem;
+      color: var(--gray-500);
+      line-height: 1.7;
+    }
+
+    /* ========================================
+       VISION & MISSION
+    ======================================== */
+    .vision-mission {
+      padding: 80px 20px;
+      background: linear-gradient(135deg, var(--primary) 0%, #1a2f9a 100%);
+    }
+
+    .vm-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .vm-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 24px;
+      padding: 40px 36px;
+      border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .vm-card:hover {
+      transform: translateY(-6px);
+      background: rgba(255,255,255,0.15);
+    }
+
+    .vm-card .vm-icon {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .vm-card h3 {
+      color: var(--secondary);
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .vm-card p {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    /* ========================================
+       CTA SECTION
+    ======================================== */
+    .about-cta {
+      padding: 80px 20px;
+      background: var(--gray-50);
+      text-align: center;
+    }
+
+    .about-cta h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--foreground);
+      margin-bottom: 14px;
+    }
+
+    .about-cta p {
+      color: var(--gray-500);
+      font-size: 1rem;
+      max-width: 520px;
+      margin: 0 auto 32px;
+      line-height: 1.8;
+    }
+
+    .about-cta .cta-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn-primary {
+      background: var(--primary);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .cta-btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      color: white;
+    }
+
+    .cta-btn-outline {
+      background: transparent;
+      color: var(--primary);
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: 2px solid var(--primary);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .cta-btn-outline:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* ========================================
+       RESPONSIVE
+    ======================================== */
+    @media (max-width: 900px) {
+      .our-story .container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .vm-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .timeline::before {
+        right: 16px;
+      }
+
+      .timeline-item {
+        padding-right: 52px;
+      }
+
+      .timeline-dot {
+        right: 4px;
+        width: 26px; height: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ========== HEADER (نفس الهيدر) ========== -->
+  <header>
+    <nav>
+      <div class="logo">
+        <img src="logo.png" alt="The Relax Logo">
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="book.html">المكتبة</a></li>
+        <li><a href="#services">خدماتنا</a></li>
+        <li><a href="serves.html">برامجنا</a></li>
+        <li><a href="about.html" style="color: var(--secondary);">من نحن</a></li>
+        <li><a href="index.html#pricing">الأسعار</a></li>
+      </ul>
+
+      <div class="nav-buttons">
+        <button class="download-btn" onclick="openModal()">
+          <span>⬇️</span>
+          <span>حمل التطبيق</span>
+        </button>
+        <button class="menu-toggle" onclick="toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul>
+        <li><a href="index.html" onclick="closeMobileMenu()">الرئيسية</a></li>
+        <li><a href="index.html#services" onclick="closeMobileMenu()">خدماتنا</a></li>
+        <li><a href="serves.html" onclick="closeMobileMenu()">برامجنا</a></li>
+        <li><a href="index.html#pricing" onclick="closeMobileMenu()">الأسعار</a></li>
+        <li><a href="about.html" onclick="closeMobileMenu()">من نحن</a></li>
+      </ul>
+      <button class="mobile-download-btn" onclick="openModal()">تحميل التطبيق</button>
+    </div>
+  </header>
+
+  <!-- ========== ABOUT HERO ========== -->
+  <section class="about-hero">
+    <div class="about-hero-content">
+      <span class="about-hero-badge">🧠 تعرف علينا أكثر</span>
+      <h1>نحن هنا من أجل <span>صحتك النفسية</span></h1>
+      <p>منصة The Relax وُلدت من إيمان حقيقي بأن الصحة النفسية حق لكل إنسان، وأن طلب المساعدة هو أول خطوة نحو حياة أفضل.</p>
+    </div>
+  </section>
+
+  <!-- ========== OUR STORY ========== -->
+  <section class="our-story">
+    <div class="container">
+      <div class="story-text">
+        <h2>قصتنا</h2>
+        <div class="section-line"></div>
+        <p>
+          بدأت رحلة The Relax بسؤال بسيط: لماذا يجد الناس صعوبة في الوصول إلى دعم نفسي حقيقي وموثوق؟ من هذا السؤال، أُسست المنصة بهدف تغيير الواقع.
+        </p>
+        <p>
+          جمعنا نخبة من أفضل الأخصائيين النفسيين المعتمدين في الوطن العربي، وبنينا تجربة رقمية متكاملة تجعل طلب المساعدة سهلاً، آمناً، وبأسعار مناسبة.
+        </p>
+        <p>
+          اليوم، نفخر بخدمة آلاف المستفيدين من مختلف الدول، ونواصل رحلتنا نحو مستقبل يكون فيه الدعم النفسي متاحاً للجميع.
+        </p>
+      </div>
+      <div class="story-visual">
+        <span class="big-icon"><img src="logo.png"></span>
+        <h3>من فكرة إلى واقع</h3>
+        <p>بدأنا بحلم صغير، وأصبحنا اليوم المنصة الأولى للصحة النفسية الرقمية في المنطقة.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== VISION & MISSION ========== -->
+  <section class="vision-mission">
+    <div class="vm-grid">
+      <div class="vm-card">
+        <span class="vm-icon">🔭</span>
+        <h3>رؤيتنا</h3>
+        <p>أن نكون المنصة الرائدة في الصحة النفسية الرقمية عربياً، ونجعل الدعم النفسي حقاً وليس رفاهية لكل إنسان في العالم العربي.</p>
+      </div>
+      <div class="vm-card">
+        <span class="vm-icon">🎯</span>
+        <h3>مهمتنا</h3>
+        <p>توفير رعاية نفسية احترافية وميسورة عبر منصة رقمية آمنة، مع أخصائيين معتمدين وتجربة مستخدم استثنائية تضع رفاهيتك في المقدمة.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== OUR VALUES ========== -->
+  <section class="our-values">
+    <div class="section-header">
+      <span class="tag">💎 ما يميزنا</span>
+      <h2>قيمنا الأساسية</h2>
+      <p>هذه المبادئ توجه كل قرار نتخذه وكل خدمة نقدمها</p>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🛡️</div>
+        <h3>الأمان والخصوصية</h3>
+        <p>جميع بياناتك وجلساتك محمية بأعلى معايير الأمان. خصوصيتك خط أحمر لا نتجاوزه أبداً.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">⭐</div>
+        <h3>الجودة والاحترافية</h3>
+        <p>كل أخصائي على منصتنا مرخص ومعتمد بدرجات أكاديمية معترف بها دولياً.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">❤️</div>
+        <h3>التعاطف والاحترام</h3>
+        <p>نؤمن أن كل إنسان يستحق الاستماع والفهم بلا حكم أو تقييم، في بيئة دافئة وآمنة.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🌐</div>
+        <h3>الوصول للجميع</h3>
+        <p>نسعى لإزالة كل الحواجز التي تمنع الناس من الحصول على دعم نفسي، جغرافياً ومادياً.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🔬</div>
+        <h3>المنهج العلمي</h3>
+        <p>جميع طرق العلاج المستخدمة على منصتنا قائمة على أبحاث علمية معتمدة وممارسات مثبتة.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🚀</div>
+        <h3>التطوير المستمر</h3>
+        <p>نستثمر دائماً في تحسين المنصة والخدمات لنقدم لك أفضل تجربة ممكنة في كل مرة.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TEAM ========== -->
+  <section class="our-team">
+    <div class="section-header">
+      <span class="tag">👥 الفريق</span>
+      <h2>من يقف وراء The Relax</h2>
+      <p>فريق شغوف يعمل يومياً لجعل رحلتك أفضل</p>
+    </div>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar">👨‍💼</div>
+        <h3>المؤسس والرئيس التنفيذي</h3>
+        <span class="role">القيادة</span>
+        <p>رؤية استراتيجية ترتكز على إيمان عميق بقيمة الصحة النفسية لكل فرد.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">👩‍⚕️</div>
+        <h3>المديرة الإكلينيكية</h3>
+        <span class="role">الرعاية النفسية</span>
+        <p>تشرف على جودة الرعاية النفسية وضمان أعلى المعايير في الخدمة.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">👨‍💻</div>
+        <h3>رئيس فريق التقنية</h3>
+        <span class="role">التكنولوجيا</span>
+        <p>يقود تطوير المنصة لتكون تجربة مستخدم سلسة وآمنة في كل وقت.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">👩‍🎨</div>
+        <h3>مديرة تجربة المستخدم</h3>
+        <span class="role">التصميم والتجربة</span>
+        <p>تحرص على أن كل تفصيلة في المنصة تخدم راحتك وسهولة استخدامك.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TIMELINE ========== -->
+  <section class="our-journey">
+    <div class="section-header">
+      <span class="tag">📅 رحلتنا</span>
+      <h2>محطات أثّرت فينا</h2>
+      <p>من الفكرة الأولى حتى اليوم</p>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot">١</div>
+        <div class="timeline-content">
+          <span class="timeline-year">2021</span>
+          <h3>ولادة الفكرة</h3>
+          <p>انطلقت فكرة The Relax من إحساس حقيقي بالحاجة إلى منصة عربية متخصصة ومحترفة في الصحة النفسية.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">٢</div>
+        <div class="timeline-content">
+          <span class="timeline-year">2022</span>
+          <h3>بناء الفريق وإطلاق النسخة الأولى</h3>
+          <p>جمعنا أفضل الأخصائيين وأطلقنا النسخة التجريبية الأولى التي استقبلت أولى الجلسات بنجاح.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">٣</div>
+        <div class="timeline-content">
+          <span class="timeline-year">2023</span>
+          <h3>توسع وانطلاق التطبيق</h3>
+          <p>أطلقنا تطبيق The Relax على iOS و Android، وتوسعنا لخدمة مستفيدين من أكثر من 10 دول عربية.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">٤</div>
+        <div class="timeline-content">
+          <span class="timeline-year">2024</span>
+          <h3>الشراكات وإطلاق الكورسات</h3>
+          <p>أبرمنا شراكات مع مؤسسات دولية معتمدة وأطلقنا برامج تدريبية معتمدة للأخصائيين والمهتمين.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">٥</div>
+        <div class="timeline-content">
+          <span class="timeline-year">2025 →</span>
+          <h3>الآن: نحو المستقبل</h3>
+          <p>نواصل النمو ونطور خدماتنا باستمرار، بهدف الوصول لملايين المستفيدين في كل أنحاء العالم العربي.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="about-cta">
+    <h2>هل أنت مستعد لتبدأ رحلتك؟</h2>
+    <p>انضم لآلاف المستفيدين الذين اتخذوا أهم قرار في حياتهم وبدأوا رحلة التعافي مع The Relax.</p>
+    <div class="cta-btns">
+      <a href="#" class="cta-btn-primary" onclick="openModal(); return false;">
+        ابدأ رحلتك الآن
+        <i class="fa-solid fa-arrow-left"></i>
+      </a>
+      <a href="index.html#services" class="cta-btn-outline">
+        استكشف خدماتنا
+        <i class="fa-solid fa-chevron-left"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER (نفس الفوتر) ========== -->
+  <footer class="rl-footer">
+    <div class="container">
+      <div class="rl-footer-hero">
+        <h2>انضم إلى آلاف المستفيدين <span>الذين بدأوا رحلتهم مع The Relax</span></h2>
+      </div>
+      <div class="rl-footer-main">
+        <div class="footer-col">
+          <h3 class="rl-footer-col-title">عن The Relax</h3>
+          <p>منصتك الأولى للصحة النفسية في الوطن العربي. نوفر جلسات علاج نفسي أونلاين مع أخصائيين معتمدين.</p>
+        </div>
+        <div class="footer-col">
+          <h3 class="rl-footer-col-title">روابط سريعة</h3>
+          <ul class="rl-footer-links">
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="index.html#services">خدماتنا</a></li>
+            <li><a href="serves.html">برامجنا</a></li>
+            <li><a href="index.html#pricing">الأسعار</a></li>
+            <li><a href="about.html">من نحن</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3 class="rl-footer-col-title">تواصل معنا</h3>
+          <div class="rl-footer-contact">
+            <a href="mailto:info@therelax.com" class="rl-footer-contact-item">
+              <span>📧</span> info@therelax.com
+            </a>
+            <a href="tel:+966123456789" class="rl-footer-contact-item">
+              <span>📞</span> +966 123 456 789
+            </a>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.2); margin-top: 30px; color: rgba(255,255,255,0.7);">
+        <p>&copy; 2024 The Relax. جميع الحقوق محفوظة.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- App Download Modal -->
+  <div class="modal-overlay" id="appModal" onclick="closeOnOverlay(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-logo">
+        <img src="logo.png" alt="The Relax">
+      </div>
+      <h2 class="modal-title">حمّل التطبيق الآن</h2>
+      <p class="modal-desc">
+        ابدأ رحلتك نحو الصحة النفسية الآن.<br>
+        حمّل التطبيق من <span>Google Play</span> أو <span>App Store</span>.
+      </p>
+      <div class="modal-btns">
+        <a class="store-btn google"
+          href="https://play.google.com/store/apps/details?id=co.therelax.patient&pcampaignid=web_share"
+          target="_blank" rel="noopener">
+          <span class="store-btn-icon">▶</span>
+          <span class="store-btn-text">
+            <span class="store-btn-small">متوفر على</span>
+            <span class="store-btn-big">Google Play</span>
+          </span>
+        </a>
+        <a class="store-btn apple"
+          href="https://apps.apple.com/qa/app/therelax/id6739005130?l=ar"
+          target="_blank" rel="noopener">
+          <span class="store-btn-icon"></span>
+          <span class="store-btn-text">
+            <span class="store-btn-small">Download on the</span>
+            <span class="store-btn-big">App Store</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('active');
+    }
+
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.remove('active');
+    }
+
+    function openModal() {
+      document.getElementById('appModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('appModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function closeOnOverlay(event) {
+      if (event.target.id === 'appModal') closeModal();
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
+    // Scroll animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.value-card, .team-card, .timeline-content, .vm-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>

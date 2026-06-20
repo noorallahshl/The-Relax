@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dr. Ammar Shalabi - The Relax</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body { background: #f4f6fb; font-family: 'SST Arabic', 'Cairo', 'Tajawal', sans-serif; }
+
+    /* =============================================
+       BANNER (تبدّل حسب التخصص)
+    ============================================= */
+    .profile-banner {
+      position: relative;
+      width: 100%;
+      height: 280px;
+      overflow: hidden;
+    }
+
+    /* كل تخصص له بنر مختلف */
+    .banner-clinical {
+      background: linear-gradient(135deg, #1a237e 0%, #283593 40%, #1565c0 70%, #0d47a1 100%);
+    }
+    .banner-psychiatry {
+      background: linear-gradient(135deg, #4a148c 0%, #6a1b9a 40%, #7b1fa2 70%, #8e24aa 100%);
+    }
+    .banner-counseling {
+      background: linear-gradient(135deg, #004d40 0%, #00695c 40%, #00796b 70%, #00897b 100%);
+    }
+    .banner-family {
+      background: linear-gradient(135deg, #bf360c 0%, #d84315 40%, #e64a19 70%, #f4511e 100%);
+    }
+
+    /* إيلوستريشن SVG داخل البنر */
+    .banner-illustration {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.18;
+    }
+    .banner-illustration svg { width: 340px; height: 220px; }
+
+    .banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.35) 100%);
+    }
+
+    /* زر رجوع */
+    .banner-back {
+      position: absolute;
+      top: 70px;
+      right: 18px;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #333;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      z-index: 10;
+      text-decoration: none;
+      transition: background .2s ease;
+    }
+    .banner-back:hover { background: white; }
+
+    /* =============================================
+       PROFILE CARD (فوق البنر)
+    ============================================= */
+    .profile-card {
+      background: white;
+      border-radius: 24px 24px 0 0;
+      margin-top: -40px;
+      position: relative;
+      z-index: 20;
+      padding: 0 20px 0;
+      box-shadow: 0 -4px 30px rgba(0,0,0,0.08);
+    }
+
+    .profile-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding-top: 20px;
+      padding-bottom: 16px;
+    }
+
+    .profile-left { flex: 1; }
+
+    .profile-name-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .profile-name-row h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #1a1a2e;
+    }
+    .verified-check {
+      color: #2563eb;
+      font-size: 1.1rem;
+    }
+    .profile-spec-tag {
+      display: inline-block;
+      background: #e8eeff;
+      color: #3b5ae0;
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    /* أيقونات التواصل */
+    .contact-icons {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+    .contact-icon-btn {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      border: none;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease;
+      text-decoration: none;
+    }
+    .contact-icon-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.12); }
+    .icon-phone  { background: #fce8e8; color: #e53935; }
+    .icon-chat   { background: #eeeeee; color: #555; }
+    .icon-video  { background: #fffde7; color: #f9a825; }
+
+    /* صورة المختص */
+    .profile-photo {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      border: 4px solid white;
+      box-shadow: 0 6px 20px rgba(64,100,247,0.2);
+      object-fit: cover;
+      background: linear-gradient(135deg, #4064f7, #0c8f73);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+      flex-shrink: 0;
+    }
+
+    /* =============================================
+       ACTION BUTTONS
+    ============================================= */
+    .action-btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      padding: 0 0 14px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .action-btn {
+      padding: 11px 6px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all .25s ease;
+      font-family: 'SST Arabic','Cairo',sans-serif;
+      text-align: center;
+    }
+    .btn-sessions  { background: #4064f7; color: white; }
+    .btn-consults  { background: #3558e8; color: white; }
+    .btn-follow    { background: #e8eeff; color: #4064f7; }
+    .action-btn:hover { opacity: .88; transform: translateY(-2px); }
+
+    .book-now-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      margin: 12px 0 16px;
+      border-radius: 14px;
+      background: linear-gradient(90deg, #4064f7, #2a3fb5);
+      color: white;
+      font-size: 1rem;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      font-family: 'SST Arabic','Cairo',sans-serif;
+      transition: all .25s ease;
+      box-shadow: 0 6px 20px rgba(64,100,247,0.3);
+      text-decoration: none;
+      text-align: center;
+    }
+    .book-now-btn:hover {
+      background: linear-gradient(90deg, #f59e0b, #e07b0a);
+      box-shadow: 0 8px 24px rgba(245,158,11,0.35);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* =============================================
+       TABS
+    ============================================= */
+    .profile-tabs {
+      background: white;
+      position: sticky;
+      top: 60px;
+      z-index: 90;
+      border-bottom: 1px solid #ebebeb;
+    }
+    .tabs-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 14px 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: #888;
+      border-bottom: 3px solid transparent;
+      transition: all .25s ease;
+      font-family: 'SST Arabic','Cairo',sans-serif;
+    }
+    .tab-btn.active {
+      color: #4064f7;
+      border-bottom-color: #4064f7;
+    }
+    .tab-btn:hover { color: #4064f7; }
+
+    /* =============================================
+       CONTENT SECTIONS
+    ============================================= */
+    .profile-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+
+    .tab-section { display: none; padding-top: 28px; }
+    .tab-section.active { display: block; }
+
+    /* ---- نبذة ---- */
+    .bio-intro {
+      background: white;
+      border-radius: 18px;
+      padding: 24px 20px;
+      margin-bottom: 20px;
+      border: 1px solid #ebebeb;
+    }
+    .bio-intro .intro-line {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+    .bio-intro .intro-sub {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .bio-section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 12px;
+    }
+    .bio-section-title .dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #4064f7;
+      flex-shrink: 0;
+    }
+
+    .bio-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .bio-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: #444;
+      line-height: 1.6;
+    }
+    .bio-list li::before {
+      content: '•';
+      color: #4064f7;
+      font-weight: 900;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .disorders-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 0;
+    }
+    .disorder-tag {
+      background: #f0f3ff;
+      color: #3b5ae0;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-align: center;
+      border: 1px solid #dde3ff;
+    }
+
+    /* ---- المعلومات المهنية ---- */
+    .info-card {
+      background: white;
+      border-radius: 18px;
+      padding: 22px 20px;
+      margin-bottom: 16px;
+      border: 1px solid #ebebeb;
+    }
+    .info-card h3 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .info-card h3 i { color: #4064f7; }
+
+    .info-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .info-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .info-row .info-icon {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: #f0f3ff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .info-row .info-text .lbl {
+      font-size: 0.75rem;
+      color: #aaa;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .info-row .info-text .val {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+
+    /* شريط الإحصائيات */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .stat-box {
+      background: white;
+      border-radius: 16px;
+      padding: 18px 12px;
+      text-align: center;
+      border: 1px solid #ebebeb;
+    }
+    .stat-box .s-num {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #4064f7;
+      display: block;
+    }
+    .stat-box .s-lbl {
+      font-size: 0.76rem;
+      color: #888;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    /* ---- التقييمات ---- */
+    .rating-summary-mini {
+      background: white;
+      border-radius: 18px;
+      padding: 22px 20px;
+      margin-bottom: 16px;
+      border: 1px solid #ebebeb;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .rating-big-num {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: #4064f7;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .rating-stars-big { font-size: 1.2rem; margin-bottom: 4px; }
+    .rating-count { font-size: 0.8rem; color: #aaa; }
+
+    .review-card {
+      background: white;
+      border-radius: 16px;
+      padding: 18px 18px;
+      margin-bottom: 12px;
+      border: 1px solid #ebebeb;
+    }
+    .review-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .reviewer-info { display: flex; align-items: center; gap: 10px; }
+    .reviewer-avatar {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4064f7, #0c8f73);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      color: white;
+      flex-shrink: 0;
+    }
+    .reviewer-name { font-size: 0.88rem; font-weight: 700; color: #1a1a2e; }
+    .reviewer-date { font-size: 0.75rem; color: #bbb; }
+    .review-stars { font-size: 0.82rem; }
+    .review-text { font-size: 0.86rem; color: #555; line-height: 1.7; }
+    .verified-review {
+      font-size: 0.72rem;
+      color: #0c8f73;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 8px;
+    }
+
+    /* =============================================
+       MODAL
+    ============================================= */
+    .download-prompt-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 999;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+    .download-prompt-overlay.show { display: flex; }
+    .download-prompt {
+      background: white;
+      border-radius: 24px 24px 0 0;
+      padding: 28px 24px 36px;
+      width: 100%;
+      max-width: 520px;
+      animation: slideUp .35s ease;
+    }
+    @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .prompt-handle {
+      width: 44px; height: 5px;
+      background: #e0e0e0;
+      border-radius: 10px;
+      margin: 0 auto 20px;
+    }
+    .prompt-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #1a1a2e;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .prompt-sub {
+      font-size: 0.88rem;
+      color: #888;
+      text-align: center;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .prompt-stores {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .prompt-store-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+      transition: all .25s ease;
+      font-family: 'SST Arabic','Cairo',sans-serif;
+    }
+    .prompt-store-btn:hover { transform: translateY(-2px); opacity: .92; color: white; }
+    .prompt-google { background: #1a1a2e; }
+    .prompt-apple  { background: #333; }
+    .prompt-store-btn i { font-size: 1.4rem; }
+    .prompt-store-btn .store-text small { display: block; font-size: 0.7rem; font-weight: 400; opacity: .75; }
+    .prompt-cancel {
+      display: block;
+      text-align: center;
+      margin-top: 16px;
+      font-size: 0.88rem;
+      color: #aaa;
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: 'SST Arabic','Cairo',sans-serif;
+    }
+
+    /* =============================================
+       WRAPPER MAX-WIDTH
+    ============================================= */
+    .page-wrapper {
+      max-width: 680px;
+      margin: 0 auto;
+      background: #f4f6fb;
+      min-height: 100vh;
+      position: relative;
+    }
+    .profile-card-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* sticky header offset */
+    @media (max-width: 680px) {
+      .banner-back { top: 56px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- =============================================
+     HEADER
+============================================= -->
+<header>
+  <nav>
+    <div class="logo"><img src="logo.png" alt="The Relax Logo"></div>
+    <ul class="nav-links">
+      <li><a href="index.html">الرئيسية</a></li>
+      <li><a href="specialists.html">الأخصائيون</a></li>
+      <li><a href="index.html#services">خدماتنا</a></li>
+      <li><a href="about.html">من نحن</a></li>
+    </ul>
+    <div class="nav-buttons">
+      <button class="download-btn" onclick="showDownloadPrompt()"><span>⬇️</span><span>حمل التطبيق</span></button>
+      <button class="menu-toggle" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="index.html" onclick="closeMobileMenu()">الرئيسية</a></li>
+      <li><a href="specialists.html" onclick="closeMobileMenu()">الأخصائيون</a></li>
+      <li><a href="index.html#services" onclick="closeMobileMenu()">خدماتنا</a></li>
+      <li><a href="about.html" onclick="closeMobileMenu()">من نحن</a></li>
+    </ul>
+    <button class="mobile-download-btn" onclick="showDownloadPrompt()">تحميل التطبيق</button>
+  </div>
+</header>
+
+<div class="page-wrapper">
+
+  <!-- =============================================
+       BANNER
+  ============================================= -->
+  <div class="profile-banner banner-clinical" id="profileBanner">
+    <!-- إيلوستريشن SVG داخلي -->
+    <div class="banner-illustration">
+      <svg viewBox="0 0 400 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- شخص يجلس -->
+        <circle cx="100" cy="100" r="28" fill="white"/>
+        <rect x="72" y="128" width="56" height="60" rx="10" fill="white"/>
+        <rect x="60" y="138" width="20" height="40" rx="8" fill="white"/>
+        <rect x="88" y="188" width="16" height="30" rx="6" fill="white"/>
+        <rect x="108" y="188" width="16" height="30" rx="6" fill="white"/>
+        <!-- كرسي -->
+        <rect x="55" y="175" width="78" height="10" rx="5" fill="rgba(255,255,255,0.5)"/>
+        <rect x="55" y="130" width="10" height="55" rx="5" fill="rgba(255,255,255,0.5)"/>
+        <rect x="123" y="130" width="10" height="55" rx="5" fill="rgba(255,255,255,0.5)"/>
+        <!-- هاتف / شاشة -->
+        <rect x="250" y="40" width="100" height="170" rx="16" fill="white" fill-opacity="0.9"/>
+        <rect x="260" y="55" width="80" height="130" rx="8" fill="rgba(64,100,247,0.15)"/>
+        <!-- طبيب في الشاشة -->
+        <circle cx="300" cy="85" r="22" fill="rgba(64,100,247,0.4)"/>
+        <rect x="278" y="107" width="44" height="50" rx="8" fill="rgba(64,100,247,0.3)"/>
+        <!-- فقاعة كلام -->
+        <ellipse cx="185" cy="80" rx="55" ry="35" fill="white" fill-opacity="0.9"/>
+        <polygon points="165,115 185,115 175,130" fill="white" fill-opacity="0.9"/>
+        <!-- قلب مكسور داخل الفقاعة -->
+        <path d="M175 72 C175 66 182 62 187 68 C192 62 199 66 199 72 C199 80 187 90 187 90 C187 90 175 80 175 72Z" fill="#e53935" fill-opacity="0.7"/>
+        <line x1="187" y1="68" x2="187" y2="90" stroke="white" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div class="banner-overlay"></div>
+    <a href="specialists.html" class="banner-back">
+      <i class="fa-solid fa-chevron-left"></i>
+    </a>
+  </div>
+
+  <!-- =============================================
+       PROFILE CARD
+  ============================================= -->
+  <div class="profile-card">
+    <div class="profile-top">
+      <div class="profile-left">
+        <div class="profile-name-row">
+          <h1 id="specName">Dr, Ammar Shalabi</h1>
+          <i class="fa-solid fa-circle-check verified-check"></i>
+        </div>
+        <span class="profile-spec-tag" id="specTag">علم نفس اكلينيكي</span>
+        <div class="contact-icons">
+          <button class="contact-icon-btn icon-phone" onclick="showDownloadPrompt()" title="اتصال">
+            <i class="fa-solid fa-phone"></i>
+          </button>
+          <button class="contact-icon-btn icon-chat" onclick="showDownloadPrompt()" title="رسائل">
+            <i class="fa-solid fa-message"></i>
+          </button>
+          <button class="contact-icon-btn icon-video" onclick="showDownloadPrompt()" title="مكالمة فيديو">
+            <i class="fa-solid fa-video"></i>
+          </button>
+        </div>
+      </div>
+      <div class="profile-photo" id="specPhoto">🧑‍⚕️</div>
+    </div>
+
+    <!-- أزرار الإجراءات -->
+    <div class="action-btns">
+      <button class="action-btn btn-sessions" onclick="showDownloadPrompt()">الجلسات</button>
+      <button class="action-btn btn-consults" onclick="showDownloadPrompt()">استشارات</button>
+      <button class="action-btn btn-follow" onclick="showDownloadPrompt()">متابعة</button>
+    </div>
+    <a href="#" class="book-now-btn" onclick="showDownloadPrompt(); return false;">
+      احجز الآن
+    </a>
+  </div>
+
+  <!-- =============================================
+       TABS
+  ============================================= -->
+  <div class="profile-tabs">
+    <div class="tabs-inner">
+      <button class="tab-btn active" onclick="switchTab('bio', this)">نبذة عن المعالج النفسي</button>
+      <button class="tab-btn" onclick="switchTab('info', this)">المعلومات المهنية</button>
+      <button class="tab-btn" onclick="switchTab('reviews', this)">التقييمات</button>
+    </div>
+  </div>
+
+  <!-- =============================================
+       CONTENT
+  ============================================= -->
+  <div class="profile-content">
+
+    <!-- ---- نبذة ---- -->
+    <div class="tab-section active" id="tab-bio">
+      <div class="bio-intro">
+        <div class="intro-line">د. عمار شلبي | أخصائي نفسي إكلينيكي معتمد</div>
+        <div class="intro-sub">✨ يتمتع بخبرة واسعة في تقديم الدعم والعلاج النفسي باستخدام منهجيات علاجية متنوعة</div>
+
+        <div class="bio-section-title"><span class="dot"></span> الخبرات</div>
+        <ul class="bio-list" style="margin-bottom:20px;">
+          <li>استخدام العلاج السلوكي المعرفي (CBT)</li>
+          <li>استخدام العلاج الجدلي السلوكي (DBT)</li>
+          <li>استخدام العلاج النفسي التحليلي</li>
+          <li>العمل مع البالغين والمراهقين</li>
+        </ul>
+
+        <div class="bio-section-title"><span class="dot"></span> علاج اضطرابات</div>
+        <div class="disorders-grid" style="margin-bottom:20px;">
+          <span class="disorder-tag">القلق</span>
+          <span class="disorder-tag">الاكتئاب</span>
+          <span class="disorder-tag">الوسواس القهري</span>
+          <span class="disorder-tag">الصدمات النفسية</span>
+          <span class="disorder-tag">اضطرابات الشخصية</span>
+          <span class="disorder-tag">مشاكل العلاقات</span>
+        </div>
+
+        <div class="bio-section-title"><span class="dot"></span> نهج العمل</div>
+        <ul class="bio-list">
+          <li>يجمع الأساليب الحديثة مع فهم عميق للنفس الإنسانية</li>
+          <li>بيئة آمنة وداعمة خالية من الحكم والإدانة</li>
+          <li>خطة علاجية مخصصة لكل حالة على حدة</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ---- المعلومات المهنية والإحصائيات ---- -->
+    <div class="tab-section" id="tab-info">
+
+      <div class="stats-strip">
+        <div class="stat-box">
+          <span class="s-num">+240</span>
+          <span class="s-lbl">جلسة مكتملة</span>
+        </div>
+        <div class="stat-box">
+          <span class="s-num">4.8⭐</span>
+          <span class="s-lbl">التقييم</span>
+        </div>
+        <div class="stat-box">
+          <span class="s-num">8</span>
+          <span class="s-lbl">سنوات خبرة</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3><i class="fa-solid fa-graduation-cap"></i> المؤهلات الأكاديمية</h3>
+        <div class="info-row">
+          <div class="info-icon">🎓</div>
+          <div class="info-text">
+            <div class="lbl">الدرجة العلمية</div>
+            <div class="val">ماجستير علم النفس الإكلينيكي</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">🏛️</div>
+          <div class="info-text">
+            <div class="lbl">الجامعة</div>
+            <div class="val">جامعة الأردن</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📜</div>
+          <div class="info-text">
+            <div class="lbl">الاعتماد المهني</div>
+            <div class="val">نقابة الأخصائيين النفسيين الأردنيين</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3><i class="fa-solid fa-briefcase"></i> معلومات الخدمة</h3>
+        <div class="info-row">
+          <div class="info-icon">💰</div>
+          <div class="info-text">
+            <div class="lbl">سعر الجلسة</div>
+            <div class="val">49.50$</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">⏱️</div>
+          <div class="info-text">
+            <div class="lbl">مدة الجلسة</div>
+            <div class="val">50 دقيقة</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">🌐</div>
+          <div class="info-text">
+            <div class="lbl">اللغات</div>
+            <div class="val">العربية • الإنجليزية</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📅</div>
+          <div class="info-text">
+            <div class="lbl">أيام الإتاحة</div>
+            <div class="val">السبت — الخميس</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">🕐</div>
+          <div class="info-text">
+            <div class="lbl">ساعات العمل</div>
+            <div class="val">9:00 ص — 9:00 م</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3><i class="fa-solid fa-user"></i> معلومات شخصية</h3>
+        <div class="info-row">
+          <div class="info-icon">🏳️</div>
+          <div class="info-text">
+            <div class="lbl">الجنسية</div>
+            <div class="val">أردني</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📍</div>
+          <div class="info-text">
+            <div class="lbl">مكان الإقامة</div>
+            <div class="val">عمّان، الأردن</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">👤</div>
+          <div class="info-text">
+            <div class="lbl">الجنس</div>
+            <div class="val">ذكر</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- المقالات / التقييمات ---- -->
+    <div class="tab-section" id="tab-reviews">
+
+      <div class="rating-summary-mini">
+        <div>
+          <div class="rating-big-num">4.8</div>
+        </div>
+        <div>
+          <div class="rating-stars-big">⭐⭐⭐⭐⭐</div>
+          <div class="rating-count">من أصل 87 تقييم موثّق</div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top-row">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar">😊</div>
+            <div>
+              <div class="reviewer-name">سارة م.</div>
+              <div class="reviewer-date">أبريل 2025</div>
+            </div>
+          </div>
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+        <div class="review-text">الدكتور عمار متفهم جداً وبيعطيك مساحة تحكي براحتك. بعد ٤ جلسات حسيت بفرق كبير في طريقة تفكيري وتعاملي مع القلق.</div>
+        <div class="verified-review"><i class="fa-solid fa-circle-check"></i> تقييم موثّق</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top-row">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar">🙋‍♂️</div>
+            <div>
+              <div class="reviewer-name">أحمد خ.</div>
+              <div class="reviewer-date">مارس 2025</div>
+            </div>
+          </div>
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+        <div class="review-text">جلسة CBT مع الدكتور عمار غيّرت نظرتي للأمور. تقنياته واضحة وعملية وسهل تطبيقها في الحياة اليومية.</div>
+        <div class="verified-review"><i class="fa-solid fa-circle-check"></i> تقييم موثّق</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top-row">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar">🌸</div>
+            <div>
+              <div class="reviewer-name">نور ع.</div>
+              <div class="reviewer-date">فبراير 2025</div>
+            </div>
+          </div>
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+        <div class="review-text">كنت خايفة من فكرة الجلسات أونلاين بس الدكتور عمار خلّى الموضوع طبيعي جداً. محترف وإنساني بنفس الوقت.</div>
+        <div class="verified-review"><i class="fa-solid fa-circle-check"></i> تقييم موثّق</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-top-row">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar">👨‍💼</div>
+            <div>
+              <div class="reviewer-name">خالد ي.</div>
+              <div class="reviewer-date">يناير 2025</div>
+            </div>
+          </div>
+          <div class="review-stars">⭐⭐⭐⭐</div>
+        </div>
+        <div class="review-text">أخصائي ممتاز وصاحب خبرة عملية حقيقية. يشرح ويوضح ولا يتركك تحس إنك لوحدك في المشكلة.</div>
+        <div class="verified-review"><i class="fa-solid fa-circle-check"></i> تقييم موثّق</div>
+      </div>
+
+    </div>
+  </div><!-- /profile-content -->
+
+</div><!-- /page-wrapper -->
+
+<!-- =============================================
+     DOWNLOAD PROMPT (bottom sheet)
+============================================= -->
+<div class="download-prompt-overlay" id="downloadPrompt" onclick="hidePromptOnOverlay(event)">
+  <div class="download-prompt">
+    <div class="prompt-handle"></div>
+    <div class="prompt-title">للمتابعة حمّل التطبيق</div>
+    <div class="prompt-sub">احجز جلسات، تواصل مع المختصين، وتابع خطتك العلاجية من أي مكان</div>
+    <div class="prompt-stores">
+      <a class="prompt-store-btn prompt-google"
+         href="https://play.google.com/store/apps/details?id=co.therelax.patient"
+         target="_blank" rel="noopener">
+        <i class="fa-brands fa-google-play"></i>
+        <div class="store-text">
+          <small>متوفر على</small>
+          Google Play
+        </div>
+      </a>
+      <a class="prompt-store-btn prompt-apple"
+         href="https://apps.apple.com/qa/app/therelax/id6739005130?l=ar"
+         target="_blank" rel="noopener">
+        <i class="fa-brands fa-apple"></i>
+        <div class="store-text">
+          <small>Download on the</small>
+          App Store
+        </div>
+      </a>
+    </div>
+    <button class="prompt-cancel" onclick="hideDownloadPrompt()">إلغاء</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="rl-footer">
+  <div class="container">
+    <div class="rl-footer-hero">
+      <h2>انضم إلى آلاف المستفيدين <span>الذين بدأوا رحلتهم مع The Relax</span></h2>
+    </div>
+    <div class="rl-footer-main">
+      <div class="footer-col">
+        <h3 class="rl-footer-col-title">عن The Relax</h3>
+        <p>منصتك الأولى للصحة النفسية في الوطن العربي.</p>
+      </div>
+      <div class="footer-col">
+        <h3 class="rl-footer-col-title">روابط سريعة</h3>
+        <ul class="rl-footer-links">
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="specialists.html">الأخصائيون</a></li>
+          <li><a href="about.html">من نحن</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="rl-footer-col-title">تواصل معنا</h3>
+        <div class="rl-footer-contact">
+          <a href="mailto:info@therelax.com" class="rl-footer-contact-item"><span>📧</span> info@therelax.com</a>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;padding:28px 0;border-top:1px solid rgba(255,255,255,.2);margin-top:28px;color:rgba(255,255,255,.7);font-size:.85rem;">
+      &copy; 2024 The Relax. جميع الحقوق محفوظة.
+    </div>
+  </div>
+</footer>
+
+<script>
+  const STRAPI_URL = "http://localhost:1337";
+
+async function loadDoctor() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    if (!id) {
+        console.error("No doctor ID in URL");
+        return;
+    }
+
+    try {
+        const res = await fetch(`${STRAPI_URL}/api/doctors?populate=*`);
+        const json = await res.json();
+
+        console.log("API RESPONSE:", json);
+
+        // لأن Strapi يرجع array
+        const doctor = json.data.find(d => d.id == id);
+
+        if (!doctor) {
+            console.error("Doctor not found");
+            return;
+        }
+
+        const d = doctor; // مباشر بدون attributes
+
+        /* =====================
+           الاسم
+        ===================== */
+        document.getElementById("specName").textContent =
+            d.name || "—";
+
+        /* =====================
+           التخصص
+        ===================== */
+        document.getElementById("specTag").textContent =
+            d.specialty || "—";
+
+        /* =====================
+           intro
+        ===================== */
+        const introLine = document.querySelector(".intro-line");
+        const introSub = document.querySelector(".intro-sub");
+
+        if (introLine) introLine.textContent = d.intro_title || d.name || "—";
+        if (introSub) introSub.textContent = d.intro_subtitle || "";
+
+        /* =====================
+           الصورة
+        ===================== */
+        let imgUrl = "";
+
+        if (d.image?.url) {
+            imgUrl = STRAPI_URL + d.image.url;
+        }
+
+        if (imgUrl) {
+            document.getElementById("specPhoto").innerHTML = `
+                <img src="${imgUrl}"
+                     style="width:100%;height:100%;border-radius:50%;object-fit:cover">
+            `;
+        }
+
+        /* =====================
+           stats
+        ===================== */
+        const statNums = document.querySelectorAll(".stat-box .s-num");
+
+        if (statNums.length >= 3) {
+            statNums[0].textContent = "+" + (d.completed_sessions || 0);
+            statNums[1].textContent = (d.rating || 0) + "⭐";
+            statNums[2].textContent = (d.experience_years || 0) + " سنوات";
+        }
+
+        /* =====================
+           disorders
+        ===================== */
+        const disordersContainer = document.querySelector(".disorders-grid");
+
+        if (disordersContainer) {
+            if (Array.isArray(d.disorders) && d.disorders.length > 0) {
+                disordersContainer.innerHTML = d.disorders
+                    .map(x => `<span class="disorder-tag">${x.title || x}</span>`)
+                    .join("");
+            }
+        }
+
+        /* =====================
+           experiences
+        ===================== */
+        const experienceList = document.querySelectorAll(".bio-list")[0];
+
+        if (experienceList && Array.isArray(d.experiences)) {
+            experienceList.innerHTML = d.experiences
+                .map(x => `<li>${x.title || x}</li>`)
+                .join("");
+        }
+
+        /* =====================
+           approaches
+        ===================== */
+        const approachList = document.querySelectorAll(".bio-list")[1];
+
+        if (approachList && Array.isArray(d.approaches)) {
+            approachList.innerHTML = d.approaches
+                .map(x => `<li>${x.title || x}</li>`)
+                .join("");
+        }
+
+    } catch (err) {
+        console.error("Fetch error:", err);
+    }
+}
+
+/* =====================
+   UI FUNCTIONS
+===================== */
+
+function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('active');
+}
+
+function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('active');
+}
+
+function showDownloadPrompt() {
+    document.getElementById('downloadPrompt').classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+function hideDownloadPrompt() {
+    document.getElementById('downloadPrompt').classList.remove('show');
+    document.body.style.overflow = '';
+}
+
+function switchTab(tabId, btn) {
+    document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+    document.getElementById('tab-' + tabId).classList.add('active');
+    btn.classList.add('active');
+}
+
+window.addEventListener("load", loadDoctor);
+</script>
+</body>
+</html>
