@@ -405,6 +405,40 @@
       font-size: 0.8rem;
     }
     footer span { color: var(--blue); }
+
+    .skeleton {
+  display: block;
+  background: linear-gradient(
+    90deg,
+    #eeeeee 25%,
+    #f5f5f5 37%,
+    #eeeeee 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.2s infinite;
+  border-radius: 10px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: 0 0; }
+}
+
+/* sizes */
+.title-skeleton { height: 40px; width: 80%; }
+.text-skeleton { height: 18px; width: 100%; margin-top: 10px; }
+.name-skeleton { height: 14px; width: 120px; }
+.pill-skeleton { height: 28px; width: 90px; border-radius: 999px; }
+
+/* fade content in */
+.loaded {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.loading {
+  opacity: 0.2;
+}
   </style>
 </head>
 <body>
@@ -451,11 +485,13 @@
 <section class="hero" id="hero">
   <div class="hero-text-side">
     <div class="badge"><span class="badge-dot"></span> علم النفس · مقال أصيل</div>
-    <h1 class="hero-title" id="articleTitle">
-      كيف تؤثر <em>الراحة النفسية</em> على جودة حياتك اليومية؟
+    <h1 class="hero-title loading" id="articleTitle">   
+      <span class="skeleton title-skeleton"></span>
     </h1>
-    <p class="hero-excerpt" id="articleDescription">
-      خطوات بسيطة تساعدك على تقليل التوتر وتحسين الاستقرار النفسي — لأن الصحة النفسية ليست رفاهية، بل ضرورة.
+
+    <p class="hero-excerpt loading" id="articleDescription">
+      <span class="skeleton text-skeleton"></span>
+      <span class="skeleton text-skeleton"></span>
     </p>
     <div class="hero-meta">
       <div class="author-chip">
@@ -569,6 +605,29 @@
 const STRAPI_URL = "https://the-relax-cms.onrender.com";
 
 /* =========================
+   LOADING EFFECT
+========================= */
+function showLoading() {
+  document.querySelectorAll(".skeleton").forEach(el => {
+    el.style.display = "block";
+  });
+
+  document.querySelectorAll(".loading").forEach(el => {
+    el.style.opacity = "0.3";
+  });
+}
+
+function hideLoading() {
+  document.querySelectorAll(".skeleton").forEach(el => {
+    el.style.display = "none";
+  });
+
+  document.querySelectorAll(".loading").forEach(el => {
+    el.style.opacity = "1";
+  });
+}
+
+/* =========================
    IMAGE HELPER
 ========================= */
 function getImg(item) {
@@ -590,6 +649,8 @@ function getImg(item) {
 ========================= */
 async function loadArticle() {
   try {
+    showLoading();
+
     const slug = new URLSearchParams(window.location.search).get("slug");
 
     if (!slug) {
@@ -597,9 +658,8 @@ async function loadArticle() {
       return;
     }
 
-    // ===== FETCH ARTICLE =====
     const res = await fetch(
-      ${STRAPI_URL}/api/articles?filters[slug][$eq]=${slug}&populate=*
+      `${STRAPI_URL}/api/articles?filters[slug][$eq]=${slug}&populate=*`
     );
 
     const json = await res.json();
@@ -613,12 +673,13 @@ async function loadArticle() {
     const data = article.attributes || article;
 
     /* =========================
-       FILL ARTICLE DATA
+       HERO DATA
     ========================= */
     document.getElementById("pageTitle").innerText =
-      ${data.title} — The Relax;
+      `${data.title} — The Relax`;
 
-    document.getElementById("articleTitle").innerText = data.title || "";
+    document.getElementById("articleTitle").innerText =
+      data.title || "";
 
     document.getElementById("articleDescription").innerText =
       data.short_description || "";
@@ -627,21 +688,21 @@ async function loadArticle() {
       data.author || "The Relax";
 
     document.getElementById("articleReadingTime").innerHTML =
-      ⏱ ${data.reading_time || 5} دقائق;
+      `⏱ ${data.reading_time || 5} دقائق`;
 
     document.getElementById("articleViews").innerHTML =
-      👁 ${data.views || 0} مشاهدة;
+      `👁 ${data.views || 0} مشاهدة`;
 
     document.getElementById("articleDate").innerHTML =
       data.publish_date
-        ? 📅 ${new Date(data.publish_date).toLocaleDateString("ar-EG")}
+        ? `📅 ${new Date(data.publish_date).toLocaleDateString("ar-EG")}`
         : "";
 
     document.getElementById("articleImage").src =
       getImg(data.cover_image);
 
     /* =========================
-       CONTENT (MARKDOWN SAFE)
+       CONTENT
     ========================= */
     const contentEl = document.getElementById("articleContent");
 
@@ -655,6 +716,8 @@ async function loadArticle() {
        RELATED ARTICLES
     ========================= */
     await loadRelatedArticles(slug);
+
+    hideLoading();
 
   } catch (err) {
     console.error("Article Error:", err);
@@ -670,13 +733,12 @@ async function loadRelatedArticles(currentSlug) {
     if (!relatedGrid) return;
 
     const res = await fetch(
-      ${STRAPI_URL}/api/articles?populate=*&pagination[pageSize]=6&sort=createdAt:desc
+      `${STRAPI_URL}/api/articles?populate=*&pagination[pageSize]=6&sort=createdAt:desc`
     );
 
     const json = await res.json();
     let articles = json?.data || [];
 
-    // remove current article
     articles = articles.filter(a => {
       const d = a.attributes || a;
       return d.slug !== currentSlug;
@@ -689,16 +751,16 @@ async function loadRelatedArticles(currentSlug) {
 
       const card = document.createElement("a");
       card.className = "related-card";
-      card.href = article.html?slug=${d.slug};
+      card.href = `article.html?slug=${d.slug}`;
 
-      card.innerHTML = 
+      card.innerHTML = `
         <img class="related-card-img" src="${getImg(d.cover_image)}" />
         <div class="related-card-body">
           <div class="related-cat">${d.category || "مقالات"}</div>
           <div class="related-card-title">${d.title || ""}</div>
           <div class="related-card-meta">${d.reading_time || 5} دقائق</div>
         </div>
-      ;
+      `;
 
       relatedGrid.appendChild(card);
     });
@@ -713,7 +775,6 @@ async function loadRelatedArticles(currentSlug) {
 ========================= */
 document.addEventListener("DOMContentLoaded", loadArticle);
 </script>
-
 
 </body>
 </html>
