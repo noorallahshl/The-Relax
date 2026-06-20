@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -405,40 +407,6 @@
       font-size: 0.8rem;
     }
     footer span { color: var(--blue); }
-
-    .skeleton {
-  display: block;
-  background: linear-gradient(
-    90deg,
-    #eeeeee 25%,
-    #f5f5f5 37%,
-    #eeeeee 63%
-  );
-  background-size: 400% 100%;
-  animation: shimmer 1.2s infinite;
-  border-radius: 10px;
-}
-
-@keyframes shimmer {
-  0% { background-position: 100% 0; }
-  100% { background-position: 0 0; }
-}
-
-/* sizes */
-.title-skeleton { height: 40px; width: 80%; }
-.text-skeleton { height: 18px; width: 100%; margin-top: 10px; }
-.name-skeleton { height: 14px; width: 120px; }
-.pill-skeleton { height: 28px; width: 90px; border-radius: 999px; }
-
-/* fade content in */
-.loaded {
-  opacity: 1;
-  transition: opacity 0.4s ease;
-}
-
-.loading {
-  opacity: 0.2;
-}
   </style>
 </head>
 <body>
@@ -485,13 +453,11 @@
 <section class="hero" id="hero">
   <div class="hero-text-side">
     <div class="badge"><span class="badge-dot"></span> علم النفس · مقال أصيل</div>
-    <h1 class="hero-title loading" id="articleTitle">   
-      <span class="skeleton title-skeleton"></span>
+    <h1 class="hero-title" id="articleTitle">
+      كيف تؤثر <em>الراحة النفسية</em> على جودة حياتك اليومية؟
     </h1>
-
-    <p class="hero-excerpt loading" id="articleDescription">
-      <span class="skeleton text-skeleton"></span>
-      <span class="skeleton text-skeleton"></span>
+    <p class="hero-excerpt" id="articleDescription">
+      خطوات بسيطة تساعدك على تقليل التوتر وتحسين الاستقرار النفسي — لأن الصحة النفسية ليست رفاهية، بل ضرورة.
     </p>
     <div class="hero-meta">
       <div class="author-chip">
@@ -602,179 +568,469 @@
 </footer>
 
 <script>
-const STRAPI_URL = "https://the-relax-cms.onrender.com";
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    const scrolled = doc.scrollTop / (doc.scrollHeight - doc.clientHeight) * 100;
+    document.getElementById('progress-fill').style.width = scrolled + '%';
 
-/* =========================
-   LOADING EFFECT
-========================= */
-function showLoading() {
-  document.querySelectorAll(".skeleton").forEach(el => {
-    el.style.display = "block";
+    // Sticky header
+    document.getElementById('site-header').classList.toggle('scrolled', doc.scrollTop > 20);
+
+    // TOC active
+    const sections = ['hero','s1','s2','s3'];
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const item = document.querySelector(`[data-section="${id}"]`);
+      if (item) item.classList.toggle('active', rect.top <= 200 && rect.bottom > 200);
+    });
   });
 
-  document.querySelectorAll(".loading").forEach(el => {
-    el.style.opacity = "0.3";
-  });
-}
+  // Copy link
+  function copyLink(e) {
+    e.preventDefault();
+    navigator.clipboard.writeText(window.location.href).catch(() => {});
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✓';
+    setTimeout(() => { btn.textContent = '🔗'; }, 1500);
+  }
+</script>
 
-function hideLoading() {
-  document.querySelectorAll(".skeleton").forEach(el => {
-    el.style.display = "none";
-  });
-
-  document.querySelectorAll(".loading").forEach(el => {
-    el.style.opacity = "1";
-  });
-}
-
-/* =========================
-   IMAGE HELPER
-========================= */
-function getImg(item) {
-  if (!item) return "https://via.placeholder.com/600x400";
-
-  let url =
-    item.url ||
-    item?.attributes?.url ||
-    item?.data?.attributes?.url ||
-    item?.data?.url;
-
-  if (!url) return "https://via.placeholder.com/600x400";
-
-  return url.startsWith("http") ? url : STRAPI_URL + url;
-}
-
-/* =========================
-   LOAD ARTICLE
-========================= */
+<script>
 async function loadArticle() {
+
+  const STRAPI_URL = "https://the-relax-cms.onrender.com";
+
+  // جلب slug من الرابط
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get("slug");
+
+  if (!slug) {
+    document.body.innerHTML = "<h1>المقال غير موجود</h1>";
+    return;
+  }
+
   try {
-    showLoading();
-
-    const slug = new URLSearchParams(window.location.search).get("slug");
-
-    if (!slug) {
-      document.body.innerHTML = "<h1>المقال غير موجود</h1>";
-      return;
-    }
 
     const res = await fetch(
       `${STRAPI_URL}/api/articles?filters[slug][$eq]=${slug}&populate=*`
     );
 
     const json = await res.json();
-    const article = json?.data?.[0];
 
-    if (!article) {
+    if (!json.data || json.data.length === 0) {
       document.body.innerHTML = "<h1>المقال غير موجود</h1>";
       return;
     }
 
-    const data = article.attributes || article;
+    const item = json.data[0];
+    const data = item.attributes || item;
 
-    /* =========================
-       HERO DATA
-    ========================= */
-    document.getElementById("pageTitle").innerText =
-      `${data.title} — The Relax`;
+    // البيانات
+    const title = data.title || "";
+    const description = data.short_description || "";
+    const content = data.content || data.ccontent || "";
+    const author = data.author || "The Relax";
+    const readingTime = data.reading_time || "5 دقائق";
+    const views = data.views || 0;
+    const category = data.category || "";
+    const publishDate = data.publish_date || "";
 
-    document.getElementById("articleTitle").innerText =
-      data.title || "";
+    // الصورة
+    let imgUrl = "";
 
-    document.getElementById("articleDescription").innerText =
-      data.short_description || "";
+    if (data.cover_image) {
 
-    document.getElementById("articleAuthor").innerText =
-      data.author || "The Relax";
+      if (data.cover_image.url) {
+        imgUrl = data.cover_image.url;
+      }
 
-    document.getElementById("articleReadingTime").innerHTML =
-      `⏱ ${data.reading_time || 5} دقائق`;
+      else if (
+        data.cover_image.data &&
+        data.cover_image.data.attributes
+      ) {
+        imgUrl = data.cover_image.data.attributes.url;
+      }
 
-    document.getElementById("articleViews").innerHTML =
-      `👁 ${data.views || 0} مشاهدة`;
-
-    document.getElementById("articleDate").innerHTML =
-      data.publish_date
-        ? `📅 ${new Date(data.publish_date).toLocaleDateString("ar-EG")}`
-        : "";
-
-    document.getElementById("articleImage").src =
-      getImg(data.cover_image);
-
-    /* =========================
-       CONTENT
-    ========================= */
-    const contentEl = document.getElementById("articleContent");
-
-    if (window.marked) {
-      contentEl.innerHTML = marked.parse(data.content || "");
-    } else {
-      contentEl.innerHTML = data.content || "";
+      else if (
+        data.cover_image.data &&
+        data.cover_image.data.url
+      ) {
+        imgUrl = data.cover_image.data.url;
+      }
     }
 
-    /* =========================
-       RELATED ARTICLES
-    ========================= */
-    await loadRelatedArticles(slug);
+    const fullImgUrl = imgUrl.startsWith("http")
+      ? imgUrl
+      : `${STRAPI_URL}${imgUrl}`;
 
-    hideLoading();
+    // تعبئة الصفحة
+    document.getElementById("pageTitle").innerText =
+      `${title} — The Relax`;
+
+    document.getElementById("articleTitle").innerText = title;
+
+    document.getElementById("articleDescription").innerText =
+      description;
+
+    document.getElementById("articleAuthor").innerText =
+      author;
+
+    document.getElementById("articleReadingTime").innerHTML =
+      `⏱ ${readingTime}`;
+
+    document.getElementById("articleViews").innerHTML =
+      `👁 ${views} مشاهدة`;
+
+    document.getElementById("articleDate").innerHTML =
+      `📅 ${new Date(publishDate).toLocaleDateString('ar-EG')}`;
+
+    document.getElementById("articleImage").src =
+      fullImgUrl;
+
+    document.getElementById("articleContent").innerHTML =
+      content;
 
   } catch (err) {
-    console.error("Article Error:", err);
+    console.error(err);
   }
 }
 
-/* =========================
-   RELATED ARTICLES
-========================= */
-async function loadRelatedArticles(currentSlug) {
-  try {
-    const relatedGrid = document.querySelector(".related-grid");
-    if (!relatedGrid) return;
-
-    const res = await fetch(
-      `${STRAPI_URL}/api/articles?populate=*&pagination[pageSize]=6&sort=createdAt:desc`
-    );
-
-    const json = await res.json();
-    let articles = json?.data || [];
-
-    articles = articles.filter(a => {
-      const d = a.attributes || a;
-      return d.slug !== currentSlug;
-    });
-
-    relatedGrid.innerHTML = "";
-
-    articles.slice(0, 3).forEach(item => {
-      const d = item.attributes || item;
-
-      const card = document.createElement("a");
-      card.className = "related-card";
-      card.href = `article.html?slug=${d.slug}`;
-
-      card.innerHTML = `
-        <img class="related-card-img" src="${getImg(d.cover_image)}" />
-        <div class="related-card-body">
-          <div class="related-cat">${d.category || "مقالات"}</div>
-          <div class="related-card-title">${d.title || ""}</div>
-          <div class="related-card-meta">${d.reading_time || 5} دقائق</div>
-        </div>
-      `;
-
-      relatedGrid.appendChild(card);
-    });
-
-  } catch (err) {
-    console.error("Related Error:", err);
-  }
-}
-
-/* =========================
-   INIT
-========================= */
-document.addEventListener("DOMContentLoaded", loadArticle);
+loadArticle();
 </script>
+
+<script>
+  function goBack() {
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        window.location.href = "book.html";
+    }
+}
+</script>
+
+<script>
+  // 1. منطق الواجهة
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    const scrolled = doc.scrollTop / (doc.scrollHeight - doc.clientHeight) * 100;
+    const progressFill = document.getElementById('progress-fill');
+
+    if(progressFill) progressFill.style.width = scrolled + '%';
+
+    const header = document.getElementById('site-header');
+    if(header) header.classList.toggle('scrolled', doc.scrollTop > 20);
+  });
+
+  // زر الرجوع
+  function goBack() {
+      if (window.history.length > 1) {
+          window.history.back();
+      } else {
+          window.location.href = "book.html";
+      }
+  }
+
+  // دالة جلب الصورة
+  function getImg(item, baseUrl) {
+
+    if (!item) return "https://via.placeholder.com/600x400";
+
+    let url = "";
+
+    if (item.url) url = item.url;
+    else if (item.attributes?.url) url = item.attributes.url;
+    else if (item.data?.attributes?.url) url = item.data.attributes.url;
+    else if (item.data?.url) url = item.data.url;
+
+    if (!url) return "https://via.placeholder.com/600x400";
+
+    return url.startsWith("http")
+      ? url
+      : baseUrl + url;
+  }
+
+  // الدالة الرئيسية
+  async function loadArticle() {
+
+    const STRAPI_URL = "https://the-relax-cms.onrender.com";
+
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get("slug");
+
+    if (!slug) return;
+
+    try {
+
+      // =====================
+      // FETCH ARTICLE
+      // =====================
+      const res = await fetch(
+        `${STRAPI_URL}/api/articles?filters[slug][$eq]=${slug}&populate=*`
+      );
+
+      const json = await res.json();
+
+      if (!json.data || json.data.length === 0) return;
+
+      const articleObj = json.data[0];
+      const data = articleObj.attributes || articleObj;
+
+      // =====================
+      // SEO
+      // =====================
+      if (data.SEO) {
+
+          document.title =
+              data.SEO.meta_title || `${data.title} — The Relax`;
+
+          let metaDesc = document.querySelector(
+              'meta[name="description"]'
+          );
+
+          if (!metaDesc) {
+              metaDesc = document.createElement("meta");
+              metaDesc.name = "description";
+              document.head.appendChild(metaDesc);
+          }
+
+          metaDesc.content =
+              data.SEO.meta_description || "";
+
+          let ogTitle = document.querySelector(
+              'meta[property="og:title"]'
+          );
+
+          if (!ogTitle) {
+              ogTitle = document.createElement("meta");
+              ogTitle.setAttribute("property", "og:title");
+              document.head.appendChild(ogTitle);
+          }
+
+          ogTitle.setAttribute(
+              "content",
+              data.SEO.meta_title || data.title
+          );
+
+          let ogDesc = document.querySelector(
+              'meta[property="og:description"]'
+          );
+
+          if (!ogDesc) {
+              ogDesc = document.createElement("meta");
+              ogDesc.setAttribute("property", "og:description");
+              document.head.appendChild(ogDesc);
+          }
+
+          ogDesc.setAttribute(
+              "content",
+              data.SEO.meta_description || ""
+          );
+
+          let ogImage = document.querySelector(
+              'meta[property="og:image"]'
+          );
+
+          if (!ogImage) {
+              ogImage = document.createElement("meta");
+              ogImage.setAttribute("property", "og:image");
+              document.head.appendChild(ogImage);
+          }
+
+          ogImage.setAttribute(
+              "content",
+              getImg(data.cover_image, STRAPI_URL)
+          );
+
+          let ogUrl = document.querySelector(
+              'meta[property="og:url"]'
+          );
+
+          if (!ogUrl) {
+              ogUrl = document.createElement("meta");
+              ogUrl.setAttribute("property", "og:url");
+              document.head.appendChild(ogUrl);
+          }
+
+          ogUrl.setAttribute(
+              "content",
+              window.location.href
+          );
+      }
+
+      // =====================
+      // ARTICLE DATA
+      // =====================
+      document.getElementById("pageTitle").innerText =
+        `${data.title} — The Relax`;
+
+      document.getElementById("articleTitle").innerText =
+        data.title;
+
+      document.getElementById("articleDescription").innerText =
+        data.short_description || "";
+
+      document.getElementById("articleAuthor").innerText =
+        data.author || "The Relax";
+
+      document.getElementById("articleReadingTime").innerHTML =
+        `⏱ ${data.reading_time || 5} دقائق`;
+
+      document.getElementById("articleViews").innerHTML =
+        `👁 ${data.views || 0} مشاهدة`;
+
+      document.getElementById("articleDate").innerHTML =
+        `📅 ${
+          data.publish_date
+            ? new Date(data.publish_date).toLocaleDateString('ar-EG')
+            : '--'
+        }`;
+
+      document.getElementById("articleImage").src =
+        getImg(data.cover_image, STRAPI_URL);
+
+      document.getElementById("articleImage").loading = "lazy";
+
+      // =====================
+      // MARKDOWN
+      // =====================
+      if (window.marked) {
+        document.getElementById("articleContent").innerHTML =
+          marked.parse(data.content || "");
+      }
+
+      // =====================
+      // TAGS
+      // =====================
+      const tagsContainer = document.querySelector(".tags");
+
+      if (tagsContainer) {
+
+        tagsContainer.innerHTML = "";
+
+        let tags = data.tags;
+
+        if (!tags || tags.length === 0) {
+          tags = [
+            "علم النفس",
+            "الصحة النفسية",
+            "جودة الحياة",
+            "تطوير الذات"
+          ];
+        }
+
+        if (typeof tags === "string") {
+          tags = [tags];
+        }
+
+        tags.forEach(tag => {
+
+          const a = document.createElement("a");
+
+          a.className = "tag";
+          a.href = "#";
+          a.textContent = tag;
+
+          tagsContainer.appendChild(a);
+        });
+      }
+
+      // =====================
+      // RELATED ARTICLES
+      // =====================
+      const relatedGrid =
+        document.querySelector(".related-grid");
+
+      if (relatedGrid) {
+
+        relatedGrid.innerHTML = "";
+
+        let relatedData = [];
+
+        const manualRelated =
+          data.related_articles?.data ||
+          data.related_articles ||
+          [];
+
+        if (manualRelated.length > 0) {
+
+          const ids = manualRelated.map(item => item.id);
+
+          const idsQuery = ids
+            .map(id => `filters[id][$in]=${id}`)
+            .join('&');
+
+          const relRes = await fetch(
+            `${STRAPI_URL}/api/articles?${idsQuery}&populate=*`
+          );
+
+          const relJson = await relRes.json();
+
+          relatedData = relJson.data || [];
+
+        } else {
+
+          const fallbackRes = await fetch(
+            `${STRAPI_URL}/api/articles?populate=*&pagination[pageSize]=4&sort=createdAt:desc`
+          );
+
+          const fallbackJson = await fallbackRes.json();
+
+          relatedData = (fallbackJson.data || [])
+            .filter(item =>
+              (item.attributes?.slug || item.slug) !== slug
+            )
+            .slice(0, 3);
+        }
+
+        relatedData.forEach(relItem => {
+
+          const rd = relItem.attributes || relItem;
+
+          const card = document.createElement("a");
+
+          card.className = "related-card";
+          card.href = `article.html?slug=${rd.slug}`;
+
+          card.innerHTML = `
+            <img
+              class="related-card-img"
+              src="${getImg(rd.cover_image, STRAPI_URL)}"
+              alt="${rd.title}"
+              loading="lazy"
+            >
+
+            <div class="related-card-body">
+
+              <div class="related-cat">
+                ${rd.category || "مقالات"}
+              </div>
+
+              <div class="related-card-title">
+                ${rd.title}
+              </div>
+
+              <div class="related-card-meta">
+                ${rd.reading_time || 5} دقائق
+              </div>
+
+            </div>
+          `;
+
+          relatedGrid.appendChild(card);
+        });
+      }
+
+    } catch (err) {
+      console.error("Error:", err);
+    }
+  }
+
+  window.onload = loadArticle;
+</script>
+
 
 </body>
 </html>
