@@ -601,7 +601,7 @@
 <script>
 async function loadArticle() {
 
-  const STRAPI_URL = "https://the-relax-cms.onrender.com";
+  const STRAPI_URL = "http://localhost:1337";
 
   // جلب slug من الرابط
   const params = new URLSearchParams(window.location.search);
@@ -755,7 +755,7 @@ loadArticle();
   // الدالة الرئيسية
   async function loadArticle() {
 
-    const STRAPI_URL = "https://the-relax-cms.onrender.com";
+    const STRAPI_URL = "http://localhost:1337";
 
     const params = new URLSearchParams(window.location.search);
     const slug = params.get("slug");
